@@ -2,7 +2,7 @@ package com.Model;
 
 public class Slot {
 
-	private SlotType slotType;	// Might not need this (Keep two separate list for course slots and lab slots)
+	private SlotType slotType;
 	private DaySeries daySeries;
 	private Time time;
 	private int courseCount;
@@ -10,19 +10,30 @@ public class Slot {
 	private int coursemax;
 	private int labmax;
 	
-	public Slot(DaySeries daySeries, int hours, int minutes) {
+	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes) {
 		this.daySeries = daySeries;
+		this.slotType = slotType;
 		this.time = new Time(hours, minutes);
 		initDefaultCourseLabMax();
 		initCourseLabCount();
 	}
 	
-	public Slot(DaySeries daySeries, int hours, int minutes, int coursemax, int labmax) {
+	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes, int coursemax, int labmax) {
 		this.daySeries = daySeries;
+		this.slotType = slotType;
 		this.time = new Time(hours, minutes);
 		this.coursemax = coursemax;
 		this.labmax = labmax;
 		initCourseLabCount();
+		checkSlotType(slotType);
+		if (daySeries == DaySeries.FR) {
+			coursemax = 0;
+		}
+	}
+	
+	private void checkSlotType(SlotType st) {
+		if (st == SlotType.COURSE) setLabMax(0);
+		else if (st == SlotType.LAB) setCourseMax(0);
 	}
 	
 	// Adds a course to the slot. Returns 1 if the add was successful, -1 otherwise.
@@ -88,6 +99,14 @@ public class Slot {
 		return "";
 	}
 	
+	public void setLabMax(int max) {
+		if (max >= 0) this.labmax = max;
+	}
+	
+	public void setCourseMax(int max) {
+		if (max >= 0) this.coursemax = max;
+	}
+	
 	public DaySeries getDaySeries() {
 		return daySeries;
 	}
@@ -102,5 +121,9 @@ public class Slot {
 
 	public int getLabmax() {
 		return labmax;
+	}
+	
+	public SlotType getSlotType() {
+		return slotType;
 	}
 }
