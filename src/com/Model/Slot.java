@@ -17,8 +17,7 @@ public class Slot {
 		this.daySeries = daySeries;
 		this.slotType = slotType;
 		this.time = new Time(hours, minutes);
-		initDefaultCourseLabMax();
-		initCourseLabCount();
+		initDefaults();
 	}
 	
 	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes, int coursemin, int coursemax, int labmin, int labmax) {
@@ -89,9 +88,12 @@ public class Slot {
 	}
 	
 	// If no coursemax or labmax is specified, the default values are zero
-	private void initDefaultCourseLabMax() {
+	private void initDefaults() {
+		initCourseLabCount();
 		this.coursemax = 0;
 		this.labmax = 0;
+		this.coursemin = 0;
+		this.labmin = 0;
 	}
 	
 	private void initCourseLabCount() {
