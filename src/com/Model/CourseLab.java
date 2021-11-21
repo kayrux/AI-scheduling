@@ -7,7 +7,7 @@ public class CourseLab {
 	private int labNumber;
 	
 	public CourseLab(String name, int lectureNumber, int labNumber) {
-		this.name = name;
+		this.name = name.toUpperCase();
 		this.lectureNumber = lectureNumber;
 		this.labNumber = labNumber;
 	}
