@@ -7,8 +7,11 @@ public class Slot {
 	private Time time;
 	private int courseCount;
 	private int labCount;
+	
 	private int coursemax;
 	private int labmax;
+	private int coursemin;
+	private int labmin;
 	
 	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes) {
 		this.daySeries = daySeries;
@@ -18,11 +21,13 @@ public class Slot {
 		initCourseLabCount();
 	}
 	
-	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes, int coursemax, int labmax) {
+	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes, int coursemin, int coursemax, int labmin, int labmax) {
 		this.daySeries = daySeries;
 		this.slotType = slotType;
 		this.time = new Time(hours, minutes);
+		this.coursemin = coursemin;
 		this.coursemax = coursemax;
+		this.labmin = labmin;
 		this.labmax = labmax;
 		initCourseLabCount();
 		checkSlotType(slotType);
@@ -107,6 +112,14 @@ public class Slot {
 		if (max >= 0) this.coursemax = max;
 	}
 	
+	public void setCoursemin(int coursemin) {
+		this.coursemin = coursemin;
+	}
+
+	public void setLabmin(int labmin) {
+		this.labmin = labmin;
+	}
+	
 	public DaySeries getDaySeries() {
 		return daySeries;
 	}
@@ -123,6 +136,14 @@ public class Slot {
 		return labmax;
 	}
 	
+	public int getCoursemin() {
+		return coursemin;
+	}
+
+	public int getLabmin() {
+		return labmin;
+	}
+
 	public SlotType getSlotType() {
 		return slotType;
 	}
