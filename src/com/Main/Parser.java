@@ -5,7 +5,8 @@ import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import javafx.util.Pair;
+//import javafx.util.Pair;
+import com.Model.Pair;
 
 import com.Model.CourseLab;
 import com.Model.Slot;
@@ -405,13 +406,13 @@ public class Parser {
         //    System.out.println(i.getName());
         //}
         
-        for (Pair<CourseLab, CourseLab> p: notCompatibleList)
-        {
-            CourseLab c1 = p.getKey();
-            CourseLab c2 = p.getValue();
+        //for (Pair<CourseLab, CourseLab> p: notCompatibleList)
+        //{
+        //    CourseLab c1 = p.getKey();
+        //    CourseLab c2 = p.getValue();
 
-            System.out.println(c1.getName() + " " + c2.getName());
-        }
+        //    System.out.println(c1.getName() + " " + c2.getName());
+        //}
 
 
         //for (Pair<CourseLab, Slot> p: unwantedList)
