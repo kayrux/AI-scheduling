@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import javafx.util.Pair;
 
 import com.Model.CourseLab;
+import com.Model.Slot;
+import com.Model.DaySeries;
+import com.Model.SlotType;
 
 public class Parser {
 
@@ -43,6 +46,39 @@ public class Parser {
             CourseLab lab = new CourseLab(name, lectureNumber, labNumber, "LAB");
             return lab;
         }
+    }
+
+    public static Slot createSlot(String[] str, String type)
+    {
+        DaySeries daySeries;
+        if (str[0].equals("MO"))
+        {
+            daySeries = DaySeries.MO;
+        } else if (str[0].equals("TU"))
+        {
+            daySeries = DaySeries.TU;
+        } else 
+        {
+            daySeries = DaySeries.FR;
+        }
+
+        SlotType slotType;
+        if (type.equals("LEC"))
+        {
+            slotType = SlotType.COURSE;
+        } else 
+        {
+            slotType = SlotType.LAB;
+        }
+
+        String[] time = str[1].split(":");
+        int hours = Integer.valueOf(time[0]);
+        int minutes = Integer.valueOf(time[1]);
+
+        Slot slot = new Slot(daySeries, slotType, hours, minutes);
+
+        return slot;
+
     }
 
 
@@ -138,6 +174,52 @@ public class Parser {
                 }
 
                 line = reader.readLine();
+            }
+            reader.close();
+        } 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static ArrayList<Pair<CourseLab, Slot>> parseUnwanted(String path) {
+        ArrayList<Pair<CourseLab, Slot>> list = new ArrayList<Pair<CourseLab, Slot>>();
+
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(path));
+            String line = reader.readLine();
+
+            while (line != null) 
+            {
+                // Jump to Unwanted 
+                if (line.equals("Unwanted:"))
+                {
+                    while (true)
+                    {
+                        line = reader.readLine();
+                        if (line.equals("")) break;
+
+                        // Delimiting by comma
+                        String[] delimited = line.split(", ");
+
+                        String[] courseArr = delimited[0].split(" ");
+                        String[] slotArr = delimited[1].split(", ");
+
+                        CourseLab courselab = createCourseLab(courseArr);
+                        Slot slot = createSlot(slotArr, courselab.getType());
+
+                        Pair<CourseLab, Slot> p = new Pair<CourseLab, Slot>(courselab, slot);
+
+                        list.add(p);
+
+                    }
+                }
+                line = reader.readLine(); 
             }
             reader.close();
         } 
