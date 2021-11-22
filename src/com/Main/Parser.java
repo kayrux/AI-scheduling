@@ -86,6 +86,100 @@ public class Parser {
 
     }
 
+    public static Slot createSlotMinMax(String[] str, String type)
+    {
+        DaySeries daySeries;
+        if (str[0].equals("MO"))
+        {
+            daySeries = DaySeries.MO;
+        } else if (str[0].equals("TU"))
+        {
+            daySeries = DaySeries.TU;
+        } else 
+        {
+            daySeries = DaySeries.FR;
+        }
+
+        SlotType slotType;
+        int coursemax=-1, coursemin=-1, labmax=-1, labmin=-1;
+        if (type.equals("LEC"))
+        {
+            slotType = SlotType.COURSE;
+            coursemax = Integer.valueOf(str[2].replaceAll("\\s+",""));
+            coursemin = Integer.valueOf(str[3].replaceAll("\\s+",""));
+        } else 
+        {
+            slotType = SlotType.LAB;
+            labmax = Integer.valueOf(str[2].replaceAll("\\s+",""));
+            labmin = Integer.valueOf(str[3].replaceAll("\\s+",""));
+        }
+
+        String[] time = str[1].replaceAll("\\s+","").split(":");
+        int hours = Integer.valueOf(time[0]);
+        int minutes = Integer.valueOf(time[1]);
+
+        Slot slot = new Slot(daySeries, slotType, hours, minutes, coursemin, coursemax, labmin, labmax); 
+
+        return slot;
+    }
+
+    public static ArrayList<Slot> parseCourseLabSlots(String path) {
+        ArrayList<Slot> list = new ArrayList<Slot>();
+
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(path));
+            String line = reader.readLine();
+            while (line != null) 
+            {
+
+                // Jump to Course slots:
+                if (line.equals("Course slots:"))
+                {
+                    while (true)
+                    {
+                        line = reader.readLine();
+                        if (line.equals("")) break;
+
+
+                        // Delimiting by comma
+                        String[] temp = line.split(",");
+
+                        Slot slot = createSlotMinMax(temp, "LEC");
+                        list.add(slot);
+
+                    }
+                }
+
+                // Jump to Lab slots:
+                if (line.equals("Lab slots:"))
+                {
+                    while (true)
+                    {
+                        line = reader.readLine();
+                        if (line.equals("")) break;
+
+                        // Delimiting by comma
+                        String[] temp = line.split(",");
+
+                        Slot slot = createSlotMinMax(temp, "LAB");
+                        list.add(slot);
+                    }
+                }
+                line = reader.readLine();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return list;
+    }
+
+
 
     // Parses Courses and Labs from text file
     public static ArrayList<CourseLab> parseCourseLab(String path) {
@@ -289,7 +383,7 @@ public class Parser {
     // Parsing pair from text file
     public static ArrayList<Pair<CourseLab, CourseLab>> parsePair(String path) {
         ArrayList<Pair<CourseLab, CourseLab>> list = new ArrayList<Pair<CourseLab, CourseLab>>();
-            BufferedReader reader;
+        BufferedReader reader;
 
         try {
             reader = new BufferedReader(new FileReader(path));
@@ -388,6 +482,8 @@ public class Parser {
 
         String txtfile = "./com/Main/ShortExample.txt";
 
+        ArrayList<Slot> slotList = parseCourseLabSlots(txtfile);
+
         ArrayList<CourseLab> list = parseCourseLab(txtfile);
 
         ArrayList<Pair<CourseLab, CourseLab>> notCompatibleList = parseNotCompatible(txtfile);
@@ -400,12 +496,17 @@ public class Parser {
 
         ArrayList<Pair<CourseLab, Slot>> partialAssignList = parsePartialAssignments(txtfile);
 
+        //for (Slot s: slotList)
+        //{
+        //    System.out.println(s.getDaySeries());
+        //}
+
 
         //for (CourseLab i: list)
         //{
         //    System.out.println(i.getName());
         //}
-        
+
         //for (Pair<CourseLab, CourseLab> p: notCompatibleList)
         //{
         //    CourseLab c1 = p.getKey();
