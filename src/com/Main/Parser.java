@@ -158,10 +158,10 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
-                        String[] twoCourses = line.split(", ");
+                        String[] twoCourses = line.split(",\\s+");
 
-                        String[] course1Arr = twoCourses[0].split(" ");
-                        String[] course2Arr = twoCourses[1].split(" ");
+                        String[] course1Arr = twoCourses[0].split("\\s+");
+                        String[] course2Arr = twoCourses[1].split("\\s+");
 
                         //System.out.println(course1[1]);
 
@@ -206,10 +206,10 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma (only first instance)
-                        String[] delimited = line.split(", ", 2);
+                        String[] delimited = line.split(",\\s+", 2);
 
-                        String[] courseArr = delimited[0].split(" ");
-                        String[] slotArr = delimited[1].split(", ");
+                        String[] courseArr = delimited[0].split("\\s+");
+                        String[] slotArr = delimited[1].split(",\\s+");
 
                         CourseLab courselab = createCourseLab(courseArr);
                         Slot slot = createSlot(slotArr, courselab.getType());
@@ -252,10 +252,10 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma
-                        String[] delimited = line.split(", ");
+                        String[] delimited = line.split(",\\s+");
 
                         String[] slotArr = {delimited[0], delimited[1]};
-                        String[] courseArr = delimited[2].split(" ");
+                        String[] courseArr = delimited[2].split("\\s+");
                         String rankingStr = delimited[3];
 
 
@@ -271,6 +271,55 @@ public class Parser {
                 line = reader.readLine();
             }
 
+        } 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static ArrayList<Pair<CourseLab, CourseLab>> parsePair(String path) {
+        ArrayList<Pair<CourseLab, CourseLab>> list = new ArrayList<Pair<CourseLab, CourseLab>>();
+            BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(path));
+            //reader = new BufferedReader(new FileReader("./com/Main/ShortExample.txt"));
+            String line = reader.readLine();
+
+            while (line != null) 
+            {
+                // Jump to Pair:
+                if (line.equals("Pair:"))
+                {
+                    while (true)
+                    {
+                        line = reader.readLine();
+                        if (line.equals("")) break;
+
+                        // Delimiting by comma, splitting the two courses
+                        String[] twoCourses = line.split(",\\s+");
+
+                        String[] course1Arr = twoCourses[0].split("\\s+");
+                        String[] course2Arr = twoCourses[1].split("\\s+");
+
+
+                        //System.out.println(course1[1]);
+
+                        CourseLab course1 = createCourseLab(course1Arr);
+                        CourseLab course2 = createCourseLab(course2Arr);
+
+                        Pair<CourseLab, CourseLab> p = new Pair<>(course1, course2);
+                        list.add(p);
+                    }
+                    line = reader.readLine();
+                }
+
+                line = reader.readLine();
+            }
+            reader.close();
         } 
         catch (IOException e)
         {
@@ -297,9 +346,7 @@ public class Parser {
 
         ArrayList<Triplet<Slot, CourseLab, Integer>> preferencesList = parsePreferences("./com/Main/ShortExample.txt");
 
-
-         
-        
+        ArrayList<Pair<CourseLab, CourseLab>> pairList = parsePair("./com/Main/ShortExample.txt");
 
 
 
@@ -323,6 +370,13 @@ public class Parser {
         //    System.out.println(s.getDaySeries() + c.getName() + r);
         //}
 
+        //for (Pair<CourseLab, CourseLab> p: pairList)
+        //{
+        //    CourseLab c1 = p.getKey();
+        //    CourseLab c2 = p.getValue();
+
+        //    System.out.println(c1.getName() + " " + c2.getName());
+        //}
 
 
     }
