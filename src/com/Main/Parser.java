@@ -11,6 +11,7 @@ import com.Model.CourseLab;
 import com.Model.Slot;
 import com.Model.DaySeries;
 import com.Model.SlotType;
+import com.Model.Triplet;
 
 public class Parser {
 
@@ -204,8 +205,8 @@ public class Parser {
                         line = reader.readLine();
                         if (line.equals("")) break;
 
-                        // Delimiting by comma
-                        String[] delimited = line.split(", ");
+                        // Delimiting by comma (only first instance)
+                        String[] delimited = line.split(", ", 2);
 
                         String[] courseArr = delimited[0].split(" ");
                         String[] slotArr = delimited[1].split(", ");
@@ -231,6 +232,56 @@ public class Parser {
         return list;
     }
 
+    public static ArrayList<Triplet<Slot, CourseLab, Integer>> parsePreferences(String path) {
+        ArrayList<Triplet<Slot, CourseLab, Integer>> list = new ArrayList<Triplet<Slot, CourseLab, Integer>>();
+
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(path));
+            String line = reader.readLine();
+
+            while (line != null)
+            {
+                // Jump to Preferences:
+                if (line.equals("Preferences:"))
+                {
+                    while (true)
+                    {
+                        line = reader.readLine();
+                        if (line.equals("")) break;
+
+                        // Delimiting by comma
+                        String[] delimited = line.split(", ");
+
+                        String[] slotArr = {delimited[0], delimited[1]};
+                        String[] courseArr = delimited[2].split(" ");
+                        String rankingStr = delimited[3];
+
+
+                        CourseLab courselab = createCourseLab(courseArr);
+                        Slot slot = createSlot(slotArr, courselab.getType()); 
+                        int ranking = Integer.valueOf(rankingStr);
+
+                        Triplet<Slot, CourseLab, Integer> t = new Triplet<Slot, CourseLab, Integer>(slot, courselab, ranking);
+                        list.add(t);
+
+                    }
+                }
+                line = reader.readLine();
+            }
+
+        } 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return list;
+
+
+    }
+
 
 
     // Testing (Will remove later)
@@ -242,14 +293,12 @@ public class Parser {
 
         ArrayList<Pair<CourseLab, CourseLab>> notCompatibleList = parseNotCompatible("./com/Main/ShortExample.txt");
 
-        for (Pair<CourseLab, CourseLab> p: notCompatibleList)
-        {
-            CourseLab c1 = p.getKey();
-            CourseLab c2 = p.getValue();
-            System.out.println(c1.getName() + " " + c2.getName());
-        }
-            
-       
+        ArrayList<Pair<CourseLab, Slot>> unwantedList = parseUnwanted("./com/Main/ShortExample.txt");
+
+        ArrayList<Triplet<Slot, CourseLab, Integer>> preferencesList = parsePreferences("./com/Main/ShortExample.txt");
+
+
+         
         
 
 
@@ -258,6 +307,23 @@ public class Parser {
         //{
         //    System.out.println(i.getName());
         //}
+
+        //for (Pair<CourseLab, Slot> p: unwantedList)
+        //{
+        //    CourseLab c1 = p.getKey();
+        //    Slot c2 = p.getValue();
+        //    System.out.println(c1.getName() + " " + c2.getDaySeries());
+        //}
+
+        //for (Triplet<Slot, CourseLab, Integer> t: preferencesList)
+        //{
+        //    Slot s = t.getSlot();
+        //    CourseLab c = t.getCourseLab();
+        //    int r = t.getRanking();
+        //    System.out.println(s.getDaySeries() + c.getName() + r);
+        //}
+
+
 
     }
 
