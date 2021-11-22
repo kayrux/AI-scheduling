@@ -15,6 +15,7 @@ import com.Model.Triplet;
 
 public class Parser {
 
+    // Creating a CourseLab type from a string array
     public static CourseLab createCourseLab(String[] str) 
     {
         String name = str[0] + str[1];
@@ -49,6 +50,7 @@ public class Parser {
         }
     }
 
+    // Creating a Slot type from a string array
     public static Slot createSlot(String[] str, String type)
     {
         DaySeries daySeries;
@@ -72,6 +74,7 @@ public class Parser {
             slotType = SlotType.LAB;
         }
 
+        // Splitting on :
         String[] time = str[1].split(":");
         int hours = Integer.valueOf(time[0]);
         int minutes = Integer.valueOf(time[1]);
@@ -83,13 +86,14 @@ public class Parser {
     }
 
 
-    public static ArrayList<CourseLab> parseCourseLab() {
+    // Parses Courses and Labs from text file
+    public static ArrayList<CourseLab> parseCourseLab(String path) {
         ArrayList<CourseLab> list = new ArrayList<CourseLab>();
 
         BufferedReader reader;
 
         try {
-            reader = new BufferedReader(new FileReader("./com/Main/ShortExample.txt"));
+            reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) 
             {
@@ -137,6 +141,7 @@ public class Parser {
         return list;
     }
 
+    // Parses not compatible from text file
     public static ArrayList<Pair<CourseLab, CourseLab>> parseNotCompatible(String path) {
         ArrayList<Pair<CourseLab, CourseLab>> list = new ArrayList<Pair<CourseLab, CourseLab>>();
 
@@ -144,7 +149,6 @@ public class Parser {
 
         try {
             reader = new BufferedReader(new FileReader(path));
-            //reader = new BufferedReader(new FileReader("./com/Main/ShortExample.txt"));
             String line = reader.readLine();
 
             while (line != null) 
@@ -163,8 +167,7 @@ public class Parser {
                         String[] course1Arr = twoCourses[0].split("\\s+");
                         String[] course2Arr = twoCourses[1].split("\\s+");
 
-                        //System.out.println(course1[1]);
-
+                        // Creating course1 and course 2
                         CourseLab course1 = createCourseLab(course1Arr);
                         CourseLab course2 = createCourseLab(course2Arr);
 
@@ -186,6 +189,7 @@ public class Parser {
         return list;
     }
 
+    // Parsing unwanted from textfile
     public static ArrayList<Pair<CourseLab, Slot>> parseUnwanted(String path) {
         ArrayList<Pair<CourseLab, Slot>> list = new ArrayList<Pair<CourseLab, Slot>>();
 
@@ -232,6 +236,7 @@ public class Parser {
         return list;
     }
 
+    // Parsing preferences from textfile
     public static ArrayList<Triplet<Slot, CourseLab, Integer>> parsePreferences(String path) {
         ArrayList<Triplet<Slot, CourseLab, Integer>> list = new ArrayList<Triplet<Slot, CourseLab, Integer>>();
 
@@ -280,13 +285,13 @@ public class Parser {
         return list;
     }
 
+    // Parsing pair from text file
     public static ArrayList<Pair<CourseLab, CourseLab>> parsePair(String path) {
         ArrayList<Pair<CourseLab, CourseLab>> list = new ArrayList<Pair<CourseLab, CourseLab>>();
             BufferedReader reader;
 
         try {
             reader = new BufferedReader(new FileReader(path));
-            //reader = new BufferedReader(new FileReader("./com/Main/ShortExample.txt"));
             String line = reader.readLine();
 
             while (line != null) 
@@ -304,9 +309,6 @@ public class Parser {
 
                         String[] course1Arr = twoCourses[0].split("\\s+");
                         String[] course2Arr = twoCourses[1].split("\\s+");
-
-
-                        //System.out.println(course1[1]);
 
                         CourseLab course1 = createCourseLab(course1Arr);
                         CourseLab course2 = createCourseLab(course2Arr);
@@ -327,8 +329,54 @@ public class Parser {
         }
 
         return list;
+    }
 
+    // Parsing partial assignments from text file
+    public static ArrayList<Pair<CourseLab, Slot>> parsePartialAssignments(String path) {
+        ArrayList<Pair<CourseLab, Slot>> list = new ArrayList<Pair<CourseLab, Slot>>();
 
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(path));
+            String line = reader.readLine();
+
+            while (line != null) 
+            {
+                // Jump to partial assignments 
+                if (line.equals("Partial assignments:"))
+                {
+                    while (true)
+                    {
+                        line = reader.readLine();
+                        // Reached EOF
+                        if (line==null) break;
+
+                        // Delimiting by comma (only first instance)
+                        String[] delimited = line.split(",\\s+", 2);
+
+                        String[] courseArr = delimited[0].split("\\s+");
+                        String[] slotArr = delimited[1].split(",\\s+");
+
+                        CourseLab courselab = createCourseLab(courseArr);
+                        Slot slot = createSlot(slotArr, courselab.getType());
+
+                        Pair<CourseLab, Slot> p = new Pair<CourseLab, Slot>(courselab, slot);
+
+                        list.add(p);
+
+                    }
+                }
+                line = reader.readLine(); 
+            }
+            reader.close();
+        } 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
 
@@ -336,24 +384,35 @@ public class Parser {
     // Testing (Will remove later)
 
     public static void main(String[] args) {
-        System.out.println("Hello");
 
-        ArrayList<CourseLab> list = parseCourseLab();
+        String txtfile = "./com/Main/ShortExample.txt";
 
-        ArrayList<Pair<CourseLab, CourseLab>> notCompatibleList = parseNotCompatible("./com/Main/ShortExample.txt");
+        ArrayList<CourseLab> list = parseCourseLab(txtfile);
 
-        ArrayList<Pair<CourseLab, Slot>> unwantedList = parseUnwanted("./com/Main/ShortExample.txt");
+        ArrayList<Pair<CourseLab, CourseLab>> notCompatibleList = parseNotCompatible(txtfile);
 
-        ArrayList<Triplet<Slot, CourseLab, Integer>> preferencesList = parsePreferences("./com/Main/ShortExample.txt");
+        ArrayList<Pair<CourseLab, Slot>> unwantedList = parseUnwanted(txtfile);
 
-        ArrayList<Pair<CourseLab, CourseLab>> pairList = parsePair("./com/Main/ShortExample.txt");
+        ArrayList<Triplet<Slot, CourseLab, Integer>> preferencesList = parsePreferences(txtfile);
 
+        ArrayList<Pair<CourseLab, CourseLab>> pairList = parsePair(txtfile);
+
+        ArrayList<Pair<CourseLab, Slot>> partialAssignList = parsePartialAssignments(txtfile);
 
 
         //for (CourseLab i: list)
         //{
         //    System.out.println(i.getName());
         //}
+        
+        for (Pair<CourseLab, CourseLab> p: notCompatibleList)
+        {
+            CourseLab c1 = p.getKey();
+            CourseLab c2 = p.getValue();
+
+            System.out.println(c1.getName() + " " + c2.getName());
+        }
+
 
         //for (Pair<CourseLab, Slot> p: unwantedList)
         //{
@@ -376,6 +435,13 @@ public class Parser {
         //    CourseLab c2 = p.getValue();
 
         //    System.out.println(c1.getName() + " " + c2.getName());
+        //}
+
+        //for (Pair<CourseLab, Slot> p: partialAssignList)
+        //{
+        //    CourseLab c1 = p.getKey();
+        //    Slot c2 = p.getValue();
+        //    System.out.println(c1.getName() + " " + c2.getDaySeries());
         //}
 
 
