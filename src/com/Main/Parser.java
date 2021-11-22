@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javafx.util.Pair;
 
 import com.Model.CourseLab;
-// Testing branch push
 
 public class Parser {
 
@@ -122,28 +121,18 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
-                        String[] twoCourses = line.split(",");
+                        String[] twoCourses = line.split(", ");
 
-                        String[] course1 = twoCourses[0].split(" ");
-                        String[] course2 = twoCourses[1].split(" ");
+                        String[] course1Arr = twoCourses[0].split(" ");
+                        String[] course2Arr = twoCourses[1].split(" ");
 
-                        System.out.println(course1[1]);
+                        //System.out.println(course1[1]);
 
-                        // Course 
-                        if (course1.length > 4) 
-                        {
+                        CourseLab course1 = createCourseLab(course1Arr);
+                        CourseLab course2 = createCourseLab(course2Arr);
 
-                        } else 
-                        {
-                            // Lab
-                        }
-
-
-                        //String[] temp = line.split("\\s+");
-                        //String name = temp[0] + temp[1];
-                        // -1 for no tutorial
-                        //CourseLab course = new CourseLab(name, Integer.valueOf(temp[3]), -1, "LEC");
-                        //list.add(course);
+                        Pair<CourseLab, CourseLab> p = new Pair<>(course1, course2);
+                        list.add(p);
                     }
                     line = reader.readLine();
                 }
@@ -171,12 +160,22 @@ public class Parser {
 
         ArrayList<Pair<CourseLab, CourseLab>> notCompatibleList = parseNotCompatible("./com/Main/ShortExample.txt");
 
-
-
-        for (CourseLab i: list)
+        for (Pair<CourseLab, CourseLab> p: notCompatibleList)
         {
-            System.out.println(i.getName());
+            CourseLab c1 = p.getKey();
+            CourseLab c2 = p.getValue();
+            System.out.println(c1.getName() + " " + c2.getName());
         }
+            
+       
+        
+
+
+
+        //for (CourseLab i: list)
+        //{
+        //    System.out.println(i.getName());
+        //}
 
     }
 
