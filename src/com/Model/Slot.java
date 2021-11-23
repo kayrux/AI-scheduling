@@ -29,15 +29,18 @@ public class Slot {
 		this.labmin = labmin;
 		this.labmax = labmax;
 		initCourseLabCount();
-		checkSlotType(slotType);
+		checkSlotType();
 		if (daySeries == DaySeries.FR) {
 			coursemax = 0;
 		}
 	}
 	
-	private void checkSlotType(SlotType st) {
-		if (st == SlotType.COURSE) setLabMax(0);
-		else if (st == SlotType.LAB) setCourseMax(0);
+	/**
+	 * Checks the slot type and makes sure the labmax and coursemax are set accordingly
+	 */
+	private void checkSlotType() {
+		if (this.slotType == SlotType.COURSE) setLabMax(0);
+		else if (this.slotType == SlotType.LAB) setCourseMax(0);
 	}
 	
 	// Adds a course to the slot. Returns 1 if the add was successful, -1 otherwise.
@@ -104,6 +107,14 @@ public class Slot {
 	// TO BE IMPLEMENTED
 	public String toString() {
 		return "";
+	}
+	
+	/**
+	 * Returns a String consisting of the Day and Time of the Slot
+	 * @return a String in the format: "Day Time"
+	 */
+	public String getDayAndTime() {
+		return daySeries.toString() + " " + time.toString();
 	}
 	
 	public void setLabMax(int max) {
