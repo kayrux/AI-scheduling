@@ -5,6 +5,7 @@ import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 //import javafx.util.Pair;
 import com.Model.Pair;
 
@@ -233,6 +234,9 @@ public class Parser {
         {
             e.printStackTrace();
         }
+
+        list.sort(Comparator.comparing(CourseLab::getHash));
+
         return list;
     }
 
@@ -502,10 +506,10 @@ public class Parser {
         //}
 
 
-        //for (CourseLab i: list)
-        //{
-        //    System.out.println(i.getName());
-        //}
+//        for (CourseLab i: list)
+//        {
+//            System.out.println(i.getName());
+//        }
 
         //for (Pair<CourseLab, CourseLab> p: notCompatibleList)
         //{
