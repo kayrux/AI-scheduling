@@ -134,26 +134,21 @@ public class Eval {
         //Used for checking if time was seen before.
         Set<Pair<DaySeries, Time>> seenSlots = new HashSet<>();
 
-        //Sorts a list of indices based off of the name of the course.
-        //Used to improve speed of evaluation.
-        Integer[] sortedCourseLabIndices = IntStream.range(0, courseLabsArray.size()).boxed().
-                sorted(Comparator.comparing(i -> courseLabsArray.get(i).getName()))
-                .toArray(Integer[]::new);
-
-        for(int i = 0; i < sortedCourseLabIndices.length; i++)
+        //Note slots are already sorted, and thus we can perform the following.
+        for(int i = 0; i < courseLabsArray.size(); i++)
         {
-            String courseName = courseLabsArray.get(sortedCourseLabIndices[i]).getName();
-            seenSlots.add(new Pair<>(fact.get(sortedCourseLabIndices[i]).getDaySeries(), fact.get(sortedCourseLabIndices[i]).getTime()));
+            String courseName = courseLabsArray.get(i).getName();
+            seenSlots.add(new Pair<>(fact.get(i).getDaySeries(), fact.get(i).getTime()));
 
-            while(i + 1 < sortedCourseLabIndices.length)
+            while(i + 1 < courseLabsArray.size())
             {
                 i++;
                 //Checks if next element is part of the same course.
-                if(Objects.equals(courseName, courseLabsArray.get(sortedCourseLabIndices[i]).getName()))
+                if(Objects.equals(courseName, courseLabsArray.get(i).getName()))
                 {
                     //Checks if this time has already been seen for some other section of the course
                     //and records the time.
-                    if(!seenSlots.add(new Pair<>(fact.get(sortedCourseLabIndices[i]).getDaySeries(), fact.get(sortedCourseLabIndices[i]).getTime())))
+                    if(!seenSlots.add(new Pair<>(fact.get(i).getDaySeries(), fact.get(i).getTime())))
                     {
                         value++;
                     }
