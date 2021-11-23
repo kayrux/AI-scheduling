@@ -111,10 +111,9 @@ public class Eval {
         int value = 0;
         for(Pair<CourseLab, CourseLab> pair : pairArray)
         {
-            Slot first = fact.get(courseLabsArray.indexOf(pair.getKey()));
-            Slot second = fact.get(courseLabsArray.indexOf(pair.getValue()));
-            //Can't directly compare because slots for labs and courses are different.
-            if(first.getDaySeries() != second.getDaySeries() || first.getTime() != second.getTime())
+            if(!Objects.equals(
+                    fact.get(courseLabsArray.indexOf(pair.getKey())).getDayAndTime(),
+                    fact.get(courseLabsArray.indexOf(pair.getValue())).getDayAndTime()))
             {
                 value++;
             }
@@ -132,13 +131,13 @@ public class Eval {
     {
         int value = 0;
         //Used for checking if time was seen before.
-        Set<Pair<DaySeries, Time>> seenSlots = new HashSet<>();
+        Set<String> seenSlots = new HashSet<>();
 
         //Note slots are already sorted, and thus we can perform the following.
         for(int i = 0; i < courseLabsArray.size(); i++)
         {
             String courseName = courseLabsArray.get(i).getName();
-            seenSlots.add(new Pair<>(fact.get(i).getDaySeries(), fact.get(i).getTime()));
+            seenSlots.add(fact.get(i).getDayAndTime());
 
             while(i + 1 < courseLabsArray.size())
             {
@@ -148,7 +147,7 @@ public class Eval {
                 {
                     //Checks if this time has already been seen for some other section of the course
                     //and records the time.
-                    if(!seenSlots.add(new Pair<>(fact.get(i).getDaySeries(), fact.get(i).getTime())))
+                    if(!seenSlots.add(fact.get(i).getDayAndTime()))
                     {
                         value++;
                     }
