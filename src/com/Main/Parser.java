@@ -235,7 +235,7 @@ public class Parser {
             e.printStackTrace();
         }
 
-        list.sort(Comparator.comparing(CourseLab::getName));
+        list.sort(Comparator.comparing(CourseLab::getHash));
 
         return list;
     }
@@ -506,10 +506,10 @@ public class Parser {
         //}
 
 
-        for (CourseLab i: list)
-        {
-            System.out.println(i.getName());
-        }
+//        for (CourseLab i: list)
+//        {
+//            System.out.println(i.getName());
+//        }
 
         //for (Pair<CourseLab, CourseLab> p: notCompatibleList)
         //{
