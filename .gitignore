@@ -2,4 +2,5 @@ bin/
 bin/*
 /bin/
 .DS_Store
-
+.idea
+AI Scheduling.iml
