@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 //import javafx.util.Pair;
 import com.Model.Pair;
-
 import com.Model.CourseLab;
 import com.Model.Slot;
 import com.Model.DaySeries;
@@ -17,8 +16,7 @@ import com.Model.Triplet;
 public class Parser {
 
     // Creating a CourseLab type from a string array
-    public static CourseLab createCourseLab(String[] str) 
-    {
+    public static CourseLab createCourseLab(String[] str) {
         String name = str[0] + str[1];
 
         // Default -1
@@ -495,6 +493,8 @@ public class Parser {
         ArrayList<Pair<CourseLab, CourseLab>> pairList = parsePair(txtfile);
 
         ArrayList<Pair<CourseLab, Slot>> partialAssignList = parsePartialAssignments(txtfile);
+        String string[] = {"CPSC 433 LEC 01 TUT 01"};
+        createCourseLab(string);
 
         //for (Slot s: slotList)
         //{
