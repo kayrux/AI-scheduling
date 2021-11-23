@@ -33,10 +33,14 @@ public class Time {
 		}
 	}
 	
-	// TO BE IMPLEMENTED
-	// This should print the time in the desired format
+	/**
+	 * Returns the time as a String
+	 */
+	@Override
 	public String toString() {
-		return "";
+		String time = hours + ":";
+		if (minutes < 10) time += "0";
+		return time + minutes;
 	}
 	
 	public int getHours() {
@@ -46,4 +50,7 @@ public class Time {
 	public int getMinutes() {
 		return this.minutes;
 	}
+	
 }
+
+
