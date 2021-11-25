@@ -1,4 +1,4 @@
-package OrModel;
+package com.OrModel;
 
 public class genOrTree {
 	

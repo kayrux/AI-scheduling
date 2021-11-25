@@ -30,17 +30,25 @@ public class Slot {
 		this.labmax = labmax;
 		initCourseLabCount();
 		checkSlotType();
-		if (daySeries == DaySeries.FR) {
+		if (daySeries == DaySeries.FR && coursemax > 0) {
+			System.out.println("DaySeries: FR can only contain LABs");
 			coursemax = 0;
 		}
 	}
+	
 	
 	/**
 	 * Checks the slot type and makes sure the labmax and coursemax are set accordingly
 	 */
 	private void checkSlotType() {
-		if (this.slotType == SlotType.COURSE) setLabMax(0);
-		else if (this.slotType == SlotType.LAB) setCourseMax(0);
+		if ((this.slotType == SlotType.COURSE) && (labmax > 0)) {
+			System.out.println("labmax should be 0 when slotType == COURSE");
+			setLabMax(0);
+		}
+		else if ((this.slotType == SlotType.LAB) && (coursemax > 0)) {
+			System.out.println("coursemax should be 0 when slotType == LAB");
+			setCourseMax(0);
+		}
 	}
 	
 	// Adds a course to the slot. Returns 1 if the add was successful, -1 otherwise.
