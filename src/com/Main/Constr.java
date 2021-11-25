@@ -56,10 +56,10 @@ public class Constr {
                     Time courseTime = s.getTime();
 
                     // Checks if the name of the course is the same as s AND c is a lab/tutorial
-                    if (courseLabs.get(factsArray.indexOf(c)).getName().equals(courseName) && s.getSlotType() == SlotType.LAB){
+                    if (courseLabs.get(factsArray.indexOf(c)).getName().equals(courseName) && c.getSlotType() == SlotType.LAB){
 
                         // Checks if the time of the lab/tutorial is the same as the courseTime
-                        if (s.getTime().equals(courseTime)){
+                        if (c.getTime().equals(courseTime)){
                             return false;
                         }
                     }
@@ -172,8 +172,7 @@ public class Constr {
         for (Slot s : factsArray){
 
             // Sees if the name of the course contains CPSC 5 or SENG 5
-            if (courseLabs.get(factsArray.indexOf(s)).getName().contains("CPSC 5") 
-                || courseLabs.get(factsArray.indexOf(s)).getName().contains("SENG 5")){
+            if (courseLabs.get(factsArray.indexOf(s)).getName().contains(" 5")){
 
 
                     // Checks to make sure that the time of the 500-level course is no in array seenTimes
@@ -194,7 +193,7 @@ public class Constr {
         for(Slot s: factsArray){
 
             // Ensures that course is a lecture, and then checks whether the time of that course is 11:00 or not
-            if (s.getSlotType() == SlotType.COURSE && s.getTime().equals("11:00")){
+            if (s.getSlotType() == SlotType.COURSE && s.getDayandTime().contains("11:00")){
                 return false;
             }
         }
@@ -217,7 +216,7 @@ public class Constr {
 
                 // If the course is CPSC 813 or 913 Lecture it is TTH 18:00
                 if (courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC")){
-                    if (!(s.getTime().equals("18:00")) || !(s.getDaySeries().equals(DaySeries.TU))){
+                    if (!(s.getDayandTime().contains("18:00")) || !(s.getDaySeries().equals(DaySeries.TU))){
                         return false;
                     }
                 } else {
