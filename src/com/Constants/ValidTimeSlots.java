@@ -1,9 +1,12 @@
 package com.Constants;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.Model.*;
 
 public class ValidTimeSlots {
-    public static Slot[] data = {
+    public static final ArrayList<Slot> SLOT_DATA = new ArrayList<Slot>(Arrays.asList(
             // monday & wednesdays:
             new Slot(DaySeries.MO, SlotType.BOTH, 8, 0),
             new Slot(DaySeries.MO, SlotType.BOTH, 9, 0),
@@ -14,21 +17,13 @@ public class ValidTimeSlots {
             new Slot(DaySeries.MO, SlotType.BOTH, 14, 0),
             new Slot(DaySeries.MO, SlotType.BOTH, 15, 0),
             new Slot(DaySeries.MO, SlotType.BOTH, 16, 0),
+            
             new Slot(DaySeries.MO, SlotType.BOTH, 17, 0),
             new Slot(DaySeries.MO, SlotType.BOTH, 18, 0),
             new Slot(DaySeries.MO, SlotType.BOTH, 19, 0),
             new Slot(DaySeries.MO, SlotType.BOTH, 20, 0),
 
             // friday
-            new Slot(DaySeries.FR, SlotType.COURSE, 8, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 9, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 10, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 11, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 12, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 13, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 14, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 15, 0),
-            new Slot(DaySeries.FR, SlotType.COURSE, 16, 0),
             new Slot(DaySeries.FR, SlotType.LAB, 8, 0),
             new Slot(DaySeries.FR, SlotType.LAB, 10, 0),
             new Slot(DaySeries.FR, SlotType.LAB, 12, 0),
@@ -54,6 +49,6 @@ public class ValidTimeSlots {
             new Slot(DaySeries.TU, SlotType.LAB, 17, 0),
             new Slot(DaySeries.TU, SlotType.LAB, 18, 0),
             new Slot(DaySeries.TU, SlotType.LAB, 19, 0),
-            new Slot(DaySeries.TU, SlotType.LAB, 20, 0),
-    };
+            new Slot(DaySeries.TU, SlotType.LAB, 20, 0)
+	));
 }
