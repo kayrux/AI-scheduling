@@ -2,11 +2,11 @@ package com.Main;
 
 import java.util.ArrayList;
 
-import com.Model.CourseLab;
-import com.Model.Pair;
+import com.DataStructures.CourseLab;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
-import com.Model.Slot;
-import com.Model.Triplet;
 
 public class Main {
 	

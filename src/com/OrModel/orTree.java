@@ -1,6 +1,8 @@
 package com.OrModel;
 
 import java.util.ArrayList;
+
+import com.DataStructures.Slot;
 import com.Model.*;
 
 public class orTree {

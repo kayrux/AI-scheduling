@@ -1,4 +1,4 @@
-package com.Model;
+package com.DataStructures;
 
 public enum DaySeries {
 	MO, TU, FR

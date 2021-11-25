@@ -1,4 +1,4 @@
-package com.Model;
+package com.DataStructures;
 
 public class Pair<T, U> {
     private final T key;

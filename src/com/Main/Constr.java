@@ -1,6 +1,13 @@
 package com.Main;
 
+import com.DataStructures.CourseLab;
+import com.DataStructures.DaySeries;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
+import com.DataStructures.Time;
 import com.Model.*;
+
 import java.util.*;
 
 

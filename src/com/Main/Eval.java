@@ -1,5 +1,10 @@
 package com.Main;
 
+import com.DataStructures.CourseLab;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.DataStructures.Triplet;
+
 //Used for debugging/testing.
 //import com.Main.Parser;
 
