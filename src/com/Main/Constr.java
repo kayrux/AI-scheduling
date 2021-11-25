@@ -193,7 +193,7 @@ public class Constr {
         for(Slot s: factsArray){
 
             // Ensures that course is a lecture, and then checks whether the time of that course is 11:00 or not
-            if (s.getSlotType() == SlotType.COURSE && s.getDayandTime().contains("11:00")){
+            if (s.getSlotType() == SlotType.COURSE && s.getDayAndTime().contains("11:00")){
                 return false;
             }
         }
@@ -216,7 +216,7 @@ public class Constr {
 
                 // If the course is CPSC 813 or 913 Lecture it is TTH 18:00
                 if (courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC")){
-                    if (!(s.getDayandTime().contains("18:00")) || !(s.getDaySeries().equals(DaySeries.TU))){
+                    if (!(s.getDayAndTime().contains("18:00")) || !(s.getDaySeries().equals(DaySeries.TU))){
                         return false;
                     }
                 } else {

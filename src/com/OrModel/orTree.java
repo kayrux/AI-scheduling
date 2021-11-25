@@ -1,4 +1,4 @@
-package OrModel;
+package com.OrModel;
 
 import java.util.ArrayList;
 import com.Model.*;

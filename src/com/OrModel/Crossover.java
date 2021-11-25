@@ -1,4 +1,4 @@
-package OrModel;
+package com.OrModel;
 import com.Model.Slot;
 
 public class Crossover {
