@@ -1,0 +1,16 @@
+Course slots:
+MO, 8:00, 2, 2
+
+Lab slots:
+TU, 18:00, 2,1
+
+Courses:
+CPSC 433 LEC 01
+CPSC 567 LEC 01
+
+Labs:
+CPSC 433 LEC 01 TUT 01
+CPSC 567 TUT 01
+
+Not compatible:
+CPSC 433 LEC 01 TUT 01, CPSC 567 TUT 01
