@@ -1,4 +1,4 @@
-package com.Model;
+package com.DataStructures;
 
 public class Triplet<Slot, CourseLab, Integer> {
 

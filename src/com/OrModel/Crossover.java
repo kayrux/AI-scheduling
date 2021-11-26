@@ -1,5 +1,5 @@
 package com.OrModel;
-import com.Model.Slot;
+import com.DataStructures.Slot;
 
 public class Crossover {
 	public static void Crossover(Slot A, Slot B) {

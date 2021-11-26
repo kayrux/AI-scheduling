@@ -6,13 +6,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Comparator;
-//import javafx.util.Pair;
-import com.Model.Pair;
-import com.Model.CourseLab;
-import com.Model.Slot;
-import com.Model.DaySeries;
-import com.Model.SlotType;
-import com.Model.Triplet;
+
+import com.DataStructures.CourseLab;
+import com.DataStructures.DaySeries;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
+import com.DataStructures.Triplet;
 
 public class Parser {
 

@@ -2,6 +2,11 @@ package com.Model;
 
 import java.util.ArrayList;
 
+import com.DataStructures.CourseLab;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.DataStructures.Triplet;
+
 public class SetbasedSearch {
 
 	private ArrayList<ArrayList<Slot>> facts;

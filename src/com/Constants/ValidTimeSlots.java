@@ -3,6 +3,9 @@ package com.Constants;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.DataStructures.DaySeries;
+import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
 import com.Model.*;
 
 public class ValidTimeSlots {

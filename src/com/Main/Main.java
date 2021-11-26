@@ -2,11 +2,14 @@ package com.Main;
 
 import java.util.ArrayList;
 
-import com.Model.CourseLab;
-import com.Model.Pair;
+import com.Constants.ValidTimeSlots;
+import com.DataStructures.CourseLab;
+import com.DataStructures.EmptySlot;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.DataStructures.SlotArrayListWrapper;
+import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
-import com.Model.Slot;
-import com.Model.Triplet;
 
 public class Main {
 	
@@ -14,7 +17,7 @@ public class Main {
 		Parser parser = new Parser();
 		SetbasedSearch search;
 		
-		String txtfile = "./com/Main/ShortExample.txt"; // Example file
+		String txtfile = "res/ShortExample.txt"; // Example file
 
         ArrayList<Slot> slotArray = parser.parseCourseLabSlots(txtfile);
         ArrayList<CourseLab> courseLabArray = parser.parseCourseLab(txtfile);
@@ -26,6 +29,7 @@ public class Main {
         
         search = new SetbasedSearch(slotArray, courseLabArray, notCompatibleArray, unwantedArray, preferencesArray, pairArray,
         		partialAssignArray);
+        
 	}
 	
 
