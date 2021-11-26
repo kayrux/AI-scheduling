@@ -75,6 +75,7 @@ public class Slot {
 			courseCount --;
 			return 1;
 		} 
+		//System.out.println("Error in Slot.java! Removed a course from empty list");
 		return -1;
 	}
 	
@@ -84,6 +85,7 @@ public class Slot {
 			labCount --;
 			return 1;
 		}
+		//System.out.println("Error in Slot.java! Removed a lab from empty list");
 		return -1;
 	}
 	// Returns true if there is a course slot available
