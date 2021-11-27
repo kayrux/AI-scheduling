@@ -537,16 +537,16 @@ public class Parser {
                         Slot slot = createSlot(slotArr, courselab.getType(), "Preferences: "); 
                         if (slot != null) 
                         {
-                        int ranking = Integer.valueOf(rankingStr);
+                            int ranking = Integer.valueOf(rankingStr);
 
-                        // ERROR Check: Ranking must be between 1 and 10
-                        if (ranking < 1 || ranking > 10)
-                        {
-                            ParserError.invalidRanking(ranking);
-                        }
+                            // ERROR Check: Ranking must be between 1 and 10
+                            if (ranking < 1 || ranking > 10)
+                            {
+                                ParserError.invalidRanking(ranking);
+                            }
 
-                        Triplet<Slot, CourseLab, Integer> t = new Triplet<Slot, CourseLab, Integer>(slot, courselab, ranking);
-                        list.add(t);
+                            Triplet<Slot, CourseLab, Integer> t = new Triplet<Slot, CourseLab, Integer>(slot, courselab, ranking);
+                            list.add(t);
                         }
 
                     }
