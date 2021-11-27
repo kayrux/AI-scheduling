@@ -14,6 +14,7 @@ import com.DataStructures.Slot;
 import com.DataStructures.SlotType;
 import com.DataStructures.Triplet;
 import com.Main.ParserError;
+import com.Constants.ValidTimeSlots;
 
 public class Parser {
 
@@ -145,6 +146,47 @@ public class Parser {
 
         Slot slot = new Slot(daySeries, slotType, hours, minutes);
 
+        boolean b = false;
+
+        for (Slot s: ValidTimeSlots.SLOT_DATA)
+        {
+            if (s.equals(slot))
+            {
+                b = true;
+                break;
+            }
+        }
+
+
+
+        //        System.out.println(slot.getDaySeries() + " " + slot.getSlotType() + " " + slot.getTime());
+        //
+        //        boolean b = ValidTimeSlots.SLOT_DATA.contains(slot); 
+        //        System.out.println(b);
+        //
+        //        boolean test = (ValidTimeSlots.SLOT_DATA.get(0).equals(slot));
+        //        System.out.println(test);
+        //        System.out.println(ValidTimeSlots.SLOT_DATA.get(0).getDaySeries());
+        //        System.out.println(ValidTimeSlots.SLOT_DATA.get(0).getSlotType());
+        //        System.out.println(ValidTimeSlots.SLOT_DATA.get(0).getTime());
+        //
+        //        for (Slot s: ValidTimeSlots.SLOT_DATA)
+        //        {
+        //            System.out.println(s.getDaySeries() + " "+ s.getSlotType() + " " + s.getTime());
+        //        }
+        //
+                if (!b)
+                {
+                    if (errStr.equals("Preferences: "))
+                    {
+                        System.out.println("Warning: Slot Object " + slot.getDayAndTime() + " is an invalid time slot. Ignoring this for Preferences");
+                        return null;
+                    } else 
+                    {
+                    ParserError.invalidSlot(errStr, str);
+                    }
+                }
+
         return slot;
 
     }
@@ -153,7 +195,7 @@ public class Parser {
     {
         if (str.length != 4)
         {
-ParserError.invalidNumSlotcoursemaxmin(errStr, str);
+            ParserError.invalidNumSlotcoursemaxmin(errStr, str);
 
         }
 
@@ -215,6 +257,25 @@ ParserError.invalidNumSlotcoursemaxmin(errStr, str);
         {
             ParserError.invalidMinute(minutes, errStr);
         }
+
+        // Checking if slot exists in SLOT_DATA
+        Slot checkSlot = new Slot(daySeries, slotType, hours, minutes);
+        boolean b = false;
+
+        for (Slot s: ValidTimeSlots.SLOT_DATA)
+        {
+            if (s.equals(checkSlot))
+            {
+                b = true;
+                break;
+            }
+        }
+
+        if (!b) 
+        {
+            ParserError.invalidSlot(errStr, str);
+        }
+
 
         Slot slot = new Slot(daySeries, slotType, hours, minutes, coursemin, coursemax, labmin, labmax); 
 
@@ -463,9 +524,9 @@ ParserError.invalidNumSlotcoursemaxmin(errStr, str);
                         String[] delimited = line.split(",\\s+");
 
                         if (delimited.length != 4)
-                            {
-                                ParserError.invalidPreferences(delimited);
-                            }
+                        {
+                            ParserError.invalidPreferences(delimited);
+                        }
 
                         String[] slotArr = {delimited[0], delimited[1]};
                         String[] courseArr = delimited[2].split("\\s+");
@@ -474,6 +535,8 @@ ParserError.invalidNumSlotcoursemaxmin(errStr, str);
 
                         CourseLab courselab = createCourseLab(courseArr, "Preferences: ");
                         Slot slot = createSlot(slotArr, courselab.getType(), "Preferences: "); 
+                        if (slot != null) 
+                        {
                         int ranking = Integer.valueOf(rankingStr);
 
                         // ERROR Check: Ranking must be between 1 and 10
@@ -484,6 +547,7 @@ ParserError.invalidNumSlotcoursemaxmin(errStr, str);
 
                         Triplet<Slot, CourseLab, Integer> t = new Triplet<Slot, CourseLab, Integer>(slot, courselab, ranking);
                         list.add(t);
+                        }
 
                     }
                 }
@@ -629,6 +693,31 @@ ParserError.invalidNumSlotcoursemaxmin(errStr, str);
 
         ArrayList<Pair<CourseLab, Slot>> partialAssignList = parsePartialAssignments(txtfile);
         String string[] = {"CPSC 433 LEC 01 TUT 01"};
+
+
+        //Slot newSlot = new Slot(DaySeries.MO, SlotType.COURSE, 8, 0);
+
+        //boolean test = ValidTimeSlots.SLOT_DATA.contains(newSlot);
+        //System.out.println(test);
+
+        //for (Slot s: ValidTimeSlots.SLOT_DATA)
+        //{
+        //    if (s.equals(newSlot))
+        //    {
+        //        System.out.println("reached here");
+        //        break;
+        //    }
+        //}
+
+
+        //if (ValidTimeSlots.SLOT_DATA.contains(newSlot))
+        //{
+        //    System.out.println("reached here");
+        //}
+
+
+
+
         //createCourseLab(string);
 
         //        for (Slot s: slotList)
@@ -658,13 +747,14 @@ ParserError.invalidNumSlotcoursemaxmin(errStr, str);
         //    System.out.println(c1.getName() + " " + c2.getDaySeries());
         //}
 
-        //for (Triplet<Slot, CourseLab, Integer> t: preferencesList)
-        //{
-        //    Slot s = t.getSlot();
-        //    CourseLab c = t.getCourseLab();
-        //    int r = t.getRanking();
-        //    System.out.println(s.getDaySeries() + c.getName() + r);
-        //}
+        for (Triplet<Slot, CourseLab, Integer> t: preferencesList)
+        {
+            Slot s = t.getSlot();
+            CourseLab c = t.getCourseLab();
+            int r = t.getRanking();
+            //System.out.println(s.getDayAndTime());
+            System.out.println(s.getDaySeries() + c.getName() + r);
+        }
 
         //for (Pair<CourseLab, CourseLab> p: pairList)
         //{
@@ -674,12 +764,12 @@ ParserError.invalidNumSlotcoursemaxmin(errStr, str);
         //    System.out.println(c1.getName() + " " + c2.getName());
         //}
 
-        for (Pair<CourseLab, Slot> p: partialAssignList)
-        {
-            CourseLab c1 = p.getKey();
-            Slot c2 = p.getValue();
-            System.out.println(c1.getName() + " " + c2.getDaySeries());
-        }
+        //for (Pair<CourseLab, Slot> p: partialAssignList)
+        //{
+        //    CourseLab c1 = p.getKey();
+        //    Slot c2 = p.getValue();
+        //    System.out.println(c1.getName() + " " + c2.getDaySeries());
+        //}
 
 
     }

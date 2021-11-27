@@ -159,6 +159,20 @@ public static void invalidPartAssign(String[] str)
         exitMessage();
     }
 
+// 
+public static void invalidSlot(String name, String[] str)
+{
+    String temp = "";
+    for (int i=0; i<str.length; i++)
+    {
+        temp += str[i] + " ";
+    }
+
+    System.out.println("Error occurred while parsing " + name + ". Invalid slot. " + "Error here: " + temp);
+    exitMessage();
+
+}
+
 
 
 }
