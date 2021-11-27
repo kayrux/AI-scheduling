@@ -51,6 +51,19 @@ public class Slot {
 		}
 	}
 	
+
+	@Override
+	public boolean equals(Object o) {
+		if (o.getClass() == Slot.class) {
+			Slot s = (Slot) o;
+			if (s.getDayAndTime().equals(this.getDayAndTime())) {
+				if (s.getSlotType().equals(this.slotType)) return true;
+			}
+		}
+		return false;
+		
+	}
+	
 	// Adds a course to the slot. Returns 1 if the add was successful, -1 otherwise.
 	public int addCourse() {
 		if (courseSlotsAvailable() == true) {
