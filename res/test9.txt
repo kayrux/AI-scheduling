@@ -1,0 +1,46 @@
+// Course sections with preferences for TU, 11:00 with a ranking 10 are provided.
+// Expected: Courses with the preferences for TU, 11:00 are not slotted in that time slot, becuase that violates the hard constraints
+// CPSC 100 LEC 01 : MO, 8:00 
+// CPSC 101 LEC 09 : TU, 18:00
+
+
+
+Course slots:
+MO,8:00,3,2
+MO,9:00,3,2
+TU, 9:30, 2,  1
+TU, 18:00, 2, 1
+
+Lab slots:
+MO, 8:00, 4, 2
+TU, 10:00,2,1
+FR, 10:00, 2, 1
+
+Courses:
+CPSC 100 LEC 09
+CPSC 101 LEC 09
+
+Labs:
+
+Not compatible:
+CPSC 433 LEC 01 TUT 01, CPSC 433 LEC 02 LAB 02
+CPSC 567 LEC 01, CPSC 433 LEC 01
+CPSC 567 LEC 01, CPSC 433 LEC 02
+CPSC 567 TUT 01, CPSC 433 LEC 02
+CPSC 433 LEC 01, CPSC 567 TUT 01
+
+Unwanted:
+CPSC 433 LEC 01, MO, 8:00
+
+Preferences:
+TU, 11:00, CPSC 100 LEC 01, 10
+
+
+Pair:
+SENG 311 LEC 01, CPSC 567  LEC    01
+
+Partial assignments:
+SENG 311 LEC 01, MO, 8:00
+SENG 311 LEC 01 TUT 01, FR, 10:00
+
+
