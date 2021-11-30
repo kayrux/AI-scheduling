@@ -420,7 +420,7 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
-                        String[] twoCourses = line.split(",\\s+");
+                        String[] twoCourses = line.split(",\\s*");
 
                         // ERROR Check: 2 courses/labs are provided
                         if (twoCourses.length != 2)
@@ -474,7 +474,7 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma (only first instance)
-                        String[] delimited = line.split(",\\s+", 2);
+                        String[] delimited = line.split(",\\s*", 2);
 
                         String[] courseArr = delimited[0].split("\\s+");
                         String[] slotArr = delimited[1].split(",\\s+");
@@ -521,7 +521,7 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma
-                        String[] delimited = line.split(",\\s+");
+                        String[] delimited = line.split(",\\s*");
 
                         if (delimited.length != 4)
                         {
@@ -583,7 +583,7 @@ public class Parser {
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
-                        String[] twoCourses = line.split(",\\s+");
+                        String[] twoCourses = line.split(",\\s*");
 
                         // ERROR Check: Needs to only have 2 courselabs per line
                         if (twoCourses.length != 2)
@@ -677,7 +677,7 @@ public class Parser {
     public static void main(String[] args) {
 
         //String txtfile = "../../com/Main/ShortExample.txt";
-        String txtfile = "../res/test.txt";
+        String txtfile = "../res/test6.txt";
 
         ArrayList<Slot> slotList = parseCourseLabSlots(txtfile);
 
@@ -720,32 +720,32 @@ public class Parser {
 
         //createCourseLab(string);
 
-        //        for (Slot s: slotList)
-        //        {
-        //            System.out.println(s.getDaySeries() + " "  + s.getTime().toString() + " " + s.getCoursemax() +  " " + s.getCoursemin() + " " + s.getLabmax() + " " + s.getLabmin() + " " + s.getSlotType());
-        //        }
+                for (Slot s: slotList)
+                {
+                    System.out.println(s.getDaySeries() + " "  + s.getTime().toString() + " " + s.getCoursemax() +  " " + s.getCoursemin() + " " + s.getLabmax() + " " + s.getLabmin() + " " + s.getSlotType());
+                }
 
 
-        //for (CourseLab i: courselabList)
-        //{
-        //    System.out.println(i.getName() + " " + i.getLectureNumber() + " " + i.getLabNumber() + " " + i.getType());
-        //}
+        for (CourseLab i: courselabList)
+        {
+            System.out.println(i.getName() + " " + i.getLectureNumber() + " " + i.getLabNumber() + " " + i.getType());
+        }
 
-        //for (Pair<CourseLab, CourseLab> p: notCompatibleList)
-        //{
-        //    CourseLab c1 = p.getKey();
-        //    CourseLab c2 = p.getValue();
+        for (Pair<CourseLab, CourseLab> p: notCompatibleList)
+        {
+            CourseLab c1 = p.getKey();
+            CourseLab c2 = p.getValue();
 
-        //    System.out.println(c1.getName() + " " + c2.getName());
-        //}
+            System.out.println(c1.getName() + " " + c2.getName());
+        }
 
 
-        //for (Pair<CourseLab, Slot> p: unwantedList)
-        //{
-        //    CourseLab c1 = p.getKey();
-        //    Slot c2 = p.getValue();
-        //    System.out.println(c1.getName() + " " + c2.getDaySeries());
-        //}
+        for (Pair<CourseLab, Slot> p: unwantedList)
+        {
+            CourseLab c1 = p.getKey();
+            Slot c2 = p.getValue();
+            System.out.println(c1.getName() + " " + c2.getDaySeries());
+        }
 
         for (Triplet<Slot, CourseLab, Integer> t: preferencesList)
         {
@@ -756,20 +756,20 @@ public class Parser {
             System.out.println(s.getDaySeries() + c.getName() + r);
         }
 
-        //for (Pair<CourseLab, CourseLab> p: pairList)
-        //{
-        //    CourseLab c1 = p.getKey();
-        //    CourseLab c2 = p.getValue();
+        for (Pair<CourseLab, CourseLab> p: pairList)
+        {
+            CourseLab c1 = p.getKey();
+            CourseLab c2 = p.getValue();
 
-        //    System.out.println(c1.getName() + " " + c2.getName());
-        //}
+            System.out.println(c1.getName() + " " + c2.getName());
+        }
 
-        //for (Pair<CourseLab, Slot> p: partialAssignList)
-        //{
-        //    CourseLab c1 = p.getKey();
-        //    Slot c2 = p.getValue();
-        //    System.out.println(c1.getName() + " " + c2.getDaySeries());
-        //}
+        for (Pair<CourseLab, Slot> p: partialAssignList)
+        {
+            CourseLab c1 = p.getKey();
+            Slot c2 = p.getValue();
+            System.out.println(c1.getName() + " " + c2.getDaySeries());
+        }
 
 
     }
