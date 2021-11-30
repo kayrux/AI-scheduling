@@ -1,6 +1,7 @@
 package com.Model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.DataStructures.CourseLab;
 import com.DataStructures.Pair;
@@ -10,9 +11,14 @@ import com.Main.Eval;
 
 public class SetbasedSearch {
 
-	private final int MAX_ITERATIONS_NO_IMPROVEMENT = 10;
-	private final int TIME_LIMIT_SECONDS = 300;
-	private final boolean USE_TIME_LIMIT = false;
+	// PREDIFINED VARIABLES
+	private final int MAX_EVAL = Integer.MAX_VALUE;
+	private final int MAX_ITERATIONS_NO_IMPROVEMENT = 15;
+	private final long TIME_LIMIT_SECONDS = 2;
+	private final boolean USE_TIME_LIMIT = true;
+	private final int MAX_POP_SIZE = 30;
+	
+	private Random rand;
 	
 	private Eval eval;
 	private ArrayList<ArrayList<Slot>> facts;
@@ -41,6 +47,8 @@ public class SetbasedSearch {
 		this.pairArray = pairArray;
 		
 		this.eval = new Eval(1,1,1,1);	// Set weights for Eval
+		this.rand = new Random();
+		
 	}
 	
 	
@@ -49,22 +57,29 @@ public class SetbasedSearch {
 		long currentTime = startTime;
 		
 		int noImprovementCounter = 0;
-		int lowestEval = 1000000000;
+		int lowestEval = MAX_EVAL;
 		int currentEval = lowestEval;
 		
 		// Populate
+		// facts = populate()
 		
 		//Loop (time based and/or based on number of iterations passed without improvement)
-		/*
+		
 		while((noImprovementCounter < MAX_ITERATIONS_NO_IMPROVEMENT) && withinTimeLimit(startTime, currentTime)) {
-			 
-			// Check if Decay
+			if (facts.size() > MAX_POP_SIZE); // Decay
 			
 			// Choose A = {fact1, fact2} to pass to Crossover
+			ArrayList<Slot> fact1 = this.getFactWithLowestEval(facts);
+			
+			
 			// Crossover(A)
 			
 			
 			
+			
+			//TESTING
+			currentEval --;
+			//END TESTING
 			
 			// Updates the lowest evaluation and the counter for no. iterations without improvement
 			if (currentEval < lowestEval) {
@@ -73,21 +88,98 @@ public class SetbasedSearch {
 			} else noImprovementCounter ++;	
 			
 			currentTime = System.nanoTime();	// Update current time
-		}*/
+		}
 		
 			
 		
 		
 		// Pick best fact based on Eval
 		
-		return null;
+		return getFactWithLowestEval(facts);
 	}
 	
+	
+	
+	
+	/**
+	 * Generates a random number between min and max using the Random class
+	 * @param min the minimum value (inclusive)
+	 * @param max the maximum value (exclusive)
+	 * @return the random int generated between min and max
+	 */
+	private int generateRandomNumber(int min, int max) {
+		if (max < 0 || max <= min) return 0;
+		return rand.nextInt((max - min)) + min;
+	}
+	
+	/**
+	 * Evaluates the given slot using Eval.eval(...)
+	 * @param fact the fact to evaluate
+	 * @return the evaluation of the fact
+	 */
+	private int evalFact(ArrayList<Slot> fact) {
+		return eval.eval(fact, slotsArray, courseLabArray, prefArray, pairArray);
+	}
+	
+	/**
+	 * Gets the fact with the lowest evaluation based on eval() from an ArrayList of facts
+	 * @param facts the ArrayList of facts
+	 * @return the fact with the lowest evaluation
+	 */
 	private ArrayList<Slot> getFactWithLowestEval(ArrayList<ArrayList<Slot>> facts) {
-		for (ArrayList<Slot> fact : facts) {
-			
+		int min = MAX_EVAL;
+		int indexMin = -1;
+		int currentEval;
+		for (int i = 0; i < facts.size(); i ++) {
+			currentEval = evalFact(facts.get(i));
+			if (currentEval < min) {
+				min = currentEval;
+				indexMin = i;
+			}
 		}
-		return null;
+		if (facts.size() == 0) {
+			System.out.println("Error! Empty list of facts");
+			return null;
+		}
+		return facts.get(indexMin);
+	}
+	
+	/**
+	 * Gets the highest evaluation of a fact based on Eval.eval(...) from an ArrayList of facts
+	 * @param facts the ArrayList of facts
+	 * @return the highest evaluation
+	 */
+	private int getHighestEval(ArrayList<ArrayList<Slot>> facts) {
+		int max = -MAX_EVAL;
+		int currentEval;
+		for (ArrayList<Slot> fact : facts) {
+			currentEval = evalFact(fact);
+			if (currentEval > max) max = currentEval;
+		}
+		if (facts.size() == 0) {
+			System.out.println("Error! Empty list of facts");
+			return -MAX_EVAL;
+		}
+		return max;
+	}
+	
+	/**
+	 * Gets the lowest evaluation of a fact based on Eval.eval(...) from an ArrayList of facts
+	 * @param facts the ArrayList of facts
+	 * @return the lowest evaluation
+	 */
+	private int getLowestEval(ArrayList<ArrayList<Slot>> facts) {
+		int min = MAX_EVAL;
+		int currentEval;
+		for (ArrayList<Slot> fact : facts) {
+			currentEval = evalFact(fact);
+			if (currentEval < min) min = currentEval;
+		}
+		if (facts.size() == 0) {
+			System.out.println("Error! Empty list of facts");
+			return MAX_EVAL;
+		}
+		return min;
 	}
 	
 	/**
@@ -99,7 +191,11 @@ public class SetbasedSearch {
 	private boolean withinTimeLimit(long startTime, long currentTime) {
 		if (USE_TIME_LIMIT) {
 			long timeElapsed = currentTime - startTime;
-			if ((timeElapsed / 1000000000) > TIME_LIMIT_SECONDS) return false;
+			if ((timeElapsed / 1000000000.0) > TIME_LIMIT_SECONDS) {
+				System.out.println("Time limit exceeded!");
+				System.out.println("Time elapsed: " + (double)(timeElapsed / 1000000000.0) + " seconds");
+				return false;
+			}
 		}
 		return true;
 	}
