@@ -15,7 +15,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Parser parser = new Parser();
-		SetbasedSearch search;
+		SetbasedSearch setBasedSearch;
 		
 		String txtfile = "res/ShortExample.txt"; // Example file
 
@@ -27,8 +27,10 @@ public class Main {
         ArrayList<Pair<CourseLab, CourseLab>> pairArray = parser.parsePair(txtfile);
         ArrayList<Pair<CourseLab, Slot>> partialAssignArray = parser.parsePartialAssignments(txtfile);
         
-        search = new SetbasedSearch(slotArray, courseLabArray, notCompatibleArray, unwantedArray, preferencesArray, pairArray,
+        setBasedSearch = new SetbasedSearch(slotArray, courseLabArray, notCompatibleArray, unwantedArray, preferencesArray, pairArray,
         		partialAssignArray);
+        
+        ArrayList<Slot> sol = setBasedSearch.search();
         
 	}
 	

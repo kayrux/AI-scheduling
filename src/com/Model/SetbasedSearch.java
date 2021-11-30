@@ -6,9 +6,15 @@ import com.DataStructures.CourseLab;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
+import com.Main.Eval;
 
 public class SetbasedSearch {
 
+	private final int MAX_ITERATIONS_NO_IMPROVEMENT = 10;
+	private final int TIME_LIMIT_SECONDS = 300;
+	private final boolean USE_TIME_LIMIT = false;
+	
+	private Eval eval;
 	private ArrayList<ArrayList<Slot>> facts;
 	private ArrayList<Slot> slotsArray;
 	private ArrayList<CourseLab> courseLabArray;
@@ -34,10 +40,67 @@ public class SetbasedSearch {
 		this.partialAssignList = partialAssignList;
 		this.pairArray = pairArray;
 		
-		startSearch();
+		this.eval = new Eval(1,1,1,1);	// Set weights for Eval
 	}
 	
-	private void startSearch() {
+	
+	public ArrayList<Slot> search() {
+		long startTime = System.nanoTime();
+		long currentTime = startTime;
+		
+		int noImprovementCounter = 0;
+		int lowestEval = 1000000000;
+		int currentEval = lowestEval;
+		
 		// Populate
+		
+		//Loop (time based and/or based on number of iterations passed without improvement)
+		/*
+		while((noImprovementCounter < MAX_ITERATIONS_NO_IMPROVEMENT) && withinTimeLimit(startTime, currentTime)) {
+			 
+			// Check if Decay
+			
+			// Choose A = {fact1, fact2} to pass to Crossover
+			// Crossover(A)
+			
+			
+			
+			
+			// Updates the lowest evaluation and the counter for no. iterations without improvement
+			if (currentEval < lowestEval) {
+				noImprovementCounter = 0;	// Reset the counter if a better Eval is found
+				lowestEval = currentEval;	// Update the lowest evaluation
+			} else noImprovementCounter ++;	
+			
+			currentTime = System.nanoTime();	// Update current time
+		}*/
+		
+			
+		
+		
+		// Pick best fact based on Eval
+		
+		return null;
+	}
+	
+	private ArrayList<Slot> getFactWithLowestEval(ArrayList<ArrayList<Slot>> facts) {
+		for (ArrayList<Slot> fact : facts) {
+			
+		}
+		return null;
+	}
+	
+	/**
+	 * Checks if the search is within the time limit
+	 * @param startTime the starting time of the search
+	 * @param currentTime the current time
+	 * @return true if the time elapsed does not exceed the time limit (TIME_LIMIT_SECONDS)
+	 */
+	private boolean withinTimeLimit(long startTime, long currentTime) {
+		if (USE_TIME_LIMIT) {
+			long timeElapsed = currentTime - startTime;
+			if ((timeElapsed / 1000000000) > TIME_LIMIT_SECONDS) return false;
+		}
+		return true;
 	}
 }
