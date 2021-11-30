@@ -630,10 +630,10 @@ public class Parser {
                 // Jump to partial assignments 
                 if (line.equals("Partial assignments:"))
                 {
-                    while (true)
+                    while ((line = reader.readLine()) != null)
                     {
-                        line = reader.readLine();
-                        if (line.equals("")) break;
+                        //line = reader.readLine();
+                        //if (line.equals("")) break;
 
                         // Delimiting by comma (only first instance)
                         //String[] delimited = line.split(",\\s+", 2);
@@ -676,8 +676,8 @@ public class Parser {
 
     public static void main(String[] args) {
 
-        //String txtfile = "../../com/Main/ShortExample.txt";
-        String txtfile = "../res/test6.txt";
+        String txtfile = "../res/ShortExample.txt";
+        //String txtfile = "../res/test6.txt";
 
         ArrayList<Slot> slotList = parseCourseLabSlots(txtfile);
 
