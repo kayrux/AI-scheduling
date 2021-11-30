@@ -297,9 +297,11 @@ public class Parser {
                 // Jump to Course slots:
                 if (line.equals("Course slots:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
 
@@ -355,9 +357,10 @@ public class Parser {
                 // Jump to Courses:
                 if (line.equals("Courses:"))
                 {
-                    while (true)
+while ((line = reader.readLine()) != null)
+                    //while (true)
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by space
@@ -414,9 +417,11 @@ public class Parser {
                 // Jump to Not Compatible:
                 if (line.equals("Not compatible:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
@@ -468,9 +473,11 @@ public class Parser {
                 // Jump to Unwanted 
                 if (line.equals("Unwanted:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma (only first instance)
@@ -515,9 +522,11 @@ public class Parser {
                 // Jump to Preferences:
                 if (line.equals("Preferences:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma
@@ -577,9 +586,11 @@ public class Parser {
                 // Jump to Pair:
                 if (line.equals("Pair:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
