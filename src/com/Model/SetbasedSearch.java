@@ -22,6 +22,7 @@ public class SetbasedSearch {
 	
 	private Eval eval;
 	private ArrayList<ArrayList<Slot>> facts;
+	private ArrayList<Integer> currentEvals;
 	private ArrayList<Slot> slotsArray;
 	private ArrayList<CourseLab> courseLabArray;
 	private ArrayList<Pair<CourseLab, CourseLab>> notCompatibleArray;
@@ -38,6 +39,7 @@ public class SetbasedSearch {
             ArrayList<Pair<CourseLab, Slot>> partialAssignList) {
 		
 		facts = new ArrayList<ArrayList<Slot>>();
+		currentEvals = new ArrayList<Integer>();
 		this.slotsArray = slotsArray;
 		this.courseLabArray = courseLabArray;
 		this.notCompatibleArray = notCompatibleArray;
@@ -97,10 +99,38 @@ public class SetbasedSearch {
 		
 		return getFactWithLowestEval(facts);
 	}
-	
-	
-	
-	
+
+	/**
+	 * Update cached evals for current facts
+	 */
+	void updateCurrentEvals() {
+		ArrayList<Integer> newEvals = new ArrayList<>();
+		for (var fact : facts) {
+			newEvals.add(evalFact(fact));
+		}
+		currentEvals = newEvals;
+	}
+
+	/**
+	 * Remove excessive facts that have the highest evals
+	 */
+	private void decay() {
+		int nExcessiveFacts = facts.size() - MAX_POP_SIZE;
+		while (nExcessiveFacts > 0) {
+			int maxEval = -1;
+			int iMaxEval = 0;
+			for (int i = 0; i < currentEvals.size(); i += 1) {
+				if (currentEvals.get(i) > maxEval) {
+					maxEval = currentEvals.get(i);
+					iMaxEval = i;
+				}
+			}
+			facts.remove(iMaxEval);
+			currentEvals.remove(iMaxEval);
+			nExcessiveFacts -= 1;
+		}
+	}
+
 	/**
 	 * Generates a random number between min and max using the Random class
 	 * @param min the minimum value (inclusive)
