@@ -64,6 +64,7 @@ public class Slot {
 		
 	}
 	
+
 	// Adds a course to the slot. Returns 1 if the add was successful, -1 otherwise.
 	public int addCourse() {
 		if (courseSlotsAvailable() == true) {
