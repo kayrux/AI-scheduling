@@ -297,9 +297,11 @@ public class Parser {
                 // Jump to Course slots:
                 if (line.equals("Course slots:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
 
@@ -355,9 +357,10 @@ public class Parser {
                 // Jump to Courses:
                 if (line.equals("Courses:"))
                 {
-                    while (true)
+while ((line = reader.readLine()) != null)
+                    //while (true)
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by space
@@ -414,9 +417,11 @@ public class Parser {
                 // Jump to Not Compatible:
                 if (line.equals("Not compatible:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
@@ -468,9 +473,11 @@ public class Parser {
                 // Jump to Unwanted 
                 if (line.equals("Unwanted:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma (only first instance)
@@ -515,9 +522,11 @@ public class Parser {
                 // Jump to Preferences:
                 if (line.equals("Preferences:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma
@@ -577,9 +586,11 @@ public class Parser {
                 // Jump to Pair:
                 if (line.equals("Pair:"))
                 {
-                    while (true)
+                    //while (true)
+while ((line = reader.readLine()) != null)
+
                     {
-                        line = reader.readLine();
+                        //line = reader.readLine();
                         if (line.equals("")) break;
 
                         // Delimiting by comma, splitting the two courses
@@ -630,10 +641,10 @@ public class Parser {
                 // Jump to partial assignments 
                 if (line.equals("Partial assignments:"))
                 {
-                    while (true)
+                    while ((line = reader.readLine()) != null)
                     {
-                        line = reader.readLine();
-                        if (line.equals("")) break;
+                        //line = reader.readLine();
+                        //if (line.equals("")) break;
 
                         // Delimiting by comma (only first instance)
                         //String[] delimited = line.split(",\\s+", 2);
@@ -676,8 +687,8 @@ public class Parser {
 
     public static void main(String[] args) {
 
-        //String txtfile = "../../com/Main/ShortExample.txt";
-        String txtfile = "../res/test6.txt";
+        String txtfile = "../res/ShortExample.txt";
+        //String txtfile = "../res/test6.txt";
 
         ArrayList<Slot> slotList = parseCourseLabSlots(txtfile);
 
