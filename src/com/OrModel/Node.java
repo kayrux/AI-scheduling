@@ -16,7 +16,7 @@ class NodeTemp extends Populate {
 	NodeTemp(Slot v, Slot p) {
 		this.parent = p;
         this.value = v;
-        children = null;
+        children = new ArrayList<NodeTemp>();
     }
 	
 	public NodeTemp addChild(Slot c) {
