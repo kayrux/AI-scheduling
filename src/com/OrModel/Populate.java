@@ -1,7 +1,10 @@
 package com.OrModel;
 import java.util.ArrayList;
-import com.DataStructures.*;
-import com.Main.*;
+
+import com.DataStructures.CourseLab;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.Main.Constr;
 
 public class Populate {
 	
@@ -28,7 +31,6 @@ public class Populate {
 		if(initialSlot.size() == 0) {
 			fact = new ArrayList<Slot>();
 		} else {
-			ArrayList<Slot> temp;
 			fact = new ArrayList<Slot>();
 			for(int i = 0; i < initialSlot.size(); i++) {
 				fact.add(initialSlot.get(i).getValue());

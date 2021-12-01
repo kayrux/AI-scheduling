@@ -2,21 +2,18 @@ package com.Main;
 
 import java.util.ArrayList;
 
-import com.Constants.ValidTimeSlots;
 import com.DataStructures.CourseLab;
-import com.DataStructures.EmptySlot;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
-import com.DataStructures.SlotArrayListWrapper;
 import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
-import com.OrModel.*;
+import com.OrModel.Populate;
 
 public class Main {
 	public static void main(String[] args) {
 		Parser parser = new Parser();
 		SetbasedSearch search;
-		ArrayList<Slot> temp;
+		ArrayList<Slot> temp = new ArrayList<Slot>();
 		
 		String txtfile = "res/ShortExample.txt"; // Example file
 
@@ -30,9 +27,6 @@ public class Main {
         
         search = new SetbasedSearch(slotArray, courseLabArray, notCompatibleArray, unwantedArray, preferencesArray, pairArray, partialAssignArray);
 		temp = Populate.PopulateOrTree(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
-		//for(int i = 0; i < temp.size(); i++) {
-		//	System.out.print();
-		//}
 	}
 	
 
