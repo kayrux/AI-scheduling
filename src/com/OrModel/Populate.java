@@ -1,9 +1,9 @@
 package com.OrModel;
 import java.util.ArrayList;
 import com.DataStructures.*;
-import com.Main.Constr;
+import com.Main.*;
 
-class Populate {
+public class Populate {
 	
 	/*
 	* Creates a new Fact from nothing using an Or-Tree.
@@ -21,19 +21,24 @@ class Populate {
 
 	public static ArrayList<Slot> PopulateOrTree (ArrayList<CourseLab> courseLabs, ArrayList<Slot> slotList,
 											ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
-											ArrayList<Pair<CourseLab, Slot>> unwantedArray
-											ArrayList<Pai<CourseLab, Slot>> initialSlot) {
+											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
+											ArrayList<Pair<CourseLab, Slot>> initialSlot) {
+		ArrayList<Slot> fact;
+		Constr constraints = new Constr();
 		if(initialSlot.size() == 0) {
-			ArrayList<Slot> fact = new ArrayList<Slot>();
+			fact = new ArrayList<Slot>();
 		} else {
-			ArrayList<Slot> fact = new ArrayList<Slot>(initialSlot);
+			ArrayList<Slot> temp;
+			fact = new ArrayList<Slot>();
+			for(int i = 0; i < initialSlot.size(); i++) {
+				fact.add(initialSlot.get(i).getValue());
+			}
 		}
-		
 		int randSlot = (int)(Math.random() * slotList.size());
 		NodeTemp curNode = new NodeTemp(slotList.get(randSlot), null);
 		NodeTemp root = new NodeTemp(curNode.value, null);
 		int child = 0;
-		while(fact.size() < courseLab.size()) {
+		while(fact.size() < courseLabs.size()) {
 			randSlot = (int)(Math.random() * slotList.size());
 			curNode.addChild(slotList.get(randSlot));
 			child++;
