@@ -68,7 +68,9 @@ public class SetbasedSearch {
 		//Loop (time based and/or based on number of iterations passed without improvement)
 		
 		while((noImprovementCounter < MAX_ITERATIONS_NO_IMPROVEMENT) && withinTimeLimit(startTime, currentTime)) {
-			if (facts.size() > MAX_POP_SIZE); // Decay
+			// update
+			updateCurrentEvals();
+			decay();
 			
 			// Choose A = {fact1, fact2} to pass to Crossover
 			ArrayList<Slot> fact1 = this.getFactWithLowestEval(facts);
@@ -115,7 +117,7 @@ public class SetbasedSearch {
 	 * Remove excessive facts that have the highest evals
 	 */
 	private void decay() {
-		int nExcessiveFacts = facts.size() - MAX_POP_SIZE;
+		int nExcessiveFacts = Math.round(facts.size() * 0.4f);
 		while (nExcessiveFacts > 0) {
 			int maxEval = -1;
 			int iMaxEval = 0;
