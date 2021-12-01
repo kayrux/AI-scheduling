@@ -1,7 +1,6 @@
 package com.DataStructures;
 
 public class Slot {
-
 	private SlotType slotType;
 	private DaySeries daySeries;
 	private Time time;
