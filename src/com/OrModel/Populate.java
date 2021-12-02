@@ -42,7 +42,15 @@ public class Populate {
 				
 				pAssign = partialAssign.get(i);
 				
-				fact.set(courseLabs.indexOf(pAssign.getKey()), pAssign.getValue());
+				Slot correctSlot = slotList.get(slotList.indexOf(pAssign.getValue()));
+				Slot s = new Slot(pAssign.getValue());
+				s.setCoursemin(correctSlot.getCoursemin());
+				s.setCourseMax(correctSlot.getCoursemax());
+				s.setLabmin(correctSlot.getLabmin());
+				s.setLabMax(correctSlot.getLabmax());
+				
+				fact.set(courseLabs.indexOf(pAssign.getKey()), s);
+				
 			}
 		}
 		
