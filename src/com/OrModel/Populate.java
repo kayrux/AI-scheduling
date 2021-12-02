@@ -5,6 +5,7 @@ import com.DataStructures.CourseLab;
 import com.DataStructures.EmptySlot;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
 import com.Main.Constr;
 
 public class Populate {
@@ -42,18 +43,28 @@ public class Populate {
 				fact.set(courseLabs.indexOf(pAssign.getKey()), pAssign.getValue());
 			}
 		}
-
-		while(fact.size() < courseLabs.size()) {
+		
+		
+		for(int i = 0; i < fact.size(); i++) {
 			int randSlot = (int)(Math.random() * slotList.size());
-			fact.set(randSlot, slotList.get(randSlot));
+			if(fact.get(i).getSlotType() == SlotType.EMPTY) {
+				fact.set(i, slotList.get(randSlot));
+			}
+			//System.out.println(randSlot);
 		}
+		
+		// Testing
+		/*for (Slot s : fact) {
+			System.out.println(s.getSlotType());
+			System.out.println(s.getDayAndTime());
+		}*/
 		
 		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray)) {
 			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign));
-		} else {
+		} /*else {
 			System.out.println("Fact Size: " + fact.size());
 			System.out.println("courseLabs Size: " + courseLabs.size());
-			System.out.println(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray));
+			//System.out.println(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray));
 			for(int i = 0; i < fact.size(); i++) {
 				System.out.println("DayTime: " + fact.get(i).getDayAndTime());
 				System.out.println("Slot Type: " + fact.get(i).getSlotType());
@@ -64,7 +75,7 @@ public class Populate {
 				System.out.println("Lab Max: " + fact.get(i).getLabmax());
 				System.out.println("------------");
 			}
-		}
+		}*/
 		
 		return fact;
 	}
