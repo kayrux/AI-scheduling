@@ -55,10 +55,7 @@ MO, 16:00, CPSC 108 LEC 01, 2
 MO, 17:00, CPSC 109 LEC 01, 1
 
 Pair:
-SENG 311 LEC 01, CPSC 567  LEC    01
 
 
 Partial assignments:
-
-
 
