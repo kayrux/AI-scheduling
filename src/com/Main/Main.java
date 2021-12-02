@@ -26,7 +26,7 @@ public class Main {
         ArrayList<Pair<CourseLab, Slot>> partialAssignArray = Parser.parsePartialAssignments(txtfile);
         
         search = new SetbasedSearch(slotArray, courseLabArray, notCompatibleArray, unwantedArray, preferencesArray, pairArray, partialAssignArray);
-		temp = Populate.PopulateOrTree(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+		temp = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
 	}
 	
 
