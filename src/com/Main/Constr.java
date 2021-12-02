@@ -286,7 +286,9 @@ public class Constr {
         
         for (Slot s : factsArray){
 
-            if (!(courseLabs.get(factsArray.indexOf(s)).getType().equals(s.getSlotType().toString()))){
+            if (!(courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC") && s.getSlotType() == SlotType.COURSE)
+                || !((courseLabs.get(factsArray.indexOf(s)).getType().equals("TUT") || courseLabs.get(factsArray.indexOf(s)).getType().equals("LAB")) 
+                    && s.getSlotType() == SlotType.LAB)){
                 return false;
             }
         }
