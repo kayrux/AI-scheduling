@@ -2,6 +2,7 @@ package com.OrModel;
 import java.util.ArrayList;
 
 import com.DataStructures.CourseLab;
+import com.DataStructures.EmptySlot;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.Main.Constr;
@@ -26,23 +27,43 @@ public class Populate {
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
 											ArrayList<Pair<CourseLab, Slot>> partialAssign) {
 		
-		ArrayList<Slot> fact;
+		ArrayList<Slot> fact = new ArrayList<Slot>();
+		while(fact.size() < courseLabs.size()) {
+			fact.add(new EmptySlot());
+		}
+		
 		Constr constraints = new Constr();
-		if(partialAssign.size() == 0) {
-			fact = new ArrayList<Slot>();
-		} else {
-			fact = new ArrayList<Slot>();
+		
+		
+		if(partialAssign.size() > 0) {
+			Pair<CourseLab, Slot> pAssign;
 			for(int i = 0; i < partialAssign.size(); i++) {
-				fact.add(partialAssign.get(i).getValue());
+				pAssign = partialAssign.get(i);
+				fact.set(courseLabs.indexOf(pAssign.getKey()), pAssign.getValue());
 			}
 		}
 
 		while(fact.size() < courseLabs.size()) {
 			int randSlot = (int)(Math.random() * slotList.size());
-			fact.add(slotList.get(randSlot));
+			fact.set(randSlot, slotList.get(randSlot));
 		}
+		
 		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray)) {
 			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign));
+		} else {
+			System.out.println("Fact Size: " + fact.size());
+			System.out.println("courseLabs Size: " + courseLabs.size());
+			System.out.println(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray));
+			for(int i = 0; i < fact.size(); i++) {
+				System.out.println("DayTime: " + fact.get(i).getDayAndTime());
+				System.out.println("Slot Type: " + fact.get(i).getSlotType());
+				System.out.println("Time: " + fact.get(i).getTime());
+				System.out.println("Course Min: " + fact.get(i).getCoursemin());
+				System.out.println("Course Max: " + fact.get(i).getCoursemax());
+				System.out.println("Lab Min: " + fact.get(i).getLabmin());
+				System.out.println("Lab Max: " + fact.get(i).getLabmax());
+				System.out.println("------------");
+			}
 		}
 		
 		return fact;
