@@ -58,25 +58,15 @@ public class Constr {
             if (s.getSlotType() == SlotType.COURSE){
 
                 for (Slot c : factsArray) {
-                	//Testing
-                	//System.out.println(c.getDayAndTime());
-                	
-                	CourseLab cl = courseLabs.get(factsArray.indexOf(s));
-                	
-                	//System.out.println(s.getDayAndTime());
-                	
-                    String courseName = courseLabs.get(factsArray.indexOf(s)).getName();
+
+                    CourseLab courseName = courseLabs.get(factsArray.indexOf(s));
                     Time courseTime = s.getTime();
-                    
-                    /*if (factsArray.indexOf(c) == -1) {
-                    	System.out.println("Error");
-                    }*/
 
                     // Checks if the name of the course is the same as s AND c is a lab/tutorial
-                    if (courseLabs.get(factsArray.indexOf(c)).equals(cl) && c.getSlotType() == SlotType.LAB){
+                    if (courseLabs.get(factsArray.indexOf(c)).equals(courseName) && c.getSlotType() == SlotType.LAB){
 
                         // Checks if the time of the lab/tutorial is the same as the courseTime
-                        if (c.getTime().equals(courseTime)){
+                        if (c.getTime() == (courseTime)){
                             return false;
                         }
                     }
@@ -102,16 +92,16 @@ public class Constr {
                     && courseLabsArray.indexOf(nc.getKey()) != -1){
 
                     // Checks to see if s is equal to either key or value
-                    if (courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())
-                        || courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+                    if (courseLabsArray.get(factsArray.indexOf(s)) == (nc.getKey())
+                        || courseLabsArray.get(factsArray.indexOf(s)) == (nc.getValue())){
 
                         // If the course is a key, checks to see the value is in the facts array,
                         // Then ensures their times are different
                         if (courseLabsArray.indexOf(nc.getValue()) <= factsArray.size() 
-                            && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())){
+                            && courseLabsArray.get(factsArray.indexOf(s)) == (nc.getKey())){
 
                             // Checks if the times are the same
-                            if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime().equals(factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime())){
+                            if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime())){
                                 return false;
                             }
                         }
@@ -119,10 +109,10 @@ public class Constr {
                         // If the course is a value, checks to see the key is in the facts array,
                         // Then ensures their times are different
                         if (courseLabsArray.indexOf(nc.getKey()) <= factsArray.size()
-                            && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+                            && courseLabsArray.get(factsArray.indexOf(s)) == (nc.getValue())){
 
                             // Checks if the times are the same
-                            if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime().equals(factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime())){
+                            if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime() == (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime())){
                                 return false;
                             }
                         }
@@ -144,13 +134,13 @@ public class Constr {
             for (Pair<CourseLab, Slot> uw: unwantedArray){
 
                 // Checks to see if s is equal to the unwanted time slot
-                if (s.equals(uw.getValue())){
+                if (s == (uw.getValue())){
 
                     // Checks if key course is part of the facts array
                     if (courseLabsArray.indexOf(uw.getKey()) <= factsArray.size()){
 
                         // Checks to see if key and s refer to the same thing
-                        if (courseLabsArray.get(factsArray.indexOf(s)).equals(uw.getKey())){
+                        if (courseLabsArray.get(factsArray.indexOf(s)) == (uw.getKey())){
 
                             return false;
                         }
@@ -231,25 +221,25 @@ public class Constr {
         for (Slot s : factsArray){
 
             // Checks if course is part of CPSC 813
-            if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 813")
-                || courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 913")){
+            if (courseLabs.get(factsArray.indexOf(s)).getName() == ("CPSC 813")
+                || courseLabs.get(factsArray.indexOf(s)).getName() == ("CPSC 913")){
 
                 // If the course is CPSC 813 or 913 Lecture it is TTH 18:00
-                if (courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC")){
-                    if (!(s.getDayAndTime().contains("18:00")) || !(s.getDaySeries().equals(DaySeries.TU))){
+                if (courseLabs.get(factsArray.indexOf(s)).getType() == ("LEC")){
+                    if (!(s.getDayAndTime().contains("18:00")) || !(s.getDaySeries() == (DaySeries.TU))){
                         return false;
                     }
                 } else {
 
                     // If the course name contains CPSC 813 but is not a lecture add the time to seenTimes813
                     // These would be all lab/tutorial times for course CPSC 813
-                    if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 813")){
+                    if (courseLabs.get(factsArray.indexOf(s)).getName() == ("CPSC 813")){
                         seenTimes813.add(s.getTime());
                     }
 
                     // If the course name contains CPSC 913 but is not a lecture add the time to seenTimes913
                     // These would be all lab/tutorial times for course CPSC 813
-                    if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 913")){
+                    if (courseLabs.get(factsArray.indexOf(s)).getName() == ("CPSC 913")){
                         seenTimes913.add(s.getTime());
                     }
                 }
@@ -260,17 +250,17 @@ public class Constr {
         for (CourseLab c : courseLabs){
             
             //Checks if course is either CPSC 313 or CPSC 413 tutorial/lab
-            if ((c.getName().equals("CPSC 313") || c.getName().equals("CPSC 413")) && c.getType().equals("LAB")){
+            if ((c.getName() == ("CPSC 313") || c.getName() == ("CPSC 413")) && c.getType() == ("LAB")){
 
                 // If the course is CPSC 313 tutorial/lab
-                if (c.getName().equals("CPSC 313")){
+                if (c.getName() == ("CPSC 313")){
                     if (seenTimes813.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
                         return false;
                     }
                 }
                 
                 // If the course is CPSC 413 tutorial/lab
-                if (c.getName().equals("CPSC 413")){
+                if (c.getName() == ("CPSC 413")){
                     if (seenTimes913.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
                         return false;
                     }

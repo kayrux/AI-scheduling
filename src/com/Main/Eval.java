@@ -92,16 +92,31 @@ public class Eval {
                          ArrayList<Triplet<Slot, CourseLab, Integer>> prefArray)
     {
         int value = 0;
-        for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
-        {
-            if (courseLabsArray.indexOf(pref.getCourseLab()) != -1){
-                //Checks if index of course or lab corresponds to the wanted slot.
-                if(fact.get(courseLabsArray.indexOf(pref.getCourseLab())) != pref.getSlot())
-                {
-                    value += pref.getRanking();
+
+        for (Slot s : fact){
+
+            for(Triplet<Slot, CourseLab, Integer> pref : prefArray){
+
+                if (courseLabsArray.get(fact.indexOf(s)).equals(pref.getCourseLab())){
+                    
+                    if(s != pref.getSlot()){
+                        value += pref.getRanking();
+                    }
                 }
-            }   
+            }
         }
+
+        //for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
+        //{
+        //    if (courseLabsArray.indexOf(pref.getCourseLab()) != -1
+        //        && ){
+        //        //Checks if index of course or lab corresponds to the wanted slot.
+        //        if(fact.get(courseLabsArray.indexOf(pref.getCourseLab())) != pref.getSlot())
+        //        {
+        //            value += pref.getRanking();
+        //        }
+        //    }   
+        //}
         return value;
     }
 
