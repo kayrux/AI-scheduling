@@ -16,7 +16,7 @@ public class SetbasedSearch {
 	// PREDIFINED VARIABLES
 	private final int MAX_EVAL = Integer.MAX_VALUE;
 	private final int MAX_ITERATIONS_NO_IMPROVEMENT = 15;
-	private final long TIME_LIMIT_SECONDS = 5;
+	private final long TIME_LIMIT_SECONDS = 3;
 	private final boolean USE_TIME_LIMIT = true;
 	
 	private final int MAX_POP_SIZE = 30;
@@ -97,10 +97,11 @@ public class SetbasedSearch {
 			// Choose fact1, and fact2 to pass to Crossover
 			highestEval = this.getHighestEval(facts);
 			fact1 = this.getFactWithLowestEval(facts);
+			System.out.println("Lowest Eval: " + evalFact(fact1));
 			
-			//System.out.println("Cross");
+			System.out.println("Cross");
 			fact2 = this.getFactViaStochasticAcceptance(highestEval, fact1);
-			//System.out.println("After Cross");
+			System.out.println("After Cross");
 			
 			newFact = Crossover.crossover(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, fact1, fact2);
 			/*int i = 0;
@@ -142,7 +143,9 @@ public class SetbasedSearch {
 		ArrayList<Slot> fact2;
 		int indexOfFact1 = facts.indexOf(fact1);
 		int tempEval, pAccept, indexOfFact2;
+		int max_iterations = facts.size();
 		
+		int counter = 0;
 		while (true) {	// Generates random facts until one is accepted
 			// Gets a random fact
 			indexOfFact2 = this.generateRandomInt(0, facts.size());
@@ -157,6 +160,8 @@ public class SetbasedSearch {
 			tempEval = eval.eval(fact2, slotsArray, courseLabArray, prefArray, pairArray);	// Evaluation of fact2;
 			pAccept = ((highestEval - tempEval) * 100) / highestEval;	// Percentage chance that fact2 is accepted
 			if (this.generateRandomInt(0, 100) < pAccept) break;
+			if (counter > max_iterations) break;	// If pAccept is too low, max iterations will stop from looping too many times
+			counter ++;
 		}
 		return fact2;
 	}

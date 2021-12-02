@@ -11,8 +11,11 @@ public class CourseLab {
 	
 	public CourseLab(String name, int lectureNumber, int labNumber, String type) {
 		this.name = name.toUpperCase();
-		this.lectureNumber = lectureNumber;
-		this.labNumber = labNumber;
+		
+		setLabNumber(labNumber);
+		setLectureNumber(lectureNumber);
+		//this.lectureNumber = lectureNumber;
+		//this.labNumber = labNumber;
 		
         this.hash = name + Integer.toString(lectureNumber) + Integer.toString(labNumber);
         this.type = type;
@@ -26,6 +29,28 @@ public class CourseLab {
 			else return false;
 		}
 		else return false;
+	}
+	
+	/**
+	 * Prints course information in the form of "Name + Lecture number + Lab number"
+	 */
+	public void printCourse() {
+		if (this.labNumber != 0) {
+			System.out.println(this.getName() + " LEC " + this.getLectureNumber() + " TUT " + this.getLabNumber());
+		} else {
+			System.out.println(this.getName() + " LEC " + this.getLectureNumber());
+		}
+		
+	}
+	
+	private void setLabNumber(int labNum) {
+		if (labNum < 0) this.labNumber = 0;
+		else this.labNumber = labNum;
+	}
+	
+	private void setLectureNumber(int lecNum) {
+		if (lecNum < 0) this.lectureNumber = 0;
+		else this.lectureNumber = lecNum;
 	}
 	
 	public String getName() {
