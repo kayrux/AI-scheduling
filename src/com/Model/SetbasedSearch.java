@@ -9,6 +9,7 @@ import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
 import com.Main.Eval;
 import com.OrModel.Crossover;
+import com.OrModel.Populate;
 
 public class SetbasedSearch {
 
@@ -17,12 +18,15 @@ public class SetbasedSearch {
 	private final int MAX_ITERATIONS_NO_IMPROVEMENT = 15;
 	private final long TIME_LIMIT_SECONDS = 2;
 	private final boolean USE_TIME_LIMIT = true;
-	private final int MAX_POP_SIZE = 30;
+	
+	private final int MAX_POP_SIZE = 20;
+	private final int INITIAL_POP_SIZE = 10;
 	
 	private Random rand;
 	
 	private Eval eval;
 	private ArrayList<ArrayList<Slot>> facts;
+	private ArrayList<Integer> currentEvals;
 	private ArrayList<Slot> slotsArray;
 	private ArrayList<CourseLab> courseLabArray;
 	private ArrayList<Pair<CourseLab, CourseLab>> notCompatibleArray;
@@ -39,6 +43,7 @@ public class SetbasedSearch {
             ArrayList<Pair<CourseLab, Slot>> partialAssignArray) {
 		
 		facts = new ArrayList<ArrayList<Slot>>();
+		currentEvals = new ArrayList<Integer>();
 		this.slotsArray = slotsArray;
 		this.courseLabArray = courseLabArray;
 		this.notCompatibleArray = notCompatibleArray;
@@ -54,7 +59,6 @@ public class SetbasedSearch {
 	
 	
 	public ArrayList<Slot> search() {
-		
 		long startTime = System.nanoTime();
 		long currentTime = startTime;
 		
@@ -63,6 +67,11 @@ public class SetbasedSearch {
 		
 		// Populate
 		// facts = populate()
+		for (int i = 0; i < 3; i ++) {
+			System.out.println("Looping");
+			facts.add(Populate.PopulateOrTree(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList));
+		}
+		
 		if (facts.isEmpty()) {
 			System.out.println("Error! Empty list of facts");
 			return null;
@@ -78,7 +87,14 @@ public class SetbasedSearch {
 		//Loop (time based and/or based on number of iterations passed without improvement)
 		while((noImprovementCounter < MAX_ITERATIONS_NO_IMPROVEMENT) && withinTimeLimit(startTime, currentTime)) {
 			// Check if decay is necessary
-			if (facts.size() > MAX_POP_SIZE); // Decay
+			//System.out.println("Looping");
+			if (facts.size() > MAX_POP_SIZE) {
+				updateCurrentEvals();
+				decay();
+			}
+
+			
+			
 			
 			// Choose fact1, and fact2 to pass to Crossover
 			highestEval = this.getHighestEval(facts);
@@ -136,7 +152,39 @@ public class SetbasedSearch {
 		}
 		return fact2;
 	}
-	
+
+
+	/**
+	 * Update cached evals for current facts
+	 */
+	void updateCurrentEvals() {
+		ArrayList<Integer> newEvals = new ArrayList<>();
+		for (var fact : facts) {
+			newEvals.add(evalFact(fact));
+		}
+		currentEvals = newEvals;
+	}
+
+	/**
+	 * Remove excessive facts that have the highest evals
+	 */
+	private void decay() {
+		int nExcessiveFacts = Math.round(facts.size() * 0.4f);
+		while (nExcessiveFacts > 0) {
+			int maxEval = -1;
+			int iMaxEval = 0;
+			for (int i = 0; i < currentEvals.size(); i += 1) {
+				if (currentEvals.get(i) > maxEval) {
+					maxEval = currentEvals.get(i);
+					iMaxEval = i;
+				}
+			}
+			facts.remove(iMaxEval);
+			currentEvals.remove(iMaxEval);
+			nExcessiveFacts -= 1;
+		}
+	}
+
 	/**
 	 * Generates a random number between min and max using the Random class
 	 * @param min the minimum value (inclusive)

@@ -42,6 +42,7 @@ public class Populate {
 		int child = 0;
 		while(fact.size() < courseLabs.size()) {
 			randSlot = (int)(Math.random() * slotList.size());
+			//if (slotList.get(randSlot) == null) System.out.println("ERROR NULL");
 			curNode.addChild(slotList.get(randSlot));
 			child++;
 			if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray)) {
