@@ -93,18 +93,26 @@ public class Eval {
     {
         int value = 0;
 
-        for (Slot s : fact){
-
-            for(Triplet<Slot, CourseLab, Integer> pref : prefArray){
-
-                if (courseLabsArray.get(fact.indexOf(s)).equals(pref.getCourseLab())){
-                    
-                    if(s != pref.getSlot()){
-                        value += pref.getRanking();
-                    }
-                }
+        for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
+        {
+            if(!fact.get(courseLabsArray.indexOf(pref.getCourseLab())).equals(pref.getSlot()))
+            {
+                value += pref.getRanking();
             }
         }
+
+//        for (Slot s : fact){
+//
+//            for(Triplet<Slot, CourseLab, Integer> pref : prefArray){
+//
+//                if (courseLabsArray.get(fact.indexOf(s)).equals(pref.getCourseLab())){
+//
+//                    if(!s.equals(pref.getSlot())){
+//                        value += pref.getRanking();
+//                    }
+//                }
+//            }
+//        }
 
         //for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
         //{
@@ -133,8 +141,8 @@ public class Eval {
         int value = 0;
         for(Pair<CourseLab, CourseLab> pair : pairArray)
         {
-            if (courseLabsArray.indexOf(pair.getKey()) != -1
-                && courseLabsArray.indexOf(pair.getValue()) != -1){
+            if (courseLabsArray.contains(pair.getKey())
+                && courseLabsArray.contains(pair.getValue())){
 
                 if(!Objects.equals(
                     fact.get(courseLabsArray.indexOf(pair.getKey())).getDayAndTime(),
