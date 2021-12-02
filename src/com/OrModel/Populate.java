@@ -24,16 +24,16 @@ public class Populate {
 	public static ArrayList<Slot> populate (ArrayList<CourseLab> courseLabs, ArrayList<Slot> slotList,
 											ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
-											ArrayList<Pair<CourseLab, Slot>> initialSlot) {
+											ArrayList<Pair<CourseLab, Slot>> partialAssign) {
 		
 		ArrayList<Slot> fact;
 		Constr constraints = new Constr();
-		if(initialSlot.size() == 0) {
+		if(partialAssign.size() == 0) {
 			fact = new ArrayList<Slot>();
 		} else {
 			fact = new ArrayList<Slot>();
-			for(int i = 0; i < initialSlot.size(); i++) {
-				fact.add(initialSlot.get(i).getValue());
+			for(int i = 0; i < partialAssign.size(); i++) {
+				fact.add(partialAssign.get(i).getValue());
 			}
 		}
 
@@ -42,7 +42,7 @@ public class Populate {
 			fact.add(slotList.get(randSlot));
 		}
 		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray)) {
-			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, initialSlot));
+			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign));
 		}
 		
 		return fact;
