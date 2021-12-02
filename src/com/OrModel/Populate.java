@@ -7,7 +7,6 @@ import com.DataStructures.Slot;
 import com.Main.Constr;
 
 public class Populate {
-	
 	/*
 	* Creates a new Fact from nothing using an Or-Tree.
 	* @param courseLabs List of all courses and labs.
@@ -37,6 +36,7 @@ public class Populate {
 				fact.add(initialSlot.get(i).getValue());
 			}
 		}
+
 		while(fact.size() < courseLabs.size()) {
 			int randSlot = (int)(Math.random() * slotList.size());
 			fact.add(slotList.get(randSlot));

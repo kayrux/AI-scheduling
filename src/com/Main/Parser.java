@@ -687,7 +687,7 @@ while ((line = reader.readLine()) != null)
 
     public static void main(String[] args) {
 
-        String txtfile = "../res/ShortExample.txt";
+        String txtfile = "res/ShortExample.txt";
         //String txtfile = "../res/test6.txt";
 
         ArrayList<Slot> slotList = parseCourseLabSlots(txtfile);

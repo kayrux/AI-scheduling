@@ -1,16 +1,36 @@
 package com.DataStructures;
 
+
 public class Slot {
 	private SlotType slotType;
 	private DaySeries daySeries;
 	private Time time;
+	
+	// Not in use
 	private int courseCount;
 	private int labCount;
+	//---------------------
 	
 	private int coursemax;
 	private int labmax;
 	private int coursemin;
 	private int labmin;
+	
+	/**
+	 * Creates a copy of the given Slot
+	 * @param slot the slot to make a copy of
+	 */
+	public Slot(Slot slot) {
+		this.daySeries = slot.getDaySeries();
+		this.slotType = slot.getSlotType();
+		this.time = new Time(slot.getTime().getHours(), slot.getTime().getMinutes());
+		this.coursemin = slot.getCoursemin();
+		this.coursemax = slot.getCoursemax();
+		this.labmin = slot.getLabmin();
+		this.labmax = slot.getLabmax();
+		
+		initCourseLabCount();
+	}
 	
 	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes) {
 		this.daySeries = daySeries;
@@ -23,10 +43,14 @@ public class Slot {
 		this.daySeries = daySeries;
 		this.slotType = slotType;
 		this.time = new Time(hours, minutes);
-		this.coursemin = coursemin;
-		this.coursemax = coursemax;
-		this.labmin = labmin;
-		this.labmax = labmax;
+		this.setCoursemin(coursemin);
+		this.setCourseMax(coursemax);
+		this.setLabmin(labmin);
+		this.setLabMax(labmax);
+		//this.coursemin = coursemin;
+		//this.coursemax = coursemax;
+		//this.labmin = labmin;
+		//this.labmax = labmax;
 		initCourseLabCount();
 		checkSlotType();
 		if (daySeries == DaySeries.FR && coursemax > 0) {
@@ -63,6 +87,7 @@ public class Slot {
 		
 	}
 	
+
 	// Adds a course to the slot. Returns 1 if the add was successful, -1 otherwise.
 	public int addCourse() {
 		if (courseSlotsAvailable() == true) {
@@ -141,18 +166,22 @@ public class Slot {
 	
 	public void setLabMax(int max) {
 		if (max >= 0) this.labmax = max;
+		else this.labmax = 0;
 	}
 	
 	public void setCourseMax(int max) {
 		if (max >= 0) this.coursemax = max;
+		else this.coursemax = 0;
 	}
 	
 	public void setCoursemin(int coursemin) {
-		this.coursemin = coursemin;
+		if (coursemin >= 0) this.coursemin = coursemin;
+		else this.coursemin = 0;
 	}
 
 	public void setLabmin(int labmin) {
-		this.labmin = labmin;
+		if (labmin >= 0) this.labmin = labmin;
+		else this.labmin = 0;
 	}
 	
 	public DaySeries getDaySeries() {
