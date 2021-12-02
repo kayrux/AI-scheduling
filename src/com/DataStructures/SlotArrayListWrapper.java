@@ -2,7 +2,14 @@ package com.DataStructures;
 
 import java.util.ArrayList;
 
-/** NOT IN USE
+
+
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+//									NOT IN USE
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+/** 
  * Wrapper for add, and remove methods for an ArrayList of Slots.
  * Note that the constructor should be passed in an empty list of Slot.
  * @author skusj
