@@ -284,7 +284,7 @@ public class Constr {
     private static boolean accurateTimetoCourseAndLabs(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs,
         ArrayList<Slot> slotsArray){
         
-        for (Slot s : factsArray){
+        /*for (Slot s : factsArray){
 
             if (!(courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC") && s.getSlotType() == SlotType.COURSE)
                 || !((courseLabs.get(factsArray.indexOf(s)).getType().equals("TUT") || courseLabs.get(factsArray.indexOf(s)).getType().equals("LAB")) 
@@ -292,7 +292,7 @@ public class Constr {
                 return false;
             }
         }
-
+		*/
         return true;
     }
 }
