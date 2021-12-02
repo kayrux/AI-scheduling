@@ -54,11 +54,27 @@ public class Populate {
 			}
 		}
 		
-		
 		for(int i = 0; i < fact.size(); i++) {
 			int randSlot = (int)(Math.random() * slotList.size());
+			int randSlotCourse = (int)(Math.random() * courseLabs.size());
+			
 			if(fact.get(i).getSlotType() == SlotType.EMPTY) {
-				fact.set(i, slotList.get(randSlot));
+				//System.out.println("Size: " + courseLabs.size());      
+				
+				while (true) {
+					randSlot = (int)(Math.random() * slotList.size());
+					randSlotCourse = (int)(Math.random() * courseLabs.size());
+					if (courseLabs.get(randSlotCourse).getType().equals("LEC") && slotList.get(randSlot).getSlotType() == SlotType.COURSE){
+		            	fact.set(i, slotList.get(randSlot));
+		            	break;
+		            }
+		            if ((courseLabs.get(randSlotCourse).getType().equals("TUT") || courseLabs.get(randSlotCourse).getType().equals("LAB")) 
+		                    && slotList.get(randSlot).getSlotType() == SlotType.LAB){
+		            	fact.set(i, slotList.get(randSlot));
+		            	break;
+		            }
+				}
+				
 			}
 		}
 		
