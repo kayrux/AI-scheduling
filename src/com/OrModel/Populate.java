@@ -15,7 +15,7 @@ public class Populate {
 	* @param slotList List of all slots.
 	* @param noncompatibleArray List of noncompatible courses and labs.
 	* @param unwantedArray List of unwanted course slot combinations.
-	* @param initialSlot List of initial slots that we must start with.
+	* @param partialAssign List of initial slots that we must start with.
 	* @return a random fact created by the Or-Tree.
 	*/
 	
@@ -75,14 +75,8 @@ public class Populate {
 			System.out.println("courseLabs Size: " + courseLabs.size());
 			//System.out.println(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray));
 			for(int i = 0; i < fact.size(); i++) {
-				System.out.println("DayTime: " + fact.get(i).getDayAndTime());
-				System.out.println("Slot Type: " + fact.get(i).getSlotType());
-				System.out.println("Time: " + fact.get(i).getTime());
-				System.out.println("Course Min: " + fact.get(i).getCoursemin());
-				System.out.println("Course Max: " + fact.get(i).getCoursemax());
-				System.out.println("Lab Min: " + fact.get(i).getLabmin());
-				System.out.println("Lab Max: " + fact.get(i).getLabmax());
-				System.out.println("------------");
+				System.out.println(courseLabs.get(i).getName());
+				s.printSlot();
 			}
 		}*/
 		

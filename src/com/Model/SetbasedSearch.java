@@ -97,6 +97,7 @@ public class SetbasedSearch {
 			// Choose fact1, and fact2 to pass to Crossover
 			highestEval = this.getHighestEval(facts);
 			fact1 = this.getFactWithLowestEval(facts);
+			//System.out.println("Lowest Eval: " + evalFact(fact1));
 			
 			//System.out.println("Cross");
 			fact2 = this.getFactViaStochasticAcceptance(highestEval, fact1);

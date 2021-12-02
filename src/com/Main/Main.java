@@ -34,6 +34,9 @@ public class Main {
 		//sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
 		
 		int i = 0;
+		Eval eval = new Eval(1,1,1,1);
+		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
+		System.out.println("----------");
 		for (Slot s : sol) {
 			System.out.println(courseLabArray.get(i).getName());
 			s.printSlot();
