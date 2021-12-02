@@ -24,7 +24,7 @@ public class Constr {
             && noncompatibleClasses(factsArray, courseLabs, noncompatibleArray) 
             && unwantedTimes(factsArray, courseLabs, unwantedArray) && eveningCourses(factsArray, courseLabs)
             && fiveHunderedLevelCourses(factsArray, courseLabs) && noCourseScheduled(factsArray)
-            && specialCourses(factsArray, courseLabs);
+            && specialCourses(factsArray, courseLabs) && accurateTimetoCourseAndLabs(factsArray, courseLabs, slotsArray);
     }
 
     //Max course and Max Labs per time-slot
@@ -277,6 +277,20 @@ public class Constr {
 
             }
         }
+        return true;
+    }
+
+    // Checks each course/lab and ensures that the time slot dedicated to it is the same as its slot type
+    private static boolean accurateTimetoCourseAndLabs(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs,
+        ArrayList<Slot> slotsArray){
+        
+        for (Slot s : factsArray){
+
+            if (!(courseLabs.get(factsArray.indexOf(s)).getType().equals(s.getSlotType().toString()))){
+                return false;
+            }
+        }
+
         return true;
     }
 }
