@@ -3,6 +3,7 @@ package com.OrModel;
 import com.DataStructures.CourseLab;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
 import com.Main.Constr;
 
 import java.util.ArrayList;
@@ -42,11 +43,17 @@ public class Crossover {
 			for(int i = 0; i < slots.size(); i++)
 			{
 				ArrayList<Slot> constrC = new ArrayList<>(C);
-				constrC.add(slots.get(i));
-				if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray))
-				{
-					possibleSlots.add(i);
+				
+				if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
+					if (slots.get(i).getSlotType() == SlotType.LAB) System.out.println("---------LAB---------");
+					constrC.add(slots.get(i));
+					if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray))
+					{
+						 
+						possibleSlots.add(i);
+					}
 				}
+						
 			}
 
 			//Pre-generates information.

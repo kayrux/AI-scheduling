@@ -36,14 +36,7 @@ public class Main {
 		int i = 0;
 		for (Slot s : sol) {
 			System.out.println(courseLabArray.get(i).getName());
-			System.out.println("DayTime: " + s.getDayAndTime());
-			System.out.println("Slot Type: " + s.getSlotType());
-			System.out.println("Time: " + s.getTime());
-			System.out.println("Course Min: " + s.getCoursemin());
-			System.out.println("Course Max: " + s.getCoursemax());
-			System.out.println("Lab Min: " + s.getLabmin());
-			System.out.println("Lab Max: " + s.getLabmax());
-			System.out.println("------------");
+			s.printSlot();
 			i++;
 		}
 	}
