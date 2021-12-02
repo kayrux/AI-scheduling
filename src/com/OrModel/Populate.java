@@ -33,6 +33,9 @@ public class Populate {
 			fact = new ArrayList<Slot>();
 		} else {
 			fact = new ArrayList<Slot>();
+			for(int i = 0; i < initialSlot.size(); i++) {
+				fact.add(initialSlot.get(i).getValue());
+			}
 		}
 		while(fact.size() < courseLabs.size()) {
 			int randSlot = (int)(Math.random() * slotList.size());
