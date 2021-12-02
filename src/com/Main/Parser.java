@@ -644,7 +644,7 @@ while ((line = reader.readLine()) != null)
                     while ((line = reader.readLine()) != null)
                     {
                         //line = reader.readLine();
-                        //if (line.equals("")) break;
+                        if (line.equals("")) break;
 
                         // Delimiting by comma (only first instance)
                         //String[] delimited = line.split(",\\s+", 2);
@@ -779,7 +779,7 @@ while ((line = reader.readLine()) != null)
         {
             CourseLab c1 = p.getKey();
             Slot c2 = p.getValue();
-            System.out.println(c1.getName() + " " + c2.getDaySeries());
+            System.out.println(c1.getName() + " " + c2.getDaySeries() + " " + c2.getTime());
         }
 
 

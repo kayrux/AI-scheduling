@@ -188,6 +188,17 @@ public class Slot {
 		return daySeries;
 	}
 
+	public void printSlot() {
+		System.out.println("DayTime: " + getDayAndTime());
+		System.out.println("Slot Type: " + getSlotType());
+		System.out.println("Time: " + getTime());
+		System.out.println("Course Min: " + getCoursemin());
+		System.out.println("Course Max: " + getCoursemax());
+		System.out.println("Lab Min: " + getLabmin());
+		System.out.println("Lab Max: " + getLabmax());
+		System.out.println("-------------------------");
+	}
+	
 	public Time getTime() {
 		return time;
 	}

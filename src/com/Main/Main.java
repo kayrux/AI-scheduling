@@ -15,7 +15,7 @@ public class Main {
 		SetbasedSearch setBasedSearch;
 
 		
-		String txtfile = "res/test10.txt"; // Example file
+		String txtfile = "res/test2.txt"; // Example file
 
         ArrayList<Slot> slotArray = parser.parseCourseLabSlots(txtfile);
         ArrayList<CourseLab> courseLabArray = parser.parseCourseLab(txtfile);
@@ -29,21 +29,14 @@ public class Main {
         		partialAssignArray);
         
 
-        ArrayList<Slot> sol;// = setBasedSearch.search();
+        ArrayList<Slot> sol = setBasedSearch.search();
 
-		sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+		//sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
 		
 		int i = 0;
 		for (Slot s : sol) {
 			System.out.println(courseLabArray.get(i).getName());
-			System.out.println("DayTime: " + s.getDayAndTime());
-			System.out.println("Slot Type: " + s.getSlotType());
-			System.out.println("Time: " + s.getTime());
-			System.out.println("Course Min: " + s.getCoursemin());
-			System.out.println("Course Max: " + s.getCoursemax());
-			System.out.println("Lab Min: " + s.getLabmin());
-			System.out.println("Lab Max: " + s.getLabmax());
-			System.out.println("------------");
+			s.printSlot();
 			i++;
 		}
 	}

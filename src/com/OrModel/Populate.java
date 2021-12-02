@@ -39,8 +39,18 @@ public class Populate {
 		if(partialAssign.size() > 0) {
 			Pair<CourseLab, Slot> pAssign;
 			for(int i = 0; i < partialAssign.size(); i++) {
+				
 				pAssign = partialAssign.get(i);
-				fact.set(courseLabs.indexOf(pAssign.getKey()), pAssign.getValue());
+				
+				Slot correctSlot = slotList.get(slotList.indexOf(pAssign.getValue()));
+				Slot s = new Slot(pAssign.getValue());
+				s.setCoursemin(correctSlot.getCoursemin());
+				s.setCourseMax(correctSlot.getCoursemax());
+				s.setLabmin(correctSlot.getLabmin());
+				s.setLabMax(correctSlot.getLabmax());
+				
+				fact.set(courseLabs.indexOf(pAssign.getKey()), s);
+				
 			}
 		}
 		
@@ -50,7 +60,6 @@ public class Populate {
 			if(fact.get(i).getSlotType() == SlotType.EMPTY) {
 				fact.set(i, slotList.get(randSlot));
 			}
-			//System.out.println(randSlot);
 		}
 		
 		// Testing
@@ -59,7 +68,7 @@ public class Populate {
 			System.out.println(s.getDayAndTime());
 		}*/
 		
-		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray)) {
+		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray) == false) {
 			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign));
 		} /*else {
 			System.out.println("Fact Size: " + fact.size());
