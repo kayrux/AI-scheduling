@@ -12,6 +12,22 @@ public class Slot {
 	private int coursemin;
 	private int labmin;
 	
+	/**
+	 * Creates a copy of the given Slot
+	 * @param slot the slot to make a copy of
+	 */
+	public Slot(Slot slot) {
+		this.daySeries = slot.getDaySeries();
+		this.slotType = slot.getSlotType();
+		this.time = new Time(slot.getTime().getHours(), slot.getTime().getMinutes());
+		this.coursemin = slot.getCoursemin();
+		this.coursemax = slot.getCoursemax();
+		this.labmin = slot.getLabmin();
+		this.labmax = slot.getLabmax();
+		
+		initCourseLabCount();
+	}
+	
 	public Slot(DaySeries daySeries, SlotType slotType, int hours, int minutes) {
 		this.daySeries = daySeries;
 		this.slotType = slotType;

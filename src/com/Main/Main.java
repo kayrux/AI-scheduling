@@ -28,12 +28,10 @@ public class Main {
         setBasedSearch = new SetbasedSearch(slotArray, courseLabArray, notCompatibleArray, unwantedArray, preferencesArray, pairArray,
         		partialAssignArray);
         
-        ArrayList<Slot> sol = setBasedSearch.search();
-        
-        // TESTING
-		//ArrayList<Slot> temp;
-		//temp = Populate.PopulateOrTree(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
 
+        ArrayList<Slot> sol = setBasedSearch.search();
+
+		//temp = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
 	}
 	
 
