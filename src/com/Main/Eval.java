@@ -94,11 +94,13 @@ public class Eval {
         int value = 0;
         for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
         {
-            //Checks if index of course or lab corresponds to the wanted slot.
-            if(fact.get(courseLabsArray.indexOf(pref.getCourseLab())) != pref.getSlot())
-            {
-                value += pref.getRanking();
-            }
+            if (courseLabsArray.indexOf(pref.getCourseLab()) != -1){
+                //Checks if index of course or lab corresponds to the wanted slot.
+                if(fact.get(courseLabsArray.indexOf(pref.getCourseLab())) != pref.getSlot())
+                {
+                    value += pref.getRanking();
+                }
+            }   
         }
         return value;
     }
@@ -116,12 +118,17 @@ public class Eval {
         int value = 0;
         for(Pair<CourseLab, CourseLab> pair : pairArray)
         {
-            if(!Objects.equals(
+            if (courseLabsArray.indexOf(pair.getKey()) != -1
+                && courseLabsArray.indexOf(pair.getValue()) != -1){
+
+                if(!Objects.equals(
                     fact.get(courseLabsArray.indexOf(pair.getKey())).getDayAndTime(),
                     fact.get(courseLabsArray.indexOf(pair.getValue())).getDayAndTime()))
-            {
-                value++;
+                {
+                    value++;
+                }
             }
+                
         }
         return value;
     }
