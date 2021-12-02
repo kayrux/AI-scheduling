@@ -7,12 +7,13 @@ import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
-import com.OrModel.*;
+import com.OrModel.Populate;
 
 public class Main {
 	public static void main(String[] args) {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
+
 		
 		String txtfile = "res/ShortExample.txt"; // Example file
 
@@ -30,8 +31,8 @@ public class Main {
         ArrayList<Slot> sol = setBasedSearch.search();
         
         // TESTING
-		ArrayList<Slot> temp;
-		temp = Populate.PopulateOrTree(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+		//ArrayList<Slot> temp;
+		//temp = Populate.PopulateOrTree(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
 
 	}
 	

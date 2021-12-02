@@ -10,7 +10,7 @@ class NodeTemp extends Populate {
 	
 	NodeTemp() {
 		this.value = null;
-        children = null;
+        children = new ArrayList<NodeTemp>();
 	}
 	
 	NodeTemp(Slot v, Slot p) {
