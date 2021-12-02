@@ -18,8 +18,13 @@ public class CourseLab {
         this.type = type;
 	}
 	
-	public boolean equals(CourseLab cl) {
-		if (this.hash.equals(cl.getHash())) return true;
+	@Override
+	public boolean equals(Object o) {
+		if (o.getClass() == CourseLab.class) {
+			CourseLab c = (CourseLab) o;
+			if (this.hash.equals(c.getHash())) return true;
+			else return false;
+		}
 		else return false;
 	}
 	
