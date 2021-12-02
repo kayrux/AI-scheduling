@@ -58,12 +58,22 @@ public class Constr {
             if (s.getSlotType() == SlotType.COURSE){
 
                 for (Slot c : factsArray) {
-
+                	//Testing
+                	//System.out.println(c.getDayAndTime());
+                	
+                	CourseLab cl = courseLabs.get(factsArray.indexOf(s));
+                	
+                	//System.out.println(s.getDayAndTime());
+                	
                     String courseName = courseLabs.get(factsArray.indexOf(s)).getName();
                     Time courseTime = s.getTime();
+                    
+                    /*if (factsArray.indexOf(c) == -1) {
+                    	System.out.println("Error");
+                    }*/
 
                     // Checks if the name of the course is the same as s AND c is a lab/tutorial
-                    if (courseLabs.get(factsArray.indexOf(c)).getName().equals(courseName) && c.getSlotType() == SlotType.LAB){
+                    if (courseLabs.get(factsArray.indexOf(c)).equals(cl) && c.getSlotType() == SlotType.LAB){
 
                         // Checks if the time of the lab/tutorial is the same as the courseTime
                         if (c.getTime().equals(courseTime)){
