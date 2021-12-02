@@ -39,10 +39,14 @@ public class Slot {
 		this.daySeries = daySeries;
 		this.slotType = slotType;
 		this.time = new Time(hours, minutes);
-		this.coursemin = coursemin;
-		this.coursemax = coursemax;
-		this.labmin = labmin;
-		this.labmax = labmax;
+		this.setCoursemin(coursemin);
+		this.setCourseMax(coursemax);
+		this.setLabmin(labmin);
+		this.setLabMax(labmax);
+		//this.coursemin = coursemin;
+		//this.coursemax = coursemax;
+		//this.labmin = labmin;
+		//this.labmax = labmax;
 		initCourseLabCount();
 		checkSlotType();
 		if (daySeries == DaySeries.FR && coursemax > 0) {
@@ -158,18 +162,22 @@ public class Slot {
 	
 	public void setLabMax(int max) {
 		if (max >= 0) this.labmax = max;
+		else this.labmax = 0;
 	}
 	
 	public void setCourseMax(int max) {
 		if (max >= 0) this.coursemax = max;
+		else this.coursemax = 0;
 	}
 	
 	public void setCoursemin(int coursemin) {
-		this.coursemin = coursemin;
+		if (coursemin >= 0) this.coursemin = coursemin;
+		else this.coursemin = 0;
 	}
 
 	public void setLabmin(int labmin) {
-		this.labmin = labmin;
+		if (labmin >= 0) this.labmin = labmin;
+		else this.labmin = 0;
 	}
 	
 	public DaySeries getDaySeries() {

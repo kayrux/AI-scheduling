@@ -57,7 +57,10 @@ public class SetbasedSearch {
 		
 	}
 	
-	
+	/**
+	 * Performs Setbased search
+	 * @return a good enough fact
+	 */
 	public ArrayList<Slot> search() {
 		long startTime = System.nanoTime();
 		long currentTime = startTime;
@@ -67,7 +70,6 @@ public class SetbasedSearch {
 		
 		// Populate
 		for (int i = 0; i < INITIAL_POP_SIZE; i ++) {
-			System.out.println("Looping");
 			facts.add(Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList));
 		}
 		
@@ -86,7 +88,6 @@ public class SetbasedSearch {
 		//Loop (time based and/or based on number of iterations passed without improvement)
 		while((noImprovementCounter < MAX_ITERATIONS_NO_IMPROVEMENT) && withinTimeLimit(startTime, currentTime)) {
 			// Check if decay is necessary
-			//System.out.println("Looping");
 			if (facts.size() > MAX_POP_SIZE) {
 				updateCurrentEvals();
 				decay();
