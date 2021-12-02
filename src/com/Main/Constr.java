@@ -40,6 +40,8 @@ public class Constr {
             }
 
             // Checks how often that specific time slot appears in the facts array
+            //System.out.print(Collections.frequency(factsArray, s));
+            //System.out.println(" " + max);
             if(Collections.frequency(factsArray, s) > max)
             {
                 return false;
