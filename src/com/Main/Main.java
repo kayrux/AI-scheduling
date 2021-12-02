@@ -29,9 +29,9 @@ public class Main {
         		partialAssignArray);
         
 
-        ArrayList<Slot> sol = setBasedSearch.search();
+        ArrayList<Slot> sol;// = setBasedSearch.search();
 
-		//temp = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+		sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
 	}
 	
 
