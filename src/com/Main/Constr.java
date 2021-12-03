@@ -177,17 +177,20 @@ public class Constr {
 
     // All courses that are LEC 9 or higher are in the evening
     private static boolean eveningCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
-        for (Slot s: factsArray){
 
-            // Checks whether the course lecture number is greater than 9
-            if (courseLabs.get(factsArray.indexOf(s)).getLectureNumber() >= 9){
+    	for (int i=0; i<factsArray.size(); i++)
+    	{
+    		if (courseLabs.get(i).getLectureNumber() >= 9)
+    		{
+    			if (factsArray.get(i).getTime().getHours() < 18 | factsArray.get(i).getTime().getHours() > 24)
+    			{
+    			return false	;
+    			}
+    		}
 
-                // Checks the hour of the timeslow and whether the time is less than 18 or greater than 24
-                if (s.getTime().getHours() < 18 | s.getTime().getHours() > 24){
-                    return false;
-                }
-            }
-        }
+    		
+    	}
+    	
         return true;
     }
 
@@ -237,10 +240,17 @@ public class Constr {
          ArrayList<Time> seenTimes913 = new ArrayList();
         
         for (Slot s : factsArray){
+        	
+        	// Ensures only CPSC 813 and 913 are in TU 18:00
+        	if (s.getDayAndTime() == "TU 18:00" 
+                    && (courseLabs.get(factsArray.indexOf(s)).getName() == "CPSC 813" 
+                    || courseLabs.get(factsArray.indexOf(s)).getName() == "CPSC 913")){
+                        return false;
+                    }
 
             // Checks if course is part of CPSC 813
-            if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 813")
-                || courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 913")){
+            if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813")
+                || courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913")){
 
                 // If the course is CPSC 813 or 913 Lecture it is TTH 18:00
                 if (courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC")){
@@ -251,13 +261,13 @@ public class Constr {
 
                     // If the course name contains CPSC 813 but is not a lecture add the time to seenTimes813
                     // These would be all lab/tutorial times for course CPSC 813
-                    if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 813")){
+                    if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813")){
                         seenTimes813.add(s.getTime());
                     }
 
                     // If the course name contains CPSC 913 but is not a lecture add the time to seenTimes913
                     // These would be all lab/tutorial times for course CPSC 813
-                    if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC 913")){
+                    if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913")){
                         seenTimes913.add(s.getTime());
                     }
                 }
@@ -268,17 +278,17 @@ public class Constr {
         for (CourseLab c : courseLabs){
             
             //Checks if course is either CPSC 313 or CPSC 413 tutorial/lab
-            if ((c.getName().equals("CPSC 313") || c.getName().equals("CPSC 413")) && c.getType().equals("LAB")){
+            if ((c.getName().equals("CPSC313") || c.getName().equals("CPSC413")) && c.getType().equals("LAB")){
 
                 // If the course is CPSC 313 tutorial/lab
-                if (c.getName().equals("CPSC 313")){
+                if (c.getName().equals("CPSC313")){
                     if (seenTimes813.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
                         return false;
                     }
                 }
                 
                 // If the course is CPSC 413 tutorial/lab
-                if (c.getName().equals("CPSC 413")){
+                if (c.getName().equals("CPSC413")){
                     if (seenTimes913.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
                         return false;
                     }

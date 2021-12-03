@@ -94,7 +94,10 @@ public class Populate {
 		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray) == false) {
 			numIterations++;
 			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
-		} /*else {
+		}   
+		
+		/*else {
+		}
 			System.out.println("Fact Size: " + fact.size());
 			System.out.println("courseLabs Size: " + courseLabs.size());
 			//System.out.println(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray));
