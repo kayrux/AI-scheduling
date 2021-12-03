@@ -1,5 +1,10 @@
 package com.Main;
 
+import com.DataStructures.CourseLab;
+import com.DataStructures.Pair;
+import com.DataStructures.Slot;
+import com.DataStructures.Triplet;
+
 //Used for debugging/testing.
 //import com.Main.Parser;
 
@@ -87,14 +92,39 @@ public class Eval {
                          ArrayList<Triplet<Slot, CourseLab, Integer>> prefArray)
     {
         int value = 0;
+
         for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
         {
-            //Checks if index of course or lab corresponds to the wanted slot.
-            if(fact.get(courseLabsArray.indexOf(pref.getCourseLab())) != pref.getSlot())
+            if(!fact.get(courseLabsArray.indexOf(pref.getCourseLab())).equals(pref.getSlot()))
             {
                 value += pref.getRanking();
             }
         }
+
+//        for (Slot s : fact){
+//
+//            for(Triplet<Slot, CourseLab, Integer> pref : prefArray){
+//
+//                if (courseLabsArray.get(fact.indexOf(s)).equals(pref.getCourseLab())){
+//
+//                    if(!s.equals(pref.getSlot())){
+//                        value += pref.getRanking();
+//                    }
+//                }
+//            }
+//        }
+
+        //for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
+        //{
+        //    if (courseLabsArray.indexOf(pref.getCourseLab()) != -1
+        //        && ){
+        //        //Checks if index of course or lab corresponds to the wanted slot.
+        //        if(fact.get(courseLabsArray.indexOf(pref.getCourseLab())) != pref.getSlot())
+        //        {
+        //            value += pref.getRanking();
+        //        }
+        //    }   
+        //}
         return value;
     }
 
@@ -111,13 +141,17 @@ public class Eval {
         int value = 0;
         for(Pair<CourseLab, CourseLab> pair : pairArray)
         {
-            Slot first = fact.get(courseLabsArray.indexOf(pair.getKey()));
-            Slot second = fact.get(courseLabsArray.indexOf(pair.getValue()));
-            //Can't directly compare because slots for labs and courses are different.
-            if(first.getDaySeries() != second.getDaySeries() || first.getTime() != second.getTime())
-            {
-                value++;
+            if (courseLabsArray.contains(pair.getKey())
+                && courseLabsArray.contains(pair.getValue())){
+
+                if(!Objects.equals(
+                    fact.get(courseLabsArray.indexOf(pair.getKey())).getDayAndTime(),
+                    fact.get(courseLabsArray.indexOf(pair.getValue())).getDayAndTime()))
+                {
+                    value++;
+                }
             }
+                
         }
         return value;
     }
@@ -132,28 +166,23 @@ public class Eval {
     {
         int value = 0;
         //Used for checking if time was seen before.
-        Set<Pair<DaySeries, Time>> seenSlots = new HashSet<>();
+        Set<String> seenSlots = new HashSet<>();
 
-        //Sorts a list of indices based off of the name of the course.
-        //Used to improve speed of evaluation.
-        Integer[] sortedCourseLabIndices = IntStream.range(0, courseLabsArray.size()).boxed().
-                sorted(Comparator.comparing(i -> courseLabsArray.get(i).getName()))
-                .toArray(Integer[]::new);
-
-        for(int i = 0; i < sortedCourseLabIndices.length; i++)
+        //Note slots are already sorted, and thus we can perform the following.
+        for(int i = 0; i < courseLabsArray.size(); i++)
         {
-            String courseName = courseLabsArray.get(sortedCourseLabIndices[i]).getName();
-            seenSlots.add(new Pair<>(fact.get(sortedCourseLabIndices[i]).getDaySeries(), fact.get(sortedCourseLabIndices[i]).getTime()));
+            String courseName = courseLabsArray.get(i).getName();
+            seenSlots.add(fact.get(i).getDayAndTime());
 
-            while(i + 1 < sortedCourseLabIndices.length)
+            while(i + 1 < courseLabsArray.size())
             {
                 i++;
                 //Checks if next element is part of the same course.
-                if(Objects.equals(courseName, courseLabsArray.get(sortedCourseLabIndices[i]).getName()))
+                if(Objects.equals(courseName, courseLabsArray.get(i).getName()))
                 {
                     //Checks if this time has already been seen for some other section of the course
                     //and records the time.
-                    if(!seenSlots.add(new Pair<>(fact.get(sortedCourseLabIndices[i]).getDaySeries(), fact.get(sortedCourseLabIndices[i]).getTime())))
+                    if(!seenSlots.add(fact.get(i).getDayAndTime()))
                     {
                         value++;
                     }

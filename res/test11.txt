@@ -1,0 +1,28 @@
+// 500 Level courses are provided with only 1 time slot 
+// Expected: Error? Since it violates hard constraint
+
+Course slots:
+MO,8:00,4,2
+
+Lab slots:
+MO, 8:00, 4, 2
+TU, 10:00,2,1
+FR, 10:00, 2, 1
+
+Courses:
+CPSC 500 LEC 01
+CPSC 501 LEC 02
+CPSC 502 LEC 01
+CPSC 503 LEC 01
+
+Labs:
+
+Not compatible:
+
+Unwanted:
+
+Preferences:
+
+Pair:
+
+Partial assignments:

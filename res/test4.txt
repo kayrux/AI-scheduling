@@ -1,0 +1,31 @@
+// CPSC 813 CPSC 913 courses provided, but their course slots not provided
+// Expected: Error message explaining why
+
+
+Course slots:
+MO,8:00,3,2
+MO,9:00,3,2
+TU, 9:30, 2,  1
+
+Lab slots:
+MO, 8:00, 4, 2
+TU, 10:00,2,1
+FR, 10:00, 2, 1
+
+Courses:
+CPSC 813 LEC 01
+CPSC 913 LEC 02
+
+Labs:
+
+Not compatible:
+
+Unwanted:
+
+Preferences:
+
+Pair:
+
+Partial assignments:
+
+

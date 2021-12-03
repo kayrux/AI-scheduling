@@ -1,0 +1,33 @@
+// Testing Preferences 1-10 rankings. There is one course slot for CPSC 100 and CPSC 101, both with rank 10 
+// Expected: Assigning slots based on rankings
+// CPSC 100 LEC 01 : MO, 8:00
+// CPSC 101 LEC 01: MO, 9:00
+
+Course slots:
+MO,8:00,1,1
+MO,9:00,3,2
+TU, 9:30, 2,  1
+
+Lab slots:
+MO, 8:00, 4, 2
+TU, 10:00,2,1
+FR, 10:00, 2, 1
+
+Courses:
+CPSC 100 LEC 01
+CPSC 101 LEC 01
+
+Labs:
+
+Not compatible:
+
+Unwanted:
+
+Preferences:
+MO, 8:00, CPSC 100 LEC 01, 10
+MO, 8:00, CPSC 101 LEC 01, 10
+
+Pair:
+
+Partial assignments:
+
