@@ -6,6 +6,7 @@ import java.util.Random;
 import com.DataStructures.CourseLab;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
 import com.DataStructures.Triplet;
 import com.Main.Eval;
 import com.OrModel.Crossover;
@@ -40,7 +41,7 @@ public class SetbasedSearch {
 			ArrayList<Pair<CourseLab, Slot>> unwantedArray,
             ArrayList<Triplet<Slot, CourseLab, Integer>> prefArray,
             ArrayList<Pair<CourseLab, CourseLab>> pairArray,
-            ArrayList<Pair<CourseLab, Slot>> partialAssignArray) {
+            ArrayList<Pair<CourseLab, Slot>> partialAssignArray, Eval eval) {
 		
 		facts = new ArrayList<ArrayList<Slot>>();
 		currentEvals = new ArrayList<Integer>();
@@ -52,7 +53,7 @@ public class SetbasedSearch {
 		this.partialAssignList = partialAssignArray;
 		this.pairArray = pairArray;
 		
-		this.eval = new Eval(1,1,1,1);	// Set weights for Eval
+		this.eval = eval;	// Set weights for Eval
 		this.rand = new Random();
 		
 	}
@@ -70,7 +71,9 @@ public class SetbasedSearch {
 		
 		// Populate
 		for (int i = 0; i < INITIAL_POP_SIZE; i ++) {
-			facts.add(Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList));
+			ArrayList<Slot> f = Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList);
+			if (this.evalFact(f) == 0) return f; // Returns most optimal solution if found
+			facts.add(f);
 		}
 		
 		if (facts.isEmpty()) {
@@ -95,11 +98,12 @@ public class SetbasedSearch {
 			}
 			
 			// Choose fact1, and fact2 to pass to Crossover
-			highestEval = this.getHighestEval(facts);
+			
 			fact1 = this.getFactWithLowestEval(facts);
 			//System.out.println("Lowest Eval: " + evalFact(fact1));
 			
 			//System.out.println("Cross");
+			highestEval = this.getHighestEval(facts);
 			fact2 = this.getFactViaStochasticAcceptance(highestEval, fact1);
 			//System.out.println("After Cross");
 			
@@ -120,6 +124,7 @@ public class SetbasedSearch {
 				currentEvals.add(evalFact(newFact));	// Add evaluation of fact to cached evals
 
 				currentEval = this.evalFact(newFact); // Update currentEval
+				if (currentEval == 0) return newFact;	// Returns most optimal solution if found
 			}
 
 			// Updates the lowest evaluation and the counter for no. iterations without improvement
@@ -134,6 +139,8 @@ public class SetbasedSearch {
 		// Return best fact based on Eval.eval(...)
 		return getFactWithLowestEval(facts);
 	}
+	
+
 	
 	
 	/** 
@@ -161,6 +168,7 @@ public class SetbasedSearch {
 			}
 			
 			tempEval = eval.eval(fact2, slotsArray, courseLabArray, prefArray, pairArray);	// Evaluation of fact2;
+			if (highestEval == 0) break;
 			pAccept = ((highestEval - tempEval) * 100) / highestEval;	// Percentage chance that fact2 is accepted
 			if (this.generateRandomInt(0, 100) < pAccept) break;
 			if (counter > max_iterations) break;	// If pAccept is too low, max iterations will stop from looping too many times
