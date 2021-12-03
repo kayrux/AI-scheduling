@@ -107,7 +107,7 @@ public class Constr {
                     // Then ensures their times are different
                     if (courseLabsArray.indexOf(nc.getValue()) <= factsArray.size() 
                         && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())){
-
+                    	
                         // Checks if the times are the same
                         if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == 
                         factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime()){
@@ -127,7 +127,6 @@ public class Constr {
                         }
                     }
                 }
-                
             }
         }
         return true;
@@ -174,7 +173,7 @@ public class Constr {
             if (courseLabs.get(factsArray.indexOf(s)).getLectureNumber() >= 9){
 
                 // Checks the hour of the timeslow and whether the time is less than 18 or greater than 24
-                if (s.getTime().getHours() < 18 && s.getTime().getHours() > 24){
+                if (s.getTime().getHours() < 18 | s.getTime().getHours() > 24){
                     return false;
                 }
             }
