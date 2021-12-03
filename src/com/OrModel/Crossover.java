@@ -15,6 +15,18 @@ import java.util.Random;
  * @author Jhy-An Chen (30071972)
  */
 public class Crossover {
+	
+	// There are two issues:
+	// First and most importantly the crossover is not checking for the best Eval of the possible time slots
+	// It is instead just randomly picking a time slot from the possible options
+	// Secondly the ordering is that it picks the first time slot first then the second time slot second
+	// This is a realtively easy fix:
+	//		Create an new courseLab ArrayList randomCourseList
+	//		While loop it until randomCourseList.size() == courseLab.size()
+	//		Generate a random number with randomIndex = rand.nextInt(courseLab.size())
+	//		If randomCourseList.contains(courseLab.get(randomIndex)) do nothing
+	//		Else randomCourseList.add(courseLabs.get(randomIndex))
+	//		In theory, this should generate a random list of course labs
 
 	/**
 	 * Creates a new fact from a crossover of two facts.
