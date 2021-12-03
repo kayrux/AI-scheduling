@@ -212,7 +212,7 @@ public class Constr {
         for(Slot s: factsArray){
 
             // Ensures that course is a lecture, and then checks whether the time of that course is 11:00 or not
-            if (s.getSlotType() == SlotType.COURSE && s.getDayAndTime().contains("11:00")){
+            if (s.getSlotType() == SlotType.COURSE && s.getTime().toString().contains("11:00") && s.getDaySeries().toString().contains("TU")){
                 return false;
             }
         }
