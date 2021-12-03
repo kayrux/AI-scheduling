@@ -65,21 +65,24 @@ public class Crossover {
 			Boolean containsBSlot = possibleSlots.contains(BSlot);
 
 			//Changes possible slots to only consider slots used by parents at the same index if possible.
-			if(containsASlot && containsBSlot)
+			if(rand.nextInt(10) > 1)
 			{
-				possibleSlots.clear();
-				possibleSlots.add(ASlot);
-				possibleSlots.add(BSlot);
-			}
-			else if(containsASlot)
-			{
-				possibleSlots.clear();
-				possibleSlots.add(ASlot);
-			}
-			else if(containsBSlot)
-			{
-				possibleSlots.clear();
-				possibleSlots.add(BSlot);
+				if(containsASlot && containsBSlot)
+				{
+					possibleSlots.clear();
+					possibleSlots.add(ASlot);
+					possibleSlots.add(BSlot);
+				}
+				else if(containsASlot)
+				{
+					possibleSlots.clear();
+					possibleSlots.add(ASlot);
+				}
+				else if(containsBSlot)
+				{
+					possibleSlots.clear();
+					possibleSlots.add(BSlot);
+				}
 			}
 
 			//If there are no possible slots, backtrack.
