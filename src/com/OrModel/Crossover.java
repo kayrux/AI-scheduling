@@ -15,6 +15,31 @@ import java.util.Random;
  * @author Jhy-An Chen (30071972)
  */
 public class Crossover {
+	
+	// There are two issues:
+	// First and most importantly the crossover is not checking for the best Eval of the possible time slots
+	// It is instead just randomly picking a time slot from the possible options
+	// To fix this replace line C.add(slots.get(possibleSlots.get(rand.nextInt(possibleSlots.size())))); with :
+	//		The instantiation of two cariables Int minimumEval and ArrayList<Integer> indexOfMinimumEval
+	//		A for loop that goes while i < possibleTimeSlots.size()
+	//			C.add(slots.get(possibleTimeSlots.get(i))
+	//			int currentEval = Eval of C
+	//			if currentEval < minimumEval
+	//				indexOfMinimumEval.clear()
+	//				indexOfMinimumEval.add(i)
+	//			else if currentEval = minimumEval
+	//				indexOfMinimumEval.add(i)
+	//			C.remove(C.size()-1)
+	//		C.add(slots.get(indexOfMinimumEval.get(rand.nextInt(indexOfMinimumEval.size()))));
+	//		This should in theory check all possible Evals of the possible timeslots then random pick of out of the time slots that give the lowest Eval
+	// Secondly the ordering is that it picks the first time slot first then the second time slot second
+	// This is a realtively easy fix:
+	//		Create an new courseLab ArrayList randomCourseList
+	//		While loop it until randomCourseList.size() == courseLab.size()
+	//		Generate a random number with randomIndex = rand.nextInt(courseLab.size())
+	//		If randomCourseList.contains(courseLab.get(randomIndex)) do nothing
+	//		Else randomCourseList.add(courseLabs.get(randomIndex))
+	//		In theory, this should generate a random list of course labs
 
 	/**
 	 * Creates a new fact from a crossover of two facts.
@@ -44,6 +69,7 @@ public class Crossover {
 			{
 				ArrayList<Slot> constrC = new ArrayList<>(C);
 				
+				// Fails test15.txt (courseLabs.size() > slots.size(), so index out of bound error)
 				if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
 					if (slots.get(i).getSlotType() == SlotType.LAB) System.out.println("---------LAB---------");
 					constrC.add(slots.get(i));
@@ -65,21 +91,24 @@ public class Crossover {
 			Boolean containsBSlot = possibleSlots.contains(BSlot);
 
 			//Changes possible slots to only consider slots used by parents at the same index if possible.
-			if(containsASlot && containsBSlot)
+			if(rand.nextInt(10) > 1)
 			{
-				possibleSlots.clear();
-				possibleSlots.add(ASlot);
-				possibleSlots.add(BSlot);
-			}
-			else if(containsASlot)
-			{
-				possibleSlots.clear();
-				possibleSlots.add(ASlot);
-			}
-			else if(containsBSlot)
-			{
-				possibleSlots.clear();
-				possibleSlots.add(BSlot);
+				if(containsASlot && containsBSlot)
+				{
+					possibleSlots.clear();
+					possibleSlots.add(ASlot);
+					possibleSlots.add(BSlot);
+				}
+				else if(containsASlot)
+				{
+					possibleSlots.clear();
+					possibleSlots.add(ASlot);
+				}
+				else if(containsBSlot)
+				{
+					possibleSlots.clear();
+					possibleSlots.add(BSlot);
+				}
 			}
 
 			//If there are no possible slots, backtrack.
