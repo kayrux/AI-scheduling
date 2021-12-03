@@ -19,6 +19,19 @@ public class Crossover {
 	// There are two issues:
 	// First and most importantly the crossover is not checking for the best Eval of the possible time slots
 	// It is instead just randomly picking a time slot from the possible options
+	// To fix this replace line C.add(slots.get(possibleSlots.get(rand.nextInt(possibleSlots.size())))); with :
+	//		The instantiation of two cariables Int minimumEval and ArrayList<Integer> indexOfMinimumEval
+	//		A for loop that goes while i < possibleTimeSlots.size()
+	//			C.add(slots.get(possibleTimeSlots.get(i))
+	//			int currentEval = Eval of C
+	//			if currentEval < minimumEval
+	//				indexOfMinimumEval.clear()
+	//				indexOfMinimumEval.add(i)
+	//			else if currentEval = minimumEval
+	//				indexOfMinimumEval.add(i)
+	//			C.remove(C.size()-1)
+	//		C.add(slots.get(indexOfMinimumEval.get(rand.nextInt(indexOfMinimumEval.size()))));
+	//		This should in theory check all possible Evals of the possible timeslots then random pick of out of the time slots that give the lowest Eval
 	// Secondly the ordering is that it picks the first time slot first then the second time slot second
 	// This is a realtively easy fix:
 	//		Create an new courseLab ArrayList randomCourseList
