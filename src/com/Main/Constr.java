@@ -90,7 +90,7 @@ public class Constr {
         return true;
     }
     
-    // Courses and labs/tutorial noncompatibility
+        // Courses and labs/tutorial noncompatibility
     private static boolean noncompatibleClasses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabsArray,
         ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray){
 
@@ -99,35 +99,45 @@ public class Constr {
             
             for (Pair<CourseLab, CourseLab> nc: noncompatibleArray){
 
-                // Checks to see if s is equal to either key or value
-                if (courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())
-                    || courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+                // Checks to see if both Key and Value are in the course list
+                if (courseLabsArray.contains(nc.getKey()) 
+                    && courseLabsArray.contains(nc.getValue())){
 
-                    // If the course is a key, checks to see the value is in the facts array,
-                    // Then ensures their times are different
-                    if (courseLabsArray.indexOf(nc.getValue()) <= factsArray.size() 
-                        && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())){
-                    	
-                        // Checks if the times are the same
-                        if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == 
-                        factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime()){
-                            return false;
-                        }
-                    }
+                    // Checks to seeif both Key and Value are in the facts list
+                    if (courseLabsArray.indexOf(nc.getKey()) < factsArray.size() 
+                        && courseLabsArray.indexOf(nc.getValue()) < factsArray.size()){
 
-                    // If the course is a value, checks to see the key is in the facts array,
-                    // Then ensures their times are different
-                    if (courseLabsArray.indexOf(nc.getKey()) <= factsArray.size()
-                        && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+                        // Checks to see if s is equal to either key or value
+                        if (courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())
+                        || courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
 
-                        // Checks if the times are the same
-                        if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime() == 
-                        factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime()){
-                            return false;
+                            // If the course is a key, checks to see the value is in the facts array,
+                            // Then ensures their times are different
+                            if (courseLabsArray.indexOf(nc.getValue()) <= factsArray.size() 
+                                && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())){
+
+                                // Checks if the times are the same
+                                if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == 
+                                factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime()){
+                                    return false;
+                                }
+                            }
+
+                            // If the course is a value, checks to see the key is in the facts array,
+                            // Then ensures their times are different
+                            if (courseLabsArray.indexOf(nc.getKey()) <= factsArray.size()
+                                && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+
+                                // Checks if the times are the same
+                                if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime() == 
+                                factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime()){
+                                    return false;
+                                }
+                            }
                         }
                     }
                 }
-            }
+            }   
         }
         return true;
     }
