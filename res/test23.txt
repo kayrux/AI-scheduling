@@ -1,3 +1,5 @@
+//Expected: Impossible to populate
+
 Course slots:
 MO, 8:00, 2, 1
 

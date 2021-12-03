@@ -20,7 +20,7 @@ public class Constr {
     public boolean constr(ArrayList<Slot> factsArray, ArrayList<Slot> slotsArray, ArrayList<CourseLab> courseLabs,
         ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, ArrayList<Pair<CourseLab, Slot>> unwantedArray)
     {
-        return maxTimes(factsArray, slotsArray) && differentTimes(factsArray, courseLabs)
+        return maxTimes(factsArray, slotsArray, courseLabs) && differentTimes(factsArray, courseLabs)
             && noncompatibleClasses(factsArray, courseLabs, noncompatibleArray) 
             && unwantedTimes(factsArray, courseLabs, unwantedArray) && eveningCourses(factsArray, courseLabs)
             && fiveHunderedLevelCourses(factsArray, courseLabs) && noCourseScheduled(factsArray)
@@ -28,22 +28,44 @@ public class Constr {
     }
 
     //Max course and Max Labs per time-slot
-    private static boolean maxTimes(ArrayList<Slot> factsArray, ArrayList<Slot> slotsArray)
+    private static boolean maxTimes(ArrayList<Slot> factsArray, ArrayList<Slot> slotsArray, ArrayList<CourseLab> courseLabArray)
     {
         for(Slot s : slotsArray)
         {
+        	//This new Version causes errors as almost every test ends up Impossible to populate.
+//        	int courseMax = s.getCoursemax();
+//        	int labMax = s.getLabmax();
+//        	int courseCount = 0;
+//        	int labCount = 0;
+//        	
+//        	for(int i = 0; i < factsArray.size(); i++)
+//        	{
+//        		if(courseLabArray.get(i).getType().equals("COURSE"))
+//        		{
+//        			courseCount++;
+//        		}
+//        		else
+//        		{
+//        			labCount++;
+//        		}
+//        	}
+//        	if(courseCount > courseMax || labCount > labMax)
+//        	{
+//        		return false;
+//        	}
             // Get the max number of Courses or Labs for each time slot
             int max = s.getCoursemax();
             if(max == 0)
             {
                 max = s.getLabmax();
             }
-
+            int labMax = s.getLabmax();
             // Checks how often that specific time slot appears in the facts array
             //System.out.print(Collections.frequency(factsArray, s));
             //System.out.println(" " + max);
             if(Collections.frequency(factsArray, s) > max)
             {
+            	//System.out.println();
                 return false;
             }
         }
@@ -181,9 +203,9 @@ public class Constr {
 
             // Checks whether the course lecture number is greater than 9
             if (courseLabs.get(factsArray.indexOf(s)).getLectureNumber() >= 9){
-
+            	
                 // Checks the hour of the timeslow and whether the time is less than 18 or greater than 24
-                if (s.getTime().getHours() < 18 | s.getTime().getHours() > 24){
+                if (s.getTime().getHours() < 18 || s.getTime().getHours() > 24){
                     return false;
                 }
             }
