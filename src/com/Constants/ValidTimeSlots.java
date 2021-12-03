@@ -30,6 +30,9 @@ public class ValidTimeSlots {
             new Slot(DaySeries.MO, SlotType.LAB, 14, 0),
             new Slot(DaySeries.MO, SlotType.LAB, 15, 0),
             new Slot(DaySeries.MO, SlotType.LAB, 16, 0),
+            
+            // Special slot only for CPSC 813 and 913
+            new Slot(DaySeries.TU, SlotType.COURSE, 18, 0),
 
             //new Slot(DaySeries.MO, SlotType.BOTH, 8, 0),
             //new Slot(DaySeries.MO, SlotType.BOTH, 9, 0),
