@@ -1,5 +1,6 @@
 package com.DataStructures;
 
+import java.util.ArrayList;
 
 public class Slot {
 	private SlotType slotType;
@@ -88,6 +89,25 @@ public class Slot {
 	}
 	
 
+	/**
+	 * Compares a course type with a slot type and returns true if they match.
+	 * @param courseIndex index of the course
+	 * @param slotIndex index of the slot
+	 * @return true if course type matches slot type
+	 */
+	public static boolean compareType(int courseIndex, int slotIndex, ArrayList<CourseLab> courseLabArray, ArrayList<Slot> slotsArray) {
+		if (courseLabArray.get(courseIndex).getType().equals("LEC") && slotsArray.get(slotIndex).getSlotType() == SlotType.COURSE){
+        	//fact.set(i, slotsArray.get(randSlot));
+        	return true;
+        }
+        if ((courseLabArray.get(courseIndex).getType().equals("TUT") || courseLabArray.get(courseIndex).getType().equals("LAB")) 
+                && slotsArray.get(slotIndex).getSlotType() == SlotType.LAB){
+        	//fact.set(i, slotsArray.get(randSlot));
+        	return true;
+        }
+        return false;
+	}
+	
 	// Adds a course to the slot. Returns 1 if the add was successful, -1 otherwise.
 	public int addCourse() {
 		if (courseSlotsAvailable() == true) {

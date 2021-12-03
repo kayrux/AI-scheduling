@@ -70,8 +70,10 @@ public class Crossover {
 				ArrayList<Slot> constrC = new ArrayList<>(C);
 				
 				// Fails test15.txt (courseLabs.size() > slots.size(), so index out of bound error)
-				if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
-					if (slots.get(i).getSlotType() == SlotType.LAB) System.out.println("---------LAB---------");
+				if (Slot.compareType(C.size(), i, courseLabs, slots)) {
+					
+				//if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
+					//if (slots.get(i).getSlotType() == SlotType.LAB);; //System.out.println("---------LAB---------");
 					constrC.add(slots.get(i));
 					if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray))
 					{
@@ -126,5 +128,6 @@ public class Crossover {
 
 		return C;
 	}
+	
 	
 }
