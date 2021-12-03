@@ -13,8 +13,8 @@ public class Main {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
 
-		
 		String txtfile = "res/test15.txt"; // Example file
+
 
         ArrayList<Slot> slotArray = parser.parseCourseLabSlots(txtfile);
         ArrayList<CourseLab> courseLabArray = parser.parseCourseLab(txtfile);
