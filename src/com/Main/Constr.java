@@ -24,7 +24,7 @@ public class Constr {
             && noncompatibleClasses(factsArray, courseLabs, noncompatibleArray) 
             && unwantedTimes(factsArray, courseLabs, unwantedArray) && eveningCourses(factsArray, courseLabs)
             && fiveHunderedLevelCourses(factsArray, courseLabs) && noCourseScheduled(factsArray)
-            && specialCourses(factsArray, courseLabs);
+            && specialCourses(factsArray, courseLabs) && accurateTimetoCourseAndLabs(factsArray, courseLabs, slotsArray);
     }
 
     //Max course and Max Labs per time-slot
@@ -40,6 +40,8 @@ public class Constr {
             }
 
             // Checks how often that specific time slot appears in the facts array
+            //System.out.print(Collections.frequency(factsArray, s));
+            //System.out.println(" " + max);
             if(Collections.frequency(factsArray, s) > max)
             {
                 return false;
@@ -58,12 +60,22 @@ public class Constr {
             if (s.getSlotType() == SlotType.COURSE){
 
                 for (Slot c : factsArray) {
-
+                	//Testing
+                	//System.out.println(c.getDayAndTime());
+                	
+                	CourseLab cl = courseLabs.get(factsArray.indexOf(s));
+                	
+                	//System.out.println(s.getDayAndTime());
+                	
                     String courseName = courseLabs.get(factsArray.indexOf(s)).getName();
                     Time courseTime = s.getTime();
+                    
+                    /*if (factsArray.indexOf(c) == -1) {
+                    	System.out.println("Error");
+                    }*/
 
                     // Checks if the name of the course is the same as s AND c is a lab/tutorial
-                    if (courseLabs.get(factsArray.indexOf(c)).getName().equals(courseName) && c.getSlotType() == SlotType.LAB){
+                    if (courseLabs.get(factsArray.indexOf(c)).equals(cl) && c.getSlotType() == SlotType.LAB){
 
                         // Checks if the time of the lab/tutorial is the same as the courseTime
                         if (c.getTime().equals(courseTime)){
@@ -87,38 +99,34 @@ public class Constr {
             
             for (Pair<CourseLab, CourseLab> nc: noncompatibleArray){
 
-                //Checks to see if both key and value exist in the course labs
-                if (courseLabsArray.indexOf(nc.getValue()) != -1 
-                    && courseLabsArray.indexOf(nc.getKey()) != -1){
+                // Checks to see if s is equal to either key or value
+                if (courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())
+                    || courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
 
-                    // Checks to see if s is equal to either key or value
-                    if (courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())
-                        || courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
-
-                        // If the course is a key, checks to see the value is in the facts array,
-                        // Then ensures their times are different
-                        if (courseLabsArray.indexOf(nc.getValue()) <= factsArray.size() 
-                            && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())){
-
-                            // Checks if the times are the same
-                            if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime().equals(factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime())){
-                                return false;
-                            }
+                    // If the course is a key, checks to see the value is in the facts array,
+                    // Then ensures their times are different
+                    if (courseLabsArray.indexOf(nc.getValue()) <= factsArray.size() 
+                        && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())){
+                    	
+                        // Checks if the times are the same
+                        if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == 
+                        factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime()){
+                            return false;
                         }
+                    }
 
-                        // If the course is a value, checks to see the key is in the facts array,
-                        // Then ensures their times are different
-                        if (courseLabsArray.indexOf(nc.getKey()) <= factsArray.size()
-                            && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+                    // If the course is a value, checks to see the key is in the facts array,
+                    // Then ensures their times are different
+                    if (courseLabsArray.indexOf(nc.getKey()) <= factsArray.size()
+                        && courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
 
-                            // Checks if the times are the same
-                            if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime().equals(factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime())){
-                                return false;
-                            }
+                        // Checks if the times are the same
+                        if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime() == 
+                        factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime()){
+                            return false;
                         }
                     }
                 }
-                
             }
         }
         return true;
@@ -165,7 +173,7 @@ public class Constr {
             if (courseLabs.get(factsArray.indexOf(s)).getLectureNumber() >= 9){
 
                 // Checks the hour of the timeslow and whether the time is less than 18 or greater than 24
-                if (s.getTime().getHours() < 18 && s.getTime().getHours() > 24){
+                if (s.getTime().getHours() < 18 | s.getTime().getHours() > 24){
                     return false;
                 }
             }
@@ -203,7 +211,7 @@ public class Constr {
         for(Slot s: factsArray){
 
             // Ensures that course is a lecture, and then checks whether the time of that course is 11:00 or not
-            if (s.getSlotType() == SlotType.COURSE && s.getDayAndTime().contains("11:00")){
+            if (s.getSlotType() == SlotType.COURSE && s.getTime().toString().contains("11:00") && s.getDaySeries().toString().contains("TU")){
                 return false;
             }
         }
@@ -269,6 +277,26 @@ public class Constr {
             }
         }
         return true;
+    }
+
+    // Checks each course/lab and ensures that the time slot dedicated to it is the same as its slot type
+    private static boolean accurateTimetoCourseAndLabs(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs,
+        ArrayList<Slot> slotsArray){
+        
+        /*for (Slot s : factsArray){
+
+            if (!(courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC") && s.getSlotType() == SlotType.COURSE)){
+                return false;
+            }
+            if (!((courseLabs.get(factsArray.indexOf(s)).getType().equals("TUT") || courseLabs.get(factsArray.indexOf(s)).getType().equals("LAB")) 
+                    && s.getSlotType() == SlotType.LAB)){
+                return false;
+            }
+        }*/
+
+		
+        return true;
+
     }
 }
 

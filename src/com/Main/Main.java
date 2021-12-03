@@ -15,7 +15,7 @@ public class Main {
 		SetbasedSearch setBasedSearch;
 
 		
-		String txtfile = "res/ShortExample.txt"; // Example file
+		String txtfile = "res/test29.txt"; // Example file
 
         ArrayList<Slot> slotArray = parser.parseCourseLabSlots(txtfile);
         ArrayList<CourseLab> courseLabArray = parser.parseCourseLab(txtfile);
@@ -31,7 +31,17 @@ public class Main {
 
         ArrayList<Slot> sol = setBasedSearch.search();
 
-		//temp = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+		//sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+		
+		int i = 0;
+		Eval eval = new Eval(1,1,1,1);
+		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
+		System.out.println("----------");
+		for (Slot s : sol) {
+			courseLabArray.get(i).printCourse();
+			s.printSlot();
+			i++;
+		}
 	}
 	
 

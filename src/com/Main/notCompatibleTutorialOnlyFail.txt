@@ -1,0 +1,18 @@
+Course slots:
+MO, 10:00, 2, 0
+MO, 8:00, 2, 0
+
+Lab slots:
+TU, 18:00, 3, 1
+
+Courses:
+CPSC 429 LEC 01
+CPSC 331 LEC 01
+
+Labs:
+CPSC 429 LEC 01 TUT 01
+CPSC 429 LEC 01 TUT 02
+CPSC 331 TUT 01
+
+Not compatible:
+CPSC 429 LEC 01 TUT 01, CPSC 331 TUT 01

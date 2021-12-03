@@ -2,8 +2,10 @@ package com.OrModel;
 import java.util.ArrayList;
 
 import com.DataStructures.CourseLab;
+import com.DataStructures.EmptySlot;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
 import com.Main.Constr;
 
 public class Populate {
@@ -13,7 +15,7 @@ public class Populate {
 	* @param slotList List of all slots.
 	* @param noncompatibleArray List of noncompatible courses and labs.
 	* @param unwantedArray List of unwanted course slot combinations.
-	* @param initialSlot List of initial slots that we must start with.
+	* @param partialAssign List of initial slots that we must start with.
 	* @return a random fact created by the Or-Tree.
 	*/
 	
@@ -26,24 +28,73 @@ public class Populate {
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
 											ArrayList<Pair<CourseLab, Slot>> partialAssign) {
 		
-		ArrayList<Slot> fact;
+		ArrayList<Slot> fact = new ArrayList<Slot>();
+		while(fact.size() < courseLabs.size()) {
+			fact.add(new EmptySlot());
+		}
+		
 		Constr constraints = new Constr();
-		if(partialAssign.size() == 0) {
-			fact = new ArrayList<Slot>();
-		} else {
-			fact = new ArrayList<Slot>();
+		
+		
+		if(partialAssign.size() > 0) {
+			Pair<CourseLab, Slot> pAssign;
 			for(int i = 0; i < partialAssign.size(); i++) {
-				fact.add(partialAssign.get(i).getValue());
+				
+				pAssign = partialAssign.get(i);
+				
+				Slot correctSlot = slotList.get(slotList.indexOf(pAssign.getValue()));
+				Slot s = new Slot(pAssign.getValue());
+				s.setCoursemin(correctSlot.getCoursemin());
+				s.setCourseMax(correctSlot.getCoursemax());
+				s.setLabmin(correctSlot.getLabmin());
+				s.setLabMax(correctSlot.getLabmax());
+				
+				fact.set(courseLabs.indexOf(pAssign.getKey()), s);
+				
 			}
 		}
-
-		while(fact.size() < courseLabs.size()) {
+		
+		for(int i = 0; i < fact.size(); i++) {
 			int randSlot = (int)(Math.random() * slotList.size());
-			fact.add(slotList.get(randSlot));
+			int randSlotCourse = (int)(Math.random() * courseLabs.size());
+			
+			if(fact.get(i).getSlotType() == SlotType.EMPTY) {
+				//System.out.println("Size: " + courseLabs.size());      
+				
+				while (true) {
+					randSlot = (int)(Math.random() * slotList.size());
+					randSlotCourse = (int)(Math.random() * courseLabs.size());
+					if (courseLabs.get(randSlotCourse).getType().equals("LEC") && slotList.get(randSlot).getSlotType() == SlotType.COURSE){
+		            	fact.set(i, slotList.get(randSlot));
+		            	break;
+		            }
+		            if ((courseLabs.get(randSlotCourse).getType().equals("TUT") || courseLabs.get(randSlotCourse).getType().equals("LAB")) 
+		                    && slotList.get(randSlot).getSlotType() == SlotType.LAB){
+		            	fact.set(i, slotList.get(randSlot));
+		            	break;
+		            }
+				}
+				
+			}
 		}
-		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray)) {
+		
+		// Testing
+		/*for (Slot s : fact) {
+			System.out.println(s.getSlotType());
+			System.out.println(s.getDayAndTime());
+		}*/
+		
+		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray) == false) {
 			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign));
-		}
+		} /*else {
+			System.out.println("Fact Size: " + fact.size());
+			System.out.println("courseLabs Size: " + courseLabs.size());
+			//System.out.println(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray));
+			for(int i = 0; i < fact.size(); i++) {
+				System.out.println(courseLabs.get(i).getName());
+				s.printSlot();
+			}
+		}*/
 		
 		return fact;
 	}
