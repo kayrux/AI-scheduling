@@ -40,7 +40,7 @@ public class SetbasedSearch {
 			ArrayList<Pair<CourseLab, Slot>> unwantedArray,
             ArrayList<Triplet<Slot, CourseLab, Integer>> prefArray,
             ArrayList<Pair<CourseLab, CourseLab>> pairArray,
-            ArrayList<Pair<CourseLab, Slot>> partialAssignArray) {
+            ArrayList<Pair<CourseLab, Slot>> partialAssignArray, Eval eval) {
 		
 		facts = new ArrayList<ArrayList<Slot>>();
 		currentEvals = new ArrayList<Integer>();
@@ -52,7 +52,7 @@ public class SetbasedSearch {
 		this.partialAssignList = partialAssignArray;
 		this.pairArray = pairArray;
 		
-		this.eval = new Eval(1,1,1,1);	// Set weights for Eval
+		this.eval = eval;	// Set weights for Eval
 		this.rand = new Random();
 		
 	}
