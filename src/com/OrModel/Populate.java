@@ -7,6 +7,7 @@ import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.SlotType;
 import com.Main.Constr;
+import com.Model.SetbasedSearch;
 
 public class Populate {
 	/*
@@ -26,7 +27,14 @@ public class Populate {
 	public static ArrayList<Slot> populate (ArrayList<CourseLab> courseLabs, ArrayList<Slot> slotList,
 											ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
-											ArrayList<Pair<CourseLab, Slot>> partialAssign) {
+											ArrayList<Pair<CourseLab, Slot>> partialAssign, int numIterations) {
+		
+		if (numIterations > 500) 
+		{
+			System.out.println("Impossible to populate");
+			System.exit(0);
+			
+		}
 		
 		ArrayList<Slot> fact = new ArrayList<Slot>();
 		while(fact.size() < courseLabs.size()) {
@@ -83,9 +91,9 @@ public class Populate {
 			System.out.println(s.getSlotType());
 			System.out.println(s.getDayAndTime());
 		}*/
-		
 		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray) == false) {
-			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign));
+			numIterations++;
+			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
 		} /*else {
 			System.out.println("Fact Size: " + fact.size());
 			System.out.println("courseLabs Size: " + courseLabs.size());

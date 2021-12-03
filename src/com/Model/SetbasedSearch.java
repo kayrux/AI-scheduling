@@ -71,7 +71,7 @@ public class SetbasedSearch {
 		
 		// Populate
 		for (int i = 0; i < INITIAL_POP_SIZE; i ++) {
-			ArrayList<Slot> f = Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList);
+			ArrayList<Slot> f = Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList, 0);
 			if (this.evalFact(f) == 0) return f; // Returns most optimal solution if found
 			facts.add(f);
 		}

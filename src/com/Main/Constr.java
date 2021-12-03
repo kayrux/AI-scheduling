@@ -200,7 +200,7 @@ public class Constr {
         for (Slot s : factsArray){
 
             // Sees if the name of the course contains CPSC 5 or SENG 5
-            if (courseLabs.get(factsArray.indexOf(s)).getName().contains(" 5")){
+            if (courseLabs.get(factsArray.indexOf(s)).getName().charAt(4) == '5') {
 
 
                     // Checks to make sure that the time of the 500-level course is no in array seenTimes
