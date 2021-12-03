@@ -539,7 +539,7 @@ while ((line = reader.readLine()) != null)
 
                         String[] slotArr = {delimited[0], delimited[1]};
                         String[] courseArr = delimited[2].split("\\s+");
-                        String rankingStr = delimited[3];
+                        String rankingStr = delimited[3].trim();
 
 
                         CourseLab courselab = createCourseLab(courseArr, "Preferences: ");
