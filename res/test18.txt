@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 //Expected: Error because lectures cannot be scheduled on TU, 11:00
+=======
+// Expected: Impossible because we cant put slots at TU 11:00
+>>>>>>> d616ab98c27a3ce39c590a66cc03afe5ffe6fb49
 
 Course slots:
 MO, 8:00, 2, 1

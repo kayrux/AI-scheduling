@@ -7,6 +7,7 @@ import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
+import com.OrModel.Populate;
 
 public class Main {
 	public static void main(String[] args) {
@@ -14,6 +15,7 @@ public class Main {
 		SetbasedSearch setBasedSearch;
 
 		String txtfile = "res/test14.txt"; // Example file
+
 
 
         ArrayList<Slot> slotArray = parser.parseCourseLabSlots(txtfile);
@@ -32,7 +34,8 @@ public class Main {
 
         ArrayList<Slot> sol = setBasedSearch.search();
 
-		//sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+        //ArrayList<Slot> sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray, 0);
+		//ArrayList<Slot> sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray, 0);
 		
 		int i = 0;
 		

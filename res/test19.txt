@@ -1,3 +1,5 @@
+// Expected: Fails because there are more 500 level courses than available course slots and 500 slots should be in different slots
+
 Course slots:
 MO, 8:00, 2, 1
 MO, 9:00, 2, 1

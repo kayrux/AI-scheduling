@@ -1,3 +1,5 @@
+// Expected: Fials because no evening slots
+
 Course slots:
 MO, 8:00, 2, 1
 MO, 9:00, 2, 1
