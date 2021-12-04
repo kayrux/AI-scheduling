@@ -49,6 +49,10 @@ public class Populate {
 			for(int i = 0; i < partialAssign.size(); i++) {
 				
 				pAssign = partialAssign.get(i);
+				if (slotList.indexOf(pAssign.getValue()) == -1) {
+					System.out.println("Invalid Partial assignment");
+					System.exit(0);
+				}
 				
 				Slot correctSlot = slotList.get(slotList.indexOf(pAssign.getValue()));
 				Slot s = new Slot(pAssign.getValue());
@@ -72,7 +76,18 @@ public class Populate {
 				while (true) {
 					randSlot = (int)(Math.random() * slotList.size());
 					randSlotCourse = (int)(Math.random() * courseLabs.size());
-					if (courseLabs.get(randSlotCourse).getType().equals("LEC") && slotList.get(randSlot).getSlotType() == SlotType.COURSE){
+					
+					if (Slot.compareType(i, randSlot, courseLabs, slotList)) {
+						//System.out.println(courseLabs.get(randSlotCourse).getName());
+						if (courseLabs.get(randSlotCourse).getHash().equals("CPSC43311")) {
+							System.out.println("--------------" + courseLabs.get(randSlotCourse).getType());
+						}
+						
+						
+						fact.set(i, slotList.get(randSlot));
+						break;
+					}
+					/*if (courseLabs.get(randSlotCourse).getType().equals("LEC") && slotList.get(randSlot).getSlotType() == SlotType.COURSE){
 		            	fact.set(i, slotList.get(randSlot));
 		            	break;
 		            }
@@ -80,7 +95,7 @@ public class Populate {
 		                    && slotList.get(randSlot).getSlotType() == SlotType.LAB){
 		            	fact.set(i, slotList.get(randSlot));
 		            	break;
-		            }
+		            }*/
 				}
 				
 			}

@@ -1,5 +1,5 @@
 // Testing not compatible
-// Expected:
+// Multiple solutions possible e.g:
 CPSC 101, MO 8:00
 CPSC 102, MO: 8:00
 CPSC 103, MO 8:00
