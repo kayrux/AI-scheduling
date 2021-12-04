@@ -80,7 +80,7 @@ public class Populate {
 					if (Slot.compareType(i, randSlot, courseLabs, slotList)) {
 						//System.out.println(courseLabs.get(randSlotCourse).getName());
 						if (courseLabs.get(randSlotCourse).getHash().equals("CPSC43311")) {
-							System.out.println("--------------" + courseLabs.get(randSlotCourse).getType());
+							//System.out.println("--------------" + courseLabs.get(randSlotCourse).getType());
 						}
 						
 						
