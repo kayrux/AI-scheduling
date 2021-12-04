@@ -1,7 +1,6 @@
 // Course sections with preferences for TU, 11:00 with a ranking 10 are provided.
 // Expected: Courses with the preferences for TU, 11:00 are not slotted in that time slot, becuase that violates the hard constraints
-// CPSC 100 LEC 01 : MO, 8:00 
-// CPSC 101 LEC 09 : TU, 18:00
+// Should get an answer.
 
 
 

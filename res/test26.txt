@@ -1,3 +1,5 @@
+Expected: Fails because # of courses > course slots
+
 Course slots:
 MO, 8:00, 1, 1
 MO, 9:00, 1, 1
