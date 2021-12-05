@@ -254,12 +254,12 @@ public class Constr {
     }
 
     /* Special Courses 813 and 913 must be at 18:00-19:00 on TTH AND
-        813 and 313 Labs/Tutorials are sceduled at differnt times AND
-        913 and 413 Labs/Tutorials are sceduled at differnt times*/
+        813 and 313 Labs/Tutorials are scheduled at different times AND
+        913 and 413 Labs/Tutorials are scheduled at different times*/
     private static boolean specialCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
 
-        ArrayList<Time> seenTimes813 = new ArrayList();
-         ArrayList<Time> seenTimes913 = new ArrayList();
+        ArrayList<Time> seenTimes813 = new ArrayList<>();
+         ArrayList<Time> seenTimes913 = new ArrayList<>();
         
         for (Slot s : factsArray){
         	
@@ -298,12 +298,13 @@ public class Constr {
 
         // Reloops to recheck list for CPSC 313 and CPSC 413 reoccuring times
         for (CourseLab c : courseLabs){
-            
+        	//System.out.println(factsArray.size());
             //Checks if course is either CPSC 313 or CPSC 413 tutorial/lab
             if ((c.getName().equals("CPSC313") || c.getName().equals("CPSC413")) && c.getType().equals("LAB")){
 
                 // If the course is CPSC 313 tutorial/lab
                 if (c.getName().equals("CPSC313")){
+                	
                     if (seenTimes813.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
                         return false;
                     }
@@ -311,6 +312,7 @@ public class Constr {
                 
                 // If the course is CPSC 413 tutorial/lab
                 if (c.getName().equals("CPSC413")){
+                	
                     if (seenTimes913.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
                         return false;
                     }

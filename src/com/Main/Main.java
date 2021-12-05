@@ -7,14 +7,13 @@ import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
-import com.OrModel.Populate;
 
 public class Main {
 	public static void main(String[] args) {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
 
-		String txtfile = "res/test14.txt"; // Example file
+		String txtfile = "res/test7.txt"; // Example file
 
 
 
