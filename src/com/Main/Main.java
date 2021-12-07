@@ -37,13 +37,12 @@ public class Main {
 			}
 
 			txtfile = args[0];
-
-                        File f = new File(txtfile);
-                        if (!(f.exists() && !f.isDirectory()))
-                        {
-                            System.out.println("Invalid file name!");
-                            System.exit(0);
-                        }
+            File f = new File(txtfile);
+            if (!(f.exists() && !f.isDirectory()))
+            {
+                System.out.println("Invalid file name!");
+                System.exit(0);
+            }
 			try  {
 				minfilled = Integer.parseInt(args[1]);
 				pref = Integer.parseInt(args[2]);

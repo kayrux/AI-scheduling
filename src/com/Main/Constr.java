@@ -481,6 +481,7 @@ public class Constr {
 		// An array list of all times of 500-level courses
 		ArrayList<Time> seenTimes = new ArrayList<Time>();
 
+
 		for (Slot s : factsArray){
 
 			// Sees if the name of the course contains CPSC 5 or SENG 5
@@ -518,8 +519,9 @@ public class Constr {
 	private static boolean specialCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
 
 
-		ArrayList<Time> seenTimes813 = new ArrayList<Time>();
-		ArrayList<Time> seenTimes913 = new ArrayList<Time>();
+		ArrayList<Time> seenTimes813 = new ArrayList();
+		ArrayList<Time> seenTimes913 = new ArrayList();
+
 
 		for (Slot s : factsArray){
 

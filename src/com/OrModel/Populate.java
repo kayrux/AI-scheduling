@@ -24,8 +24,25 @@ public class Populate {
 	public static Boolean constraintStart() {
 		return true;
 	}
+
+	public static ArrayList<Slot> populate(ArrayList<CourseLab> courseLabs, ArrayList<Slot> slotList,
+			ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
+			ArrayList<Pair<CourseLab, Slot>> unwantedArray,
+			ArrayList<Pair<CourseLab, Slot>> partialAssign, int numIterations){
+		
+		Constr constraints = new Constr();
+
+		ArrayList<Slot> fact = populate2(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations);
+		while(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations) == false) {
+			numIterations++;
+			fact = new ArrayList<Slot>(populate2(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
+			System.out.println("Still here");
+		}
+		
+		return fact;
+	}
 	
-	public static ArrayList<Slot> populate (ArrayList<CourseLab> courseLabs, ArrayList<Slot> slotList,
+	public static ArrayList<Slot> populate2 (ArrayList<CourseLab> courseLabs, ArrayList<Slot> slotList,
 											ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
 											ArrayList<Pair<CourseLab, Slot>> partialAssign, int numIterations) {
@@ -112,15 +129,11 @@ public class Populate {
 			}
 		}
 		
-		// Testing
-		/*for (Slot s : fact) {
-			System.out.println(s.getSlotType());
-			System.out.println(s.getDayAndTime());
-		}*/
-		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations) == false) {
-			numIterations++;
-			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
-		}   
+
+		// if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations) == false) {
+		// 	numIterations++;
+		// 	fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
+		// }   
 		
 		/*else {
 		}

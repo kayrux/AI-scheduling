@@ -24,6 +24,7 @@ public class Eval {
     private final int weightPref;
     private final int weightPair;
     private final int weightSecDiff;
+
     private static int pen_coursemin;
     private static int pen_labmin;
     private static int pen_notpaired;

@@ -18,8 +18,10 @@ public class SetbasedSearch {
 
 	// PREDIFINED VARIABLES
 	private final int MAX_EVAL = Integer.MAX_VALUE;
-	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = Integer.MAX_VALUE;
+	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = 500;
+
 	private final long TIME_LIMIT_SECONDS = 3600 * 6;
+
 	private final boolean USE_TIME_LIMIT = true;
 	
 	private final int MAX_POP_SIZE = 30;
@@ -105,8 +107,8 @@ public class SetbasedSearch {
 			}
 			
 			// Choose fact1, and fact2 to pass to Crossover
-			
 			fact1 = this.getFactWithLowestEval(facts);
+
 			highestEval = this.getHighestEval(facts);
 			fact2 = this.getFactViaStochasticAcceptance(highestEval, fact1);
 			
@@ -134,7 +136,8 @@ public class SetbasedSearch {
 		}
 		
 		// Return best fact based on Eval.eval(...)
-		ArrayList<Slot> bestFact = getFactWithLowestEval(facts);		
+		
+		ArrayList<Slot> bestFact = getFactWithLowestEval(facts);
 		
 		solutionFound(bestFact);
 		return bestFact;

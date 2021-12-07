@@ -579,6 +579,7 @@ while ((line = reader.readLine()) != null)
                             //    ParserError.invalidRanking(ranking);
                             //}
 
+
                             Triplet<Slot, CourseLab, Integer> t = new Triplet<Slot, CourseLab, Integer>(slot, courselab, ranking);
                             list.add(t);
                         }
