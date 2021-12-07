@@ -18,7 +18,7 @@ public class Constr {
     }
 
     public boolean constr(ArrayList<Slot> factsArray, ArrayList<Slot> slotsArray, ArrayList<CourseLab> courseLabs,
-        ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, ArrayList<Pair<CourseLab, Slot>> unwantedArray)
+        ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, ArrayList<Pair<CourseLab, Slot>> unwantedArray, ArrayList<Pair<CourseLab, Slot>> partAssign)
     {
     	
 
@@ -26,7 +26,27 @@ public class Constr {
             && noncompatibleClasses(factsArray, courseLabs, noncompatibleArray) 
             && unwantedTimes(factsArray, courseLabs, unwantedArray) && eveningCourses(factsArray, courseLabs)
             && fiveHunderedLevelCourses(factsArray, courseLabs) && noCourseScheduled(factsArray)
-            && specialCourses(factsArray, courseLabs) && accurateTimetoCourseAndLabs(factsArray, courseLabs, slotsArray);
+            && specialCourses(factsArray, courseLabs) && accurateTimetoCourseAndLabs(factsArray, courseLabs, slotsArray) && partAssign(factsArray, courseLabs, partAssign);
+    }
+    
+ // Ensures that the partial assignmnt of the courses stay the same
+    private static boolean partAssign(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs,
+        ArrayList<Pair<CourseLab, Slot>> partAssigned){
+
+        for(Slot s : factsArray){
+
+            for (Pair<CourseLab, Slot> p : partAssigned){
+
+                if (courseLabs.get(factsArray.indexOf(s)).getName().equals(p.getKey().getName())){
+
+                    if (s.getTime().getHours() != p.getValue().getTime().getHours() 
+                        || s.getDaySeries() != p.getValue().getDaySeries()){
+                            return false;
+                        }
+                }
+            }
+        }
+        return true;
     }
 
     //Max course and Max Labs per time-slot
