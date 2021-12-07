@@ -24,17 +24,22 @@ public class Eval {
     private final int weightPref;
     private final int weightPair;
     private final int weightSecDiff;
-    private static final int pen_coursemin = 0;
-    private static final int pen_labmin = 0;
-    private static final int pen_section = 0;
-    private static final int pen_pairs = 0;
+    private static int pen_coursemin;
+    private static int pen_labmin;
+    private static int pen_notpaired;
+    private static int pen_section;
 
-    public Eval(int weightMinFilled, int weightPref, int weightPair, int weightSecDiff)
+    public Eval(int weightMinFilled, int weightPref, int weightPair, int weightSecDiff,
+    		int pen_coursemin, int pen_labmin, int pen_notpaired, int pen_section)
     {
         this.weightMinFilled = weightMinFilled;
         this.weightPref = weightPref;
         this.weightPair = weightPair;
         this.weightSecDiff = weightSecDiff;
+        this.pen_coursemin = pen_coursemin;
+        this.pen_labmin = pen_labmin;
+        this.pen_notpaired = pen_notpaired;
+        this.pen_section = pen_section;
     }
 
     /**
@@ -87,9 +92,9 @@ public class Eval {
             	}
             	else
             	{
-            		
+            		value += pen_labmin * (min - Collections.frequency(fact, s));
             	}
-            	value += pen_labmin * (min - Collections.frequency(fact, s));
+            	
             }
         }
         //System.out.println("evalMinFilled: " + value);
@@ -172,7 +177,7 @@ public class Eval {
                     fact.get(courseLabsArray.indexOf(pair.getValue())).getDayAndTime()))
                 {
                 	//System.out.println(pair.getKey().getStringFormatted() + " " + pair.getValue().getStringFormatted());
-                    value += pen_pairs;
+                    value += pen_notpaired;
                 }
             }
                 
