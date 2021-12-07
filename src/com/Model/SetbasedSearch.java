@@ -19,7 +19,7 @@ public class SetbasedSearch {
 	// PREDIFINED VARIABLES
 	private final int MAX_EVAL = Integer.MAX_VALUE;
 	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = 500;
-	private final long TIME_LIMIT_SECONDS = 10;
+	private final long TIME_LIMIT_SECONDS = 20;
 	private final boolean USE_TIME_LIMIT = true;
 	
 	private final int MAX_POP_SIZE = 30;
@@ -99,7 +99,6 @@ public class SetbasedSearch {
 		
 		//Loop (time based and/or based on number of iterations passed without improvement)
 		while((noImprovementCounter < MAX_ITERATIONS_NO_IMPROVEMENT) && withinTimeLimit(startTime, currentTime)) {
-			//System.out.println("Looping");
 			// Check if decay is necessary
 			if (facts.size() > MAX_POP_SIZE) {
 				decay();
@@ -108,23 +107,10 @@ public class SetbasedSearch {
 			// Choose fact1, and fact2 to pass to Crossover
 			
 			fact1 = this.getFactWithLowestEval(facts);
-			//System.out.println("Lowest Eval: " + evalFact(fact1));
-			
-			//System.out.println("Cross");
 			highestEval = this.getHighestEval(facts);
 			fact2 = this.getFactViaStochasticAcceptance(highestEval, fact1);
-			//System.out.println("After Cross");
 			
 			newFact = Crossover.crossover(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, fact1, fact2, partialAssignList);
-			/*int i = 0;
-			for (Slot s : newFact) {
-				//System.out.println(courseLabArray.get(i).getName());
-				s.printSlot();
-				i++;
-			}
-			System.out.println("---------------------------------");
-			System.out.println("---------------------------------");
-			System.out.println("---------------------------------");*/
 
 			if(!fact1.equals(newFact) && !fact2.equals(newFact))
 			{
@@ -148,10 +134,7 @@ public class SetbasedSearch {
 		}
 		
 		// Return best fact based on Eval.eval(...)
-		
-		ArrayList<Slot> bestFact = getFactWithLowestEval(facts);
-		//System.out.println("Eval:     " + evalFact(getFactWithLowestEval(facts)));
-		
+		ArrayList<Slot> bestFact = getFactWithLowestEval(facts);		
 		
 		solutionFound(bestFact);
 		return bestFact;
