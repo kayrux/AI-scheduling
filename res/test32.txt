@@ -1,11 +1,11 @@
 Course slots:
-MO, 8:00, 1, 1
+TU, 11:00, 1, 0
 
 Lab slots:
 MO, 8:00, 1,0 
 
 Courses:
-CPSC 813 LEC 01
+CPSC 413 LEC 01
 
 Labs:
 
