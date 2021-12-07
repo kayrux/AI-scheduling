@@ -2,6 +2,12 @@ package com.Main;
 
 public class ParserError {
 
+    public static void invalidFileMessage()
+    {
+        System.out.println("Invalid file name!");
+        System.exit(0);
+    }
+
     // Standard exit message 
     public static void exitMessage()
     {

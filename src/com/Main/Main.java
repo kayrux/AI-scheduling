@@ -1,6 +1,7 @@
 package com.Main;
 
 import java.util.ArrayList;
+import java.io.File;
 
 import com.DataStructures.CourseLab;
 import com.DataStructures.Pair;
@@ -9,7 +10,7 @@ import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
 
 public class Main {
-	private static boolean USE_COMMAND_LINE_ARGS = false;
+	private static boolean USE_COMMAND_LINE_ARGS = true;
 	
 	/*
 	 * Command line input: filename minfilled pref pair secdiff pen_coursemin pen_labsmin pen_notpaired pen_section 
@@ -36,6 +37,13 @@ public class Main {
 			}
 
 			txtfile = args[0];
+
+                        File f = new File(txtfile);
+                        if (!(f.exists() && !f.isDirectory()))
+                        {
+                            System.out.println("Invalid file name!");
+                            System.exit(0);
+                        }
 			try  {
 				minfilled = Integer.parseInt(args[1]);
 				pref = Integer.parseInt(args[2]);
