@@ -24,6 +24,10 @@ public class Eval {
     private final int weightPref;
     private final int weightPair;
     private final int weightSecDiff;
+    private static final int pen_coursemin = 0;
+    private static final int pen_labmin = 0;
+    private static final int pen_section = 0;
+    private static final int pen_pairs = 0;
 
     public Eval(int weightMinFilled, int weightPref, int weightPair, int weightSecDiff)
     {
@@ -63,6 +67,7 @@ public class Eval {
     private static int evalMinFilled(ArrayList<Slot> fact, ArrayList<Slot> slotsArray)
     {
         int value = 0;
+        boolean course = true;
         for(Slot s : slotsArray)
         {
             //One of these should be 0 since slots only contain either labs or courses.
@@ -70,12 +75,21 @@ public class Eval {
             if(min == 0)
             {
                 min = s.getLabmin();
+                course = false;
             }
 
             //Checks if slot appears more than the minimum.
             if(Collections.frequency(fact, s) < min)
             {
-                value += min - Collections.frequency(fact, s);
+            	if(course)
+            	{
+            		value += pen_coursemin * (min - Collections.frequency(fact, s));
+            	}
+            	else
+            	{
+            		
+            	}
+            	value += pen_labmin * (min - Collections.frequency(fact, s));
             }
         }
         //System.out.println("evalMinFilled: " + value);
@@ -158,7 +172,7 @@ public class Eval {
                     fact.get(courseLabsArray.indexOf(pair.getValue())).getDayAndTime()))
                 {
                 	//System.out.println(pair.getKey().getStringFormatted() + " " + pair.getValue().getStringFormatted());
-                    value++;
+                    value += pen_pairs;
                 }
             }
                 
@@ -195,7 +209,7 @@ public class Eval {
                     //and records the time.
                     if(!seenSlots.add(fact.get(i).getDayAndTime()))
                     {
-                        value++;
+                        value += pen_section;
                     }
                 }
                 else
