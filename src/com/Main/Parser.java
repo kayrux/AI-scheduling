@@ -573,10 +573,10 @@ while ((line = reader.readLine()) != null)
                             int ranking = Integer.valueOf(rankingStr);
 
                             // ERROR Check: Ranking must be between 1 and 10
-                            if (ranking < 1 || ranking > 10)
-                            {
-                                ParserError.invalidRanking(ranking);
-                            }
+                            //if (ranking < 1 || ranking > 10)
+                            //{
+                            //    ParserError.invalidRanking(ranking);
+                            //}
 
                             Triplet<Slot, CourseLab, Integer> t = new Triplet<Slot, CourseLab, Integer>(slot, courselab, ranking);
                             list.add(t);
