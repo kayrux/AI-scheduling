@@ -1,0 +1,23 @@
+Course slots:
+MO, 8:00, 1, 0
+
+Lab slots:
+TU, 18:00, 2, 0
+
+Courses:
+CPSC 813 LEC 01
+CPSC 100 LEC 01
+CPSC 913 LEC 01
+
+Labs:
+
+Not compatible:
+
+Unwanted:
+
+Preferences:
+
+Pair:
+CPSC 813 LEC 01, CPSC 100 LEC 01
+
+Partial assignments:

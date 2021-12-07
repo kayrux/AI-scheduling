@@ -325,6 +325,16 @@ public class Constr {
 
 			for (Pair<CourseLab, Slot> uw: unwantedArray){
 
+				if (uw.getKey().getName().equals("CPSC813") || uw.getKey().getName().equals("CPSC913"))
+				{
+					if ((uw.getValue().getDaySeries().equals(DaySeries.TU) && uw.getValue().getTime().getHours() == 18))
+					{
+						System.out.println("Unwanted time for CPSC 813 or 913 is at TU 18:00");
+						System.exit(0);
+
+					}
+				}
+
 				if (courseLabsArray.contains(uw.getKey()) && factsArray.contains(uw.getValue())) {
 
 					if (courseLabsArray.indexOf(uw.getKey()) < factsArray.size()) {
@@ -438,162 +448,162 @@ public class Constr {
 				return false;
 			}
 		}
-    	return true;
-    }
+		return true;
+	}
 
-    // Ensures Monday MWF and TTH for Courses and MW and TTH and F for Labs
-    private static boolean datesAndTimesConsistancy(ArrayList<Slot> factsArray){
-    	return true;
-    }
+	// Ensures Monday MWF and TTH for Courses and MW and TTH and F for Labs
+	private static boolean datesAndTimesConsistancy(ArrayList<Slot> factsArray){
+		return true;
+	}
 
-    // All courses that are LEC 9 or higher are in the evening
-    private static boolean eveningCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
-
-
-    	for (int i=0; i<factsArray.size(); i++)
-    	{
-    		if (courseLabs.get(i).getLectureNumber() >= 9)
-    		{
-    			if (factsArray.get(i).getTime().getHours() < 18 | factsArray.get(i).getTime().getHours() > 24)
-    			{
-    				return false;
-    			}
-    		}
+	// All courses that are LEC 9 or higher are in the evening
+	private static boolean eveningCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
 
 
-    	}
-    	return true;
-    }
-
-    // All 500-level courses are in differnt time slots
-    private static boolean fiveHunderedLevelCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
-
-    	// An array list of all times of 500-level courses
-    	ArrayList<Time> seenTimes = new ArrayList();
-
-    	for (Slot s : factsArray){
-
-    		// Sees if the name of the course contains CPSC 5 or SENG 5
-    		if (courseLabs.get(factsArray.indexOf(s)).getName().charAt(4) == '5') {
+		for (int i=0; i<factsArray.size(); i++)
+		{
+			if (courseLabs.get(i).getLectureNumber() >= 9)
+			{
+				if (factsArray.get(i).getTime().getHours() < 18 | factsArray.get(i).getTime().getHours() > 24)
+				{
+					return false;
+				}
+			}
 
 
-    			// Checks to make sure that the time of the 500-level course is no in array seenTimes
-    			// If it is not, then it will add that time to seenTimes
-    			if (seenTimes.contains(s.getTime())){
-    				return false;
-    			} else {
-    				seenTimes.add(s.getTime());
-    			}
-    		}
-    	}
+		}
+		return true;
+	}
 
-    	return true;
-    }
+	// All 500-level courses are in differnt time slots
+	private static boolean fiveHunderedLevelCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
 
-    // No course at 11:00-12:30 on Tuesday/Thursday
-    private static boolean noCourseScheduled(ArrayList<Slot> factsArray){
-    	for(Slot s: factsArray){
+		// An array list of all times of 500-level courses
+		ArrayList<Time> seenTimes = new ArrayList();
 
-    		// Ensures that course is a lecture, and then checks whether the time of that course is 11:00 or not
-    		if (s.getSlotType() == SlotType.COURSE && s.getTime().toString().contains("11:00") && s.getDaySeries().toString().contains("TU")){
-    			return false;
-    		}
-    	}
-    	return true;
-    }
+		for (Slot s : factsArray){
 
-    /* Special Courses 813 and 913 must be at 18:00-19:00 on TTH AND
+			// Sees if the name of the course contains CPSC 5 or SENG 5
+			if (courseLabs.get(factsArray.indexOf(s)).getName().charAt(4) == '5') {
+
+
+				// Checks to make sure that the time of the 500-level course is no in array seenTimes
+				// If it is not, then it will add that time to seenTimes
+				if (seenTimes.contains(s.getTime())){
+					return false;
+				} else {
+					seenTimes.add(s.getTime());
+				}
+			}
+		}
+
+		return true;
+	}
+
+	// No course at 11:00-12:30 on Tuesday/Thursday
+	private static boolean noCourseScheduled(ArrayList<Slot> factsArray){
+		for(Slot s: factsArray){
+
+			// Ensures that course is a lecture, and then checks whether the time of that course is 11:00 or not
+			if (s.getSlotType() == SlotType.COURSE && s.getTime().toString().contains("11:00") && s.getDaySeries().toString().contains("TU")){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/* Special Courses 813 and 913 must be at 18:00-19:00 on TTH AND
         813 and 313 Labs/Tutorials are scheduled at different times AND
         913 and 413 Labs/Tutorials are scheduled at different times*/
-    private static boolean specialCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
+	private static boolean specialCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
 
 
-    	ArrayList<Time> seenTimes813 = new ArrayList();
-    	ArrayList<Time> seenTimes913 = new ArrayList();
+		ArrayList<Time> seenTimes813 = new ArrayList();
+		ArrayList<Time> seenTimes913 = new ArrayList();
 
-    	for (Slot s : factsArray){
+		for (Slot s : factsArray){
 
-    		if (!(s.getDaySeries() == DaySeries.TU && s.getTime().getHours() == 18)
-    				&& (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813") 
-    						|| courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913"))){
-    			return false;
-    		}
-
-
-    		// Checks if course is part of CPSC 813
-    		if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813")
-    				|| courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913")){
-
-    			// If the course is CPSC 813 or 913 Lecture it is TTH 18:00
-    			if (courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC")){
-    				if (!(s.getDayAndTime().contains("18:00")) || !(s.getDaySeries().equals(DaySeries.TU))){
-
-    					return false;
-    				}
-    			} else {
-
-    				// If the course name contains CPSC 813 but is not a lecture add the time to seenTimes813
-    				// These would be all lab/tutorial times for course CPSC 813
-    				if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813")){
-    					seenTimes813.add(s.getTime());
-    				}
-
-    				// If the course name contains CPSC 913 but is not a lecture add the time to seenTimes913
-    				// These would be all lab/tutorial times for course CPSC 813
-    				if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913")){
-    					seenTimes913.add(s.getTime());
-    				}
-    			}
-    		}
-    	}
-
-    	// Reloops to recheck list for CPSC 313 and CPSC 413 reoccuring times
-    	for (Slot c : factsArray){
-
-    		if ((courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC313") || courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC413")) && (courseLabs.get(factsArray.indexOf(c)).getType().equals("LAB")))
-    		{
-    			if (courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC313")) {
-    				if (seenTimes813.contains(c.getTime())) {
-
-    					return false;
-    				}
-    			}
-    			if (courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC413")) {
-    				if (seenTimes913.contains(c.getTime())) {
-    					return false;
-    				}
-    			}
-
-    		}
+			if (!(s.getDaySeries() == DaySeries.TU && s.getTime().getHours() == 18)
+					&& (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813") 
+							|| courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913"))){
+				return false;
+			}
 
 
-    		//Checks if course is either CPSC 313 or CPSC 413 tutorial/lab
-    		//    		if ((c.getName().equals("CPSC313") || c.getName().equals("CPSC413")) && c.getType().equals("LAB")){
-    		//
-    		//    			// If the course is CPSC 313 tutorial/lab
-    		//    			if (c.getName().equals("CPSC313")){
-    		//    				if (seenTimes813.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
-    		//    					return false;
-    		//    				}
-    		//    				}
-    		//
-    		//    			// If the course is CPSC 413 tutorial/lab
-    		//    			if (c.getName().equals("CPSC413")){
-    		//    				if (seenTimes913.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
-    		//    					return false;
-    		//    				}
-    		//    				}
-    		//
-    		//}
-    	}
-    	return true;
-    }
+			// Checks if course is part of CPSC 813
+			if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813")
+					|| courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913")){
 
-    // Checks each course/lab and ensures that the time slot dedicated to it is the same as its slot type
-    private static boolean accurateTimetoCourseAndLabs(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs,
-    		ArrayList<Slot> slotsArray){
+				// If the course is CPSC 813 or 913 Lecture it is TTH 18:00
+				if (courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC")){
+					if (!(s.getDayAndTime().contains("18:00")) || !(s.getDaySeries().equals(DaySeries.TU))){
 
-    	/*for (Slot s : factsArray){
+						return false;
+					}
+				} else {
+
+					// If the course name contains CPSC 813 but is not a lecture add the time to seenTimes813
+					// These would be all lab/tutorial times for course CPSC 813
+					if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813")){
+						seenTimes813.add(s.getTime());
+					}
+
+					// If the course name contains CPSC 913 but is not a lecture add the time to seenTimes913
+					// These would be all lab/tutorial times for course CPSC 813
+					if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913")){
+						seenTimes913.add(s.getTime());
+					}
+				}
+			}
+		}
+
+		// Reloops to recheck list for CPSC 313 and CPSC 413 reoccuring times
+		for (Slot c : factsArray){
+
+			if ((courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC313") || courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC413")) && (courseLabs.get(factsArray.indexOf(c)).getType().equals("LAB")))
+			{
+				if (courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC313")) {
+					if (seenTimes813.contains(c.getTime())) {
+
+						return false;
+					}
+				}
+				if (courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC413")) {
+					if (seenTimes913.contains(c.getTime())) {
+						return false;
+					}
+				}
+
+			}
+
+
+			//Checks if course is either CPSC 313 or CPSC 413 tutorial/lab
+			//    		if ((c.getName().equals("CPSC313") || c.getName().equals("CPSC413")) && c.getType().equals("LAB")){
+			//
+			//    			// If the course is CPSC 313 tutorial/lab
+			//    			if (c.getName().equals("CPSC313")){
+			//    				if (seenTimes813.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
+			//    					return false;
+			//    				}
+			//    				}
+			//
+			//    			// If the course is CPSC 413 tutorial/lab
+			//    			if (c.getName().equals("CPSC413")){
+			//    				if (seenTimes913.contains(factsArray.get(courseLabs.indexOf(c)).getTime())){
+			//    					return false;
+			//    				}
+			//    				}
+			//
+			//}
+		}
+		return true;
+	}
+
+	// Checks each course/lab and ensures that the time slot dedicated to it is the same as its slot type
+	private static boolean accurateTimetoCourseAndLabs(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs,
+			ArrayList<Slot> slotsArray){
+
+		/*for (Slot s : factsArray){
 
             if (!(courseLabs.get(factsArray.indexOf(s)).getType().equals("LEC") && s.getSlotType() == SlotType.COURSE)){
                 return false;
@@ -605,8 +615,8 @@ public class Constr {
         }*/
 
 
-    	return true;
+		return true;
 
-    }
+	}
 }
 
