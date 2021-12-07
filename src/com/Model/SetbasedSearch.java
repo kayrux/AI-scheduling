@@ -18,8 +18,8 @@ public class SetbasedSearch {
 
 	// PREDIFINED VARIABLES
 	private final int MAX_EVAL = Integer.MAX_VALUE;
-	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = 500;
-	private final long TIME_LIMIT_SECONDS = 20;
+	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = Integer.MAX_VALUE;
+	private final long TIME_LIMIT_SECONDS = 3600 * 6;
 	private final boolean USE_TIME_LIMIT = true;
 	
 	private final int MAX_POP_SIZE = 30;

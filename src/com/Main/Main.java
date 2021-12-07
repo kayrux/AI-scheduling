@@ -10,7 +10,7 @@ import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
 
 public class Main {
-	private static boolean USE_COMMAND_LINE_ARGS = true;
+	private static boolean USE_COMMAND_LINE_ARGS = false;
 	
 	/*
 	 * Command line input: filename minfilled pref pair secdiff pen_coursemin pen_labsmin pen_notpaired pen_section 
@@ -61,7 +61,7 @@ public class Main {
 	        eval = new Eval(minfilled, pref, pair, secdiff, pen_coursemin, pen_labsmin, pen_notpaired, pen_section);
 		} else {
 			// Set text file to read 
-			txtfile = "../res/test2.txt";
+			txtfile = "res/test2.txt";
 			// Set weights and penalties
 			eval = new Eval(1, 1, 1, 1, 1, 1, 1, 1);
 		}
