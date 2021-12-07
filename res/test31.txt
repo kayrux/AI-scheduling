@@ -1,0 +1,24 @@
+Course slots:
+TU, 18:00, 1, 0 
+TU, 17:00, 1, 0
+MO, 18:00, 1, 0
+
+Lab slots:
+
+Courses:
+CPSC 913 LEC 01
+CPSC 413 LEC 01
+CPSC 214 LEC 01
+
+Labs:
+
+Not compatible:
+CPSC 413 LEC 01, CPSC 214 LEC 01
+
+Unwanted:
+
+Preferences:
+
+Pair:
+
+Partial assignments:
