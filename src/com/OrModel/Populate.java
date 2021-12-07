@@ -105,7 +105,7 @@ public class Populate {
 			System.out.println(s.getSlotType());
 			System.out.println(s.getDayAndTime());
 		}*/
-		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray) == false) {
+		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign) == false) {
 			numIterations++;
 			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
 		}   

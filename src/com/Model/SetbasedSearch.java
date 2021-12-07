@@ -115,7 +115,7 @@ public class SetbasedSearch {
 			fact2 = this.getFactViaStochasticAcceptance(highestEval, fact1);
 			//System.out.println("After Cross");
 			
-			newFact = Crossover.crossover(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, fact1, fact2);
+			newFact = Crossover.crossover(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, fact1, fact2, partialAssignList);
 			/*int i = 0;
 			for (Slot s : newFact) {
 				//System.out.println(courseLabArray.get(i).getName());

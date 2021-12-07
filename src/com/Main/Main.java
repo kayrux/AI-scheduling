@@ -13,7 +13,9 @@ public class Main {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
 
-		String txtfile = "res/test313.txt"; // Example file
+
+		String txtfile = "res/test6.txt"; // Example file
+
 
 
 

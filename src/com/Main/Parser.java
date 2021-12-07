@@ -398,20 +398,24 @@ while ((line = reader.readLine()) != null)
             e.printStackTrace();
         }
 
+        
+        ArrayList<CourseLab> toRemove = new ArrayList<>();
         for (CourseLab c : list) {
         	if (c.getName().equals("CPSC313")) {
         		SetbasedSearch.trigger813Flag();
-        	}
-        	if (c.getName().equals("CPSC813")) {
+        	} else if (c.getName().equals("CPSC813")) {
         		SetbasedSearch.trigger813Flag();
-        		list.remove(c);
-        	}
-        		
-        	if (c.getName().equals("CPSC413")) SetbasedSearch.trigger913Flag();
-        	if (c.getName().equals("CPSC913")) {
+        		toRemove.add(c);
+        	} else if (c.getName().equals("CPSC413")) {
         		SetbasedSearch.trigger913Flag();
-        		list.remove(c);
+        	} else if (c.getName().equals("CPSC913")) {
+        		SetbasedSearch.trigger913Flag();
+        		toRemove.add(c);
         	} 
+        }
+        
+        for (CourseLab c : toRemove) {
+        	list.remove(c);
         }
         
         list.sort(Comparator.comparing(CourseLab::getHash));
