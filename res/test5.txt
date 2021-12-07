@@ -1,4 +1,4 @@
-// CPSC 813 CPSC 913 courses provided, and course slots ar provided
+// CPSC 813 CPSC 913 courses provided, and course slots are provided
 // Expected: Regular assignments
 // CPSC 813 LEC 01 : TU, 18:00
 // CPSC 913 LEC 02 : TU, 18:00

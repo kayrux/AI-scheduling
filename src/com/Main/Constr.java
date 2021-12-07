@@ -393,53 +393,22 @@ public class Constr {
     }
 
     /* Special Courses 813 and 913 must be at 18:00-19:00 on TTH AND
-        813 and 313 Labs/Tutorials are sceduled at differnt times AND
-        913 and 413 Labs/Tutorials are sceduled at differnt times*/
+        813 and 313 Labs/Tutorials are scheduled at different times AND
+        913 and 413 Labs/Tutorials are scheduled at different times*/
     private static boolean specialCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
+
 
     	ArrayList<Time> seenTimes813 = new ArrayList();
     	ArrayList<Time> seenTimes913 = new ArrayList();
 
-
-
-
     	for (Slot s : factsArray){
-
-    		// Ensures only CPSC 813 and 913 are in TU 18:00
-    		//if (!(s.getDayAndTime() == "TU 18:00")
-    		//System.out.println(courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813"));
-    		//System.out.println(courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913"));
-
-    		//if (courseLabs.get(factsArray.indexOf(s)).getName().charAt(4) == '8')
-    		//{
-    		//	return false;
-    		//}
-    		//if (courseLabs.get(factsArray.indexOf(s)).getName().charAt(4) == '9')
-    		//{
-    		//	System.out.println("reahced here");
-    		//	return false;
-    		//}
-    		//if ((courseLabs.get(factsArray.indexOf(s)).getName().charAt(5) == '8' || courseLabs.get(factsArray.indexOf(s)).getName().charAt(5) == '9'))
-    		//{
-    		//	return false;
-    		//}
-
-    		//if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813"))
-    		//{
-    		//	System.out.println("813 reached");
-    		//	return false;
-    		//}
-    		//if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913"))
-    		//{
-    		//	System.out.println("913 reached");
-    		//	return false;
-    		//}
 
     		if (!(s.getDaySeries() == DaySeries.TU && s.getTime().getHours() == 18)
     				&& (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813") 
     						|| courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC913"))){
     			return false;
     		}
+
 
     		// Checks if course is part of CPSC 813
     		if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC813")
@@ -481,12 +450,12 @@ public class Constr {
     			}
     			if (courseLabs.get(factsArray.indexOf(c)).getName().equals("CPSC413")) {
     				if (seenTimes913.contains(c.getTime())) {
-
     					return false;
     				}
     			}
 
     		}
+
 
     		//Checks if course is either CPSC 313 or CPSC 413 tutorial/lab
     		//    		if ((c.getName().equals("CPSC313") || c.getName().equals("CPSC413")) && c.getType().equals("LAB")){

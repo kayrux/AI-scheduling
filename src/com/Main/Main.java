@@ -7,14 +7,16 @@ import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
-import com.OrModel.Populate;
 
 public class Main {
 	public static void main(String[] args) {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
 
-		String txtfile = "res/test31.txt"; // Example file
+
+		String txtfile = "res/test22.txt"; // Example file
+
+
 
 
 
@@ -34,9 +36,17 @@ public class Main {
 
         ArrayList<Slot> sol = setBasedSearch.search();
 
-        //ArrayList<Slot> sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray, 0);
-		//ArrayList<Slot> sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray, 0);
+        int i = 0;
+		String format = "%-25s%s%n";
 		
+		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
+		System.out.println("----------");
+		for (Slot s : sol) {
+			System.out.printf(format, courseLabArray.get(i).getStringFormatted(), s.getStringFormatted());
+			i++;
+		}
+        
+		/*
 		int i = 0;
 		
 		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
@@ -46,6 +56,7 @@ public class Main {
 			s.printSlot();
 			i++;
 		}
+		*/
 	}
 	
 

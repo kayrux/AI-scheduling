@@ -75,6 +75,7 @@ public class Crossover {
 				//if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
 					//if (slots.get(i).getSlotType() == SlotType.LAB);; //System.out.println("---------LAB---------");
 					constrC.add(slots.get(i));
+
 					if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray, partAssign))
 					{
 						 
@@ -125,7 +126,6 @@ public class Crossover {
 				C.clear();
 			}
 		}
-
 		return C;
 	}
 	
