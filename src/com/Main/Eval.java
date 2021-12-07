@@ -8,10 +8,8 @@ import com.DataStructures.Triplet;
 //Used for debugging/testing.
 //import com.Main.Parser;
 
-import com.Model.*;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * Soft constraint evaluator.
@@ -47,10 +45,12 @@ public class Eval {
                     ArrayList<Triplet<Slot, CourseLab, Integer>> prefArray,
                     ArrayList<Pair<CourseLab, CourseLab>> pairArray)
     {
+    	//System.out.println("---------------Eval---------------");
         return evalMinFilled(fact, slotsArray) * this.weightMinFilled +
                 evalPref(fact, courseLabArray, prefArray) * this.weightPref +
                 evalPair(fact, courseLabArray, pairArray) * this.weightPair +
                 evalSecDiff(fact, courseLabArray) * this.weightSecDiff;
+        
     }
 
     /**
@@ -72,12 +72,12 @@ public class Eval {
             }
 
             //Checks if slot appears more than the minimum.
-            if(Collections.frequency(fact, s) > min)
+            if(Collections.frequency(fact, s) < min)
             {
                 value++;
             }
         }
-
+        //System.out.println("evalMinFilled: " + value);
         return value;
     }
 
@@ -125,6 +125,7 @@ public class Eval {
         //        }
         //    }   
         //}
+        //System.out.println("evalPref: " + value);
         return value;
     }
 
@@ -148,11 +149,13 @@ public class Eval {
                     fact.get(courseLabsArray.indexOf(pair.getKey())).getDayAndTime(),
                     fact.get(courseLabsArray.indexOf(pair.getValue())).getDayAndTime()))
                 {
+                	//System.out.println(pair.getKey().getStringFormatted() + " " + pair.getValue().getStringFormatted());
                     value++;
                 }
             }
                 
         }
+        //System.out.println("evalPair: " + value);
         return value;
     }
 
@@ -197,6 +200,7 @@ public class Eval {
             //Resets slots for next course.
             seenSlots.clear();
         }
+        //System.out.println("evalSecDiff: " + value);
         return value;
     }
 
