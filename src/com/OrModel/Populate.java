@@ -31,7 +31,7 @@ public class Populate {
 		
 		if (numIterations > 500) 
 		{
-			System.out.println("Impossible to populate");
+			//System.out.println("Impossible to populate");
 			System.exit(0);
 			
 		}
@@ -106,7 +106,7 @@ public class Populate {
 			System.out.println(s.getSlotType());
 			System.out.println(s.getDayAndTime());
 		}*/
-		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign) == false) {
+		if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations) == false) {
 			numIterations++;
 			fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
 		}   

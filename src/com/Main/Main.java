@@ -14,8 +14,7 @@ public class Main {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
 
-		String txtfile = "res/test31.txt"; // Example file
-
+		String txtfile = "res/test24.txt"; // Example file
 
 
         ArrayList<Slot> slotArray = parser.parseCourseLabSlots(txtfile);
