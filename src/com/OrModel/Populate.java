@@ -76,8 +76,13 @@ public class Populate {
 				while (true) {
 					randSlot = (int)(Math.random() * slotList.size());
 					randSlotCourse = (int)(Math.random() * courseLabs.size());
-					
-					if (Slot.compareType(i, randSlot, courseLabs, slotList)) {	
+
+					if (Slot.compareType(i, randSlot, courseLabs, slotList)) {
+						//System.out.println(courseLabs.get(randSlotCourse).getName());
+						if (courseLabs.get(randSlotCourse).getHash().equals("CPSC43311")) {
+							//System.out.println("--------------" + courseLabs.get(randSlotCourse).getType());
+						}
+						
 						fact.set(i, slotList.get(randSlot));
 						break;
 					}

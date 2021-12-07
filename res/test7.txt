@@ -1,12 +1,5 @@
 // Course sections with section number starting LEC 9 are evening classes
-// Expected: Fail. LEC 9 courses slotted into evening slots (slots >= 18:00) BUT there are no evening slots
-
-// Expected:  LEC 9 courses slotted into evening slots (slots >= 18:00)
-// CPSC 100 LEC 09 : TU, 18:00
-// CPSC 101 LEC 09 : TU, 18:00
-// CPSC 100 LEC 01: MO, 8:00
-
-
+// Expected: Impossible because no evening slots
 
 
 
