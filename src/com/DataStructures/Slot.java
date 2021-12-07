@@ -208,6 +208,10 @@ public class Slot {
 		return daySeries;
 	}
 
+	public String getStringFormatted() {
+		return (": " + getDayAndTime());
+	}
+	
 	public void printSlot() {
 		System.out.println("DayTime: " + getDayAndTime());
 		System.out.println("Slot Type: " + getSlotType());

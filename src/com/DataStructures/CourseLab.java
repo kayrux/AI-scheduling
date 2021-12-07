@@ -31,6 +31,23 @@ public class CourseLab {
 		else return false;
 	}
 	
+	public String getStringFormatted() {
+		if (name.equals("CPSC813") || name.equals("CPSC913")) {
+			return name;
+		}
+		
+		String s = "";
+		if (this.lectureNumber != 0) {
+			s = (name + " LEC " + this.getLectureNumber());
+		}
+		
+		if (this.labNumber != 0) {
+			s += (" TUT " + this.getLabNumber());
+		}
+		
+		return s;
+	}
+	
 	/**
 	 * Prints course information in the form of "Name + Lecture number + Lab number"
 	 */

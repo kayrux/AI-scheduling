@@ -13,7 +13,7 @@ public class Main {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
 
-		String txtfile = "res/test6.txt"; // Example file
+		String txtfile = "res/test313.txt"; // Example file
 
 
 
@@ -34,9 +34,17 @@ public class Main {
 
         ArrayList<Slot> sol = setBasedSearch.search();
 
-        //ArrayList<Slot> sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray, 0);
-		//ArrayList<Slot> sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray, 0);
+        int i = 0;
+		String format = "%-25s%s%n";
 		
+		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
+		System.out.println("----------");
+		for (Slot s : sol) {
+			System.out.printf(format, courseLabArray.get(i).getStringFormatted(), s.getStringFormatted());
+			i++;
+		}
+        
+		/*
 		int i = 0;
 		
 		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
@@ -46,6 +54,7 @@ public class Main {
 			s.printSlot();
 			i++;
 		}
+		*/
 	}
 	
 

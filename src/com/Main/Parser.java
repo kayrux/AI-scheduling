@@ -14,6 +14,7 @@ import com.DataStructures.Slot;
 import com.DataStructures.SlotType;
 import com.DataStructures.Triplet;
 import com.Main.ParserError;
+import com.Model.SetbasedSearch;
 import com.Constants.ValidTimeSlots;
 
 public class Parser {
@@ -397,6 +398,22 @@ while ((line = reader.readLine()) != null)
             e.printStackTrace();
         }
 
+        for (CourseLab c : list) {
+        	if (c.getName().equals("CPSC313")) {
+        		SetbasedSearch.trigger813Flag();
+        	}
+        	if (c.getName().equals("CPSC813")) {
+        		SetbasedSearch.trigger813Flag();
+        		list.remove(c);
+        	}
+        		
+        	if (c.getName().equals("CPSC413")) SetbasedSearch.trigger913Flag();
+        	if (c.getName().equals("CPSC913")) {
+        		SetbasedSearch.trigger913Flag();
+        		list.remove(c);
+        	} 
+        }
+        
         list.sort(Comparator.comparing(CourseLab::getHash));
 
         return list;
