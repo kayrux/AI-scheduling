@@ -2,6 +2,7 @@ package com.OrModel;
 import java.util.ArrayList;
 
 import com.DataStructures.CourseLab;
+import com.DataStructures.DaySeries;
 import com.DataStructures.EmptySlot;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
@@ -61,7 +62,18 @@ public class Populate {
 				s.setLabmin(correctSlot.getLabmin());
 				s.setLabMax(correctSlot.getLabmax());
 				
+				if (pAssign.getKey().getName().equals("CPSC813") || pAssign.getKey().getName().equals("CPSC913"))
+				{
+					if (!(pAssign.getValue().getDaySeries().equals(DaySeries.TU) && pAssign.getValue().getTime().getHours() == 18) )
+					{
+						System.out.println("Partial assignment contradicts hard constraint");
+						System.exit(0);
+					}  
+				}  else 
+				{
+				
 				fact.set(courseLabs.indexOf(pAssign.getKey()), s);
+				}
 				
 			}
 		}
