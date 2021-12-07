@@ -75,7 +75,7 @@ public class Eval {
             //Checks if slot appears more than the minimum.
             if(Collections.frequency(fact, s) < min)
             {
-                value++;
+                value += min - Collections.frequency(fact, s);
             }
         }
         //System.out.println("evalMinFilled: " + value);
