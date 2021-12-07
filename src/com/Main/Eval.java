@@ -1,6 +1,7 @@
 package com.Main;
 
 import com.DataStructures.CourseLab;
+import com.DataStructures.DaySeries;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
@@ -95,7 +96,14 @@ public class Eval {
 
         for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
         {
-            if(!fact.get(courseLabsArray.indexOf(pref.getCourseLab())).equals(pref.getSlot()))
+        	if (pref.getCourseLab().getName().equals("CPSC813") || pref.getCourseLab().getName().equals("CPSC913"))
+        	{
+        		if (!(pref.getSlot().getTime().getHours() == 18 && pref.getSlot().getDaySeries().equals(DaySeries.TU)))
+        		{
+        			value += pref.getRanking();
+        		}
+        	
+        	} else if(!fact.get(courseLabsArray.indexOf(pref.getCourseLab())).equals(pref.getSlot()))
             {
                 value += pref.getRanking();
             }

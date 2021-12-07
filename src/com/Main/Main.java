@@ -14,7 +14,7 @@ public class Main {
 		SetbasedSearch setBasedSearch;
 
 
-		String txtfile = "res/test22.txt"; // Example file
+		String txtfile = "res/test3.txt"; // Example file
 
 
 
