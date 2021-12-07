@@ -150,7 +150,7 @@ public class SetbasedSearch {
 		// Return best fact based on Eval.eval(...)
 		
 		ArrayList<Slot> bestFact = getFactWithLowestEval(facts);
-		
+		//System.out.println("Eval:     " + evalFact(getFactWithLowestEval(facts)));
 		
 		
 		solutionFound(bestFact);

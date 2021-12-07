@@ -22,6 +22,7 @@ FR, 10:00, 2, 1
 Courses:
 CPSC 313 LEC 01 TUT 01
 CPSC 413 LEC 01
+CPSC 813
 
 Labs:
 

@@ -59,6 +59,9 @@ public class Parser {
 
             CourseLab lab = new CourseLab(name, lectureNumber, labNumber, "LAB"); 
             return lab;
+        } else if (str.length == 2)
+        {
+        	return new CourseLab(name, 0, 0, "LAB");
         } else if (str[2].equals("LEC")) 
         {
             // Course 
