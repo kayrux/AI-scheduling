@@ -6,7 +6,6 @@ import java.util.Arrays;
 import com.DataStructures.DaySeries;
 import com.DataStructures.Slot;
 import com.DataStructures.SlotType;
-import com.Model.*;
 
 public class ValidTimeSlots {
     public static final ArrayList<Slot> SLOT_DATA = new ArrayList<Slot>(Arrays.asList(

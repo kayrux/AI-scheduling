@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import com.Constants.ValidTimeSlots;
 import com.DataStructures.CourseLab;
 import com.DataStructures.DaySeries;
 import com.DataStructures.Pair;
@@ -15,7 +16,6 @@ import com.DataStructures.SlotType;
 import com.DataStructures.Triplet;
 import com.Main.ParserError;
 import com.Model.SetbasedSearch;
-import com.Constants.ValidTimeSlots;
 
 public class Parser {
 
