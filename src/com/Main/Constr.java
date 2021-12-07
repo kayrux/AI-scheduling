@@ -479,7 +479,7 @@ public class Constr {
 	private static boolean fiveHunderedLevelCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
 
 		// An array list of all times of 500-level courses
-		ArrayList<Time> seenTimes = new ArrayList();
+		ArrayList<Time> seenTimes = new ArrayList<Time>();
 
 		for (Slot s : factsArray){
 
@@ -518,8 +518,8 @@ public class Constr {
 	private static boolean specialCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs){
 
 
-		ArrayList<Time> seenTimes813 = new ArrayList();
-		ArrayList<Time> seenTimes913 = new ArrayList();
+		ArrayList<Time> seenTimes813 = new ArrayList<Time>();
+		ArrayList<Time> seenTimes913 = new ArrayList<Time>();
 
 		for (Slot s : factsArray){
 
