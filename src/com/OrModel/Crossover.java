@@ -54,7 +54,7 @@ public class Crossover {
 	public static ArrayList<Slot> crossover(ArrayList<CourseLab> courseLabs, ArrayList<Slot> slots,
 											ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
-											ArrayList<Slot> A, ArrayList<Slot> B) {
+											ArrayList<Slot> A, ArrayList<Slot> B, ArrayList<Pair<CourseLab, Slot>> partAssign) {
 		Constr constraints = new Constr();
 		Random rand = new Random();
 		ArrayList<Slot> C = new ArrayList<>();
@@ -70,10 +70,13 @@ public class Crossover {
 				ArrayList<Slot> constrC = new ArrayList<>(C);
 				
 				// Fails test15.txt (courseLabs.size() > slots.size(), so index out of bound error)
-				if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
-					if (slots.get(i).getSlotType() == SlotType.LAB) System.out.println("---------LAB---------");
+				if (Slot.compareType(C.size(), i, courseLabs, slots)) {
+					
+				//if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
+					//if (slots.get(i).getSlotType() == SlotType.LAB);; //System.out.println("---------LAB---------");
 					constrC.add(slots.get(i));
-					if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray))
+
+					if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray, partAssign, 0))
 					{
 						 
 						possibleSlots.add(i);
@@ -123,8 +126,8 @@ public class Crossover {
 				C.clear();
 			}
 		}
-
 		return C;
 	}
+	
 	
 }

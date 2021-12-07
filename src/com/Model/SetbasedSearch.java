@@ -1,11 +1,14 @@
 package com.Model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 import com.DataStructures.CourseLab;
+import com.DataStructures.DaySeries;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
+import com.DataStructures.SlotType;
 import com.DataStructures.Triplet;
 import com.Main.Eval;
 import com.OrModel.Crossover;
@@ -15,12 +18,15 @@ public class SetbasedSearch {
 
 	// PREDIFINED VARIABLES
 	private final int MAX_EVAL = Integer.MAX_VALUE;
-	private final int MAX_ITERATIONS_NO_IMPROVEMENT = 500;
+	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = Integer.MAX_VALUE;
 	private final long TIME_LIMIT_SECONDS = 10;
 	private final boolean USE_TIME_LIMIT = true;
 	
 	private final int MAX_POP_SIZE = 30;
 	private final int INITIAL_POP_SIZE = 20;
+	
+	private static boolean add813 = false;
+	private static boolean add913 = false;
 	
 	private Random rand;
 	
@@ -40,7 +46,7 @@ public class SetbasedSearch {
 			ArrayList<Pair<CourseLab, Slot>> unwantedArray,
             ArrayList<Triplet<Slot, CourseLab, Integer>> prefArray,
             ArrayList<Pair<CourseLab, CourseLab>> pairArray,
-            ArrayList<Pair<CourseLab, Slot>> partialAssignArray) {
+            ArrayList<Pair<CourseLab, Slot>> partialAssignArray, Eval eval) {
 		
 		facts = new ArrayList<ArrayList<Slot>>();
 		currentEvals = new ArrayList<Integer>();
@@ -52,7 +58,7 @@ public class SetbasedSearch {
 		this.partialAssignList = partialAssignArray;
 		this.pairArray = pairArray;
 		
-		this.eval = new Eval(1,1,1,1);	// Set weights for Eval
+		this.eval = eval;	// Set weights for Eval
 		this.rand = new Random();
 		
 	}
@@ -70,7 +76,12 @@ public class SetbasedSearch {
 		
 		// Populate
 		for (int i = 0; i < INITIAL_POP_SIZE; i ++) {
-			facts.add(Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList));
+			ArrayList<Slot> f = Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList, 0);
+			if (this.evalFact(f) == 0) {
+				solutionFound(f);
+				return f; // Returns most optimal solution if found
+			}
+			facts.add(f);
 		}
 		
 		if (facts.isEmpty()) {
@@ -95,15 +106,16 @@ public class SetbasedSearch {
 			}
 			
 			// Choose fact1, and fact2 to pass to Crossover
-			highestEval = this.getHighestEval(facts);
+			
 			fact1 = this.getFactWithLowestEval(facts);
 			//System.out.println("Lowest Eval: " + evalFact(fact1));
 			
 			//System.out.println("Cross");
+			highestEval = this.getHighestEval(facts);
 			fact2 = this.getFactViaStochasticAcceptance(highestEval, fact1);
 			//System.out.println("After Cross");
 			
-			newFact = Crossover.crossover(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, fact1, fact2);
+			newFact = Crossover.crossover(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, fact1, fact2, partialAssignList);
 			/*int i = 0;
 			for (Slot s : newFact) {
 				//System.out.println(courseLabArray.get(i).getName());
@@ -120,6 +132,10 @@ public class SetbasedSearch {
 				currentEvals.add(evalFact(newFact));	// Add evaluation of fact to cached evals
 
 				currentEval = this.evalFact(newFact); // Update currentEval
+				if (currentEval == 0) {
+					solutionFound(newFact);
+					return newFact;	// Returns most optimal solution if found
+				}
 			}
 
 			// Updates the lowest evaluation and the counter for no. iterations without improvement
@@ -132,9 +148,37 @@ public class SetbasedSearch {
 		}
 		
 		// Return best fact based on Eval.eval(...)
-		return getFactWithLowestEval(facts);
+		
+		ArrayList<Slot> bestFact = getFactWithLowestEval(facts);
+		//System.out.println("Eval:     " + evalFact(getFactWithLowestEval(facts)));
+		
+		
+		solutionFound(bestFact);
+		return bestFact;
 	}
 	
+
+	private void solutionFound(ArrayList<Slot> sol) {
+		if (add813 == true) {
+			CourseLab cpsc813 = new CourseLab("CPSC813", 0, 1, "LAB");
+			courseLabArray.add(cpsc813);
+			courseLabArray.sort(Comparator.comparing(CourseLab::getHash));
+			int index813 = courseLabArray.indexOf(cpsc813);
+			
+			Slot slot813 = new Slot(DaySeries.TU, SlotType.LAB, 18, 0, 0, 0, 0, 1);
+			sol.add(index813, slot813);
+		}
+		
+		if (add913 == true) {
+			CourseLab cpsc913 = new CourseLab("CPSC913", 0, 1, "LAB");
+			courseLabArray.add(cpsc913);
+			courseLabArray.sort(Comparator.comparing(CourseLab::getHash));
+			int index913 = courseLabArray.indexOf(cpsc913);
+			
+			Slot slot913 = new Slot(DaySeries.TU, SlotType.LAB, 18, 0, 0, 0, 0, 1);
+			sol.add(index913, slot913);
+		}
+	}
 	
 	/** 
 	 * Chooses a fact based on a roulette-wheel selection via stochastic acceptance, which causes solutions with a lower 
@@ -161,6 +205,7 @@ public class SetbasedSearch {
 			}
 			
 			tempEval = eval.eval(fact2, slotsArray, courseLabArray, prefArray, pairArray);	// Evaluation of fact2;
+			if (highestEval == 0) break;
 			pAccept = ((highestEval - tempEval) * 100) / highestEval;	// Percentage chance that fact2 is accepted
 			if (this.generateRandomInt(0, 100) < pAccept) break;
 			if (counter > max_iterations) break;	// If pAccept is too low, max iterations will stop from looping too many times
@@ -170,7 +215,13 @@ public class SetbasedSearch {
 	}
 
 
+	public static void trigger813Flag() {
+		add813 = true;
+	}
 	
+	public static void trigger913Flag() {
+		add913 = true;
+	}
 	/**
 	 * Initialize cached evals for current facts
 	 */
