@@ -30,7 +30,7 @@ public class Populate {
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
 											ArrayList<Pair<CourseLab, Slot>> partialAssign, int numIterations) {
 		
-		if (numIterations > 500) 
+		if (numIterations > SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT) 
 		{
 			//System.out.println("Impossible to populate");
 			System.exit(0);

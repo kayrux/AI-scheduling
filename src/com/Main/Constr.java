@@ -39,7 +39,7 @@ public class Constr {
 
 				//if (s.getDayAndTime() == "TU 18:00"  || s.getDayAndTime() == "TU 17:00" || s.getDayAndTime() == "TU 18:30"){
 				if (s.getDaySeries().equals(DaySeries.TU) && ((s.getTime().getHours() == 18) || (s.getTime().getHours() == 17 && s.getSlotType() == SlotType.COURSE))) {
-					if (iterations == 500)
+					if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 					{
 						System.out.println("Impossible because CPSC 313 must be assigned to a Time slot that would overlap with CPSC 813");
 						
@@ -58,7 +58,7 @@ public class Constr {
 
 						//if (temp.getDaySeries().equals(DaySeries.TU) && ((temp.getTime().getHours() == 18) || (temp.getTime().getHours() == 17 && temp.getSlotType() == SlotType.COURSE))) {
 						if (keyCheck || valueCheck) { 
-							if (iterations == 500)
+							if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 							{
 								System.out.println("Impossible because one of the courses CPSC 313 in non-compatible must be assigned to a Time Slot that overlaps with overlaps with CPSC 813");
 							}
@@ -87,7 +87,7 @@ public class Constr {
 
 				//if (s.getDayAndTime() == "TU 18:00"  || s.getDayAndTime() == "TU 17:00" || s.getDayAndTime() == "TU 18:30"){
 				if (s.getDaySeries().equals(DaySeries.TU) && ((s.getTime().getHours() == 18) || (s.getTime().getHours() == 17 && s.getSlotType() == SlotType.COURSE))) {
-					if (iterations == 500)
+					if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 					{
 						System.out.println("Impossible because CPSC 413 must be assigned to a Time slot that would overlap with CPSC 913");
 						
@@ -106,7 +106,7 @@ public class Constr {
 
 						//if (temp.getDaySeries().equals(DaySeries.TU) && ((temp.getTime().getHours() == 18) || (temp.getTime().getHours() == 17 && temp.getSlotType() == SlotType.COURSE))) {
 						if (keyCheck || valueCheck) { 
-							if (iterations == 500)
+							if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 							{
 								System.out.println("Impossible because one of the courses CPSC 413 in non-compatible must be assigned to a Time Slot that overlaps with overlaps with CPSC 913");
 							}
@@ -140,7 +140,7 @@ public class Constr {
 					if (s.getTime().getHours() != p.getValue().getTime().getHours() 
 							|| s.getDaySeries() != p.getValue().getDaySeries()){
 						
-						if (iterations == 500)
+						if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 						{
 							System.out.println("Impossible to create a valid answer that follows all the provided partial assignments");
 						}
@@ -190,7 +190,7 @@ public class Constr {
 			//System.out.println(" " + max);
 			if(Collections.frequency(factsArray, s) > max)
 			{
-				if (iterations == 500)
+				if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 				{
 					System.out.println("Impossible to populate because the number of provided course/lab slots are less than the number of provided courses/labs");
 				}
@@ -231,7 +231,7 @@ public class Constr {
 							if (c.getTime().getHours() == s.getTime().getHours())
 							{
 								if (c.getDaySeries() == s.getDaySeries()) {
-									if (iterations == 500)
+									if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 									{
 										System.out.println("Impossible to populate because the course must be at a time which overlaps with one of its labs/tutorials");
 									}
@@ -286,7 +286,7 @@ public class Constr {
 								// Checks if the times are the same
 								if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == 
 										factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime()){
-									if (iterations == 500)
+									if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 									{
 										System.out.println("Impossible to populate because one of the non compatible pairs must be assigned to the same time slot.");
 									}
@@ -301,7 +301,7 @@ public class Constr {
 								// Checks if the times are the same
 								if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime() == 
 										factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime()){
-									if (iterations == 500)
+									if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 									{
 										System.out.println("Impossible to populate because one of the non compatible pairs must be assigned to the same time slot.");
 									}
@@ -348,7 +348,7 @@ public class Constr {
 						if (factsArray.get(courseLabsArray.indexOf(uw.getKey())).getTime().getHours() == uw.getValue().getTime().getHours())
 						{
 							if (factsArray.get(courseLabsArray.indexOf(uw.getKey())).getDaySeries() == uw.getValue().getDaySeries()) {
-								if (iterations == 500)
+								if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 								{
 									System.out.println("Impossible to populate because a course/lab/tutorial must be assigned to one of its unwanted time slots.");
 								}
@@ -393,7 +393,7 @@ public class Constr {
 			{
 				if (factsArray.get(i).getTime().getHours() < 18 | factsArray.get(i).getTime().getHours() > 24)
 				{
-					if (iterations == 500)
+					if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 					{
 						System.out.println("Impossible to populate because the course with a lecture number higher than 9 cannot be assigned to an evening time slot");
 					}
@@ -421,7 +421,7 @@ public class Constr {
 				// Checks to make sure that the time of the 500-level course is no in array seenTimes
 				// If it is not, then it will add that time to seenTimes
 				if (seenTimes.contains(s.getTime())){
-					if (iterations == 500)
+					if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 					{
 						System.out.println("Impossible to populate because at least one of the 500 level courses are assigned to the same Time Slot");
 					}
@@ -441,7 +441,7 @@ public class Constr {
 
 			// Ensures that course is a lecture, and then checks whether the time of that course is 11:00 or not
 			if (s.getSlotType() == SlotType.COURSE && s.getTime().toString().contains("11:00") && s.getDaySeries().toString().contains("TU")){
-				if (iterations == 500)
+				if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 				{
 					System.out.println("Impossible to populate because a course would be assigned to TU 11:00");
 				}
