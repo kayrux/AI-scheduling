@@ -51,6 +51,15 @@ public class Time {
 		return this.minutes;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o.getClass() == Time.class) {
+			Time t = (Time) o;
+			if (t.getHours() == this.getHours() && t.getMinutes() == this.getMinutes()) return true;
+		}
+		return false;
+	}
+	
 }
 
 

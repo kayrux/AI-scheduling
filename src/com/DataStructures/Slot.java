@@ -81,6 +81,7 @@ public class Slot {
 		if (o.getClass() == Slot.class) {
 			Slot s = (Slot) o;
 			if (s.getDayAndTime().equals(this.getDayAndTime())) {
+			//if (s.getDaySeries() == this.getDaySeries() && s.getTime().equals(this.getTime())) {
 				if (s.getSlotType().equals(this.slotType)) return true;
 			}
 		}

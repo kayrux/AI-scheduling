@@ -25,13 +25,7 @@ public class Populate {
 											ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
 											ArrayList<Pair<CourseLab, Slot>> partialAssign, int numIterations) {
-
-		//If max iterations pass and no solution has been found, we assume there is no solution.
-		if (numIterations > SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
-		{
-			System.out.println("Impossible to populate");
-			System.exit(0);
-		}
+		
 
 		Constr constraints = new Constr();
 
@@ -131,7 +125,7 @@ public class Populate {
 							constrFact.set(i, previous);
 							i--;
 						} while (previous.getSlotType() != SlotType.EMPTY);
-
+						
 						//Used for tracking populate progress.
 						//backtracks++;
 						//if(backtracks % 50 == 0)
@@ -152,6 +146,7 @@ public class Populate {
 
 					//Tests the slot randomly chosen.
 					constrFact.set(i, slotList.get(randSlot));
+					//slotList.get(randSlot);
 					if(constraints.constr(constrFact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations))
 					{
 						//If it works, then fact is updated and fact once again matches constrFact.

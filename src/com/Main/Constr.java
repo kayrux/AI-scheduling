@@ -191,12 +191,13 @@ public class Constr {
 			{
 				max = s.getLabmax();
 			}
-			int labMax = s.getLabmax();
+			//int labMax = s.getLabmax();
 			// Checks how often that specific time slot appears in the facts array
 			//System.out.print(Collections.frequency(factsArray, s));
 			//System.out.println(" " + max);
 			if(Collections.frequency(factsArray, s) > max)
 			{
+				
 				if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 				{
 					System.out.println("Impossible to populate because the number of provided course/lab slots are less than the number of provided courses/labs");
