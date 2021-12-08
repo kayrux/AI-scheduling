@@ -35,8 +35,8 @@ public class Populate {
 		ArrayList<Slot> fact = populate2(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations);
 		while(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations) == false) {
 			numIterations++;
-			fact = new ArrayList<Slot>(populate2(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
 			System.out.println("Still here");
+			fact = new ArrayList<Slot>(populate2(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
 		}
 		
 		return fact;
@@ -55,6 +55,7 @@ public class Populate {
 		}
 		
 		ArrayList<Slot> fact = new ArrayList<Slot>();
+		ArrayList<Slot> factTest = new ArrayList<Slot>();
 		while(fact.size() < courseLabs.size()) {
 			fact.add(new EmptySlot());
 		}
@@ -96,40 +97,58 @@ public class Populate {
 		}
 		
 		for(int i = 0; i < fact.size(); i++) {
-			int randSlot = (int)(Math.random() * slotList.size());
-			int randSlotCourse = (int)(Math.random() * courseLabs.size());
-			
-			if(fact.get(i).getSlotType() == SlotType.EMPTY) {
-				//System.out.println("Size: " + courseLabs.size());      
-				
-				while (true) {
-					randSlot = (int)(Math.random() * slotList.size());
-					randSlotCourse = (int)(Math.random() * courseLabs.size());
+			int repeat = 1;
 
-					if (Slot.compareType(i, randSlot, courseLabs, slotList)) {
-						//System.out.println(courseLabs.get(randSlotCourse).getName());
-						if (courseLabs.get(randSlotCourse).getHash().equals("CPSC43311")) {
-							//System.out.println("--------------" + courseLabs.get(randSlotCourse).getType());
-						}
-						
-						fact.set(i, slotList.get(randSlot));
-						break;
-					}
-					/*if (courseLabs.get(randSlotCourse).getType().equals("LEC") && slotList.get(randSlot).getSlotType() == SlotType.COURSE){
-		            	fact.set(i, slotList.get(randSlot));
-		            	break;
-		            }
-		            if ((courseLabs.get(randSlotCourse).getType().equals("TUT") || courseLabs.get(randSlotCourse).getType().equals("LAB")) 
-		                    && slotList.get(randSlot).getSlotType() == SlotType.LAB){
-		            	fact.set(i, slotList.get(randSlot));
-		            	break;
-		            }*/
-				}
+			ArrayList<Slot> possibleTimes= new ArrayList<Slot>();
+
+			if(fact.get(i).getSlotType() == SlotType.EMPTY){
 				
+				for (Slot s : slotList){
+
+					factTest.add(s);
+
+					if (constraints.constr(factTest, slotList, courseLabs, noncompatibleArray, 
+						unwantedArray, partialAssign, numIterations)){
+						possibleTimes.add(s);
+					}
+
+					factTest.remove(s);
+				}
+
+				int randSlot = (int) (Math.random() * possibleTimes.size());
+
+				if (possibleTimes.size() == repeat-1){
+					if (i == 0){
+						System.exit(0);
+					}
+					i--;
+					repeat++;
+					factTest.remove(factTest.size()-1);
+					System.out.println("Currently: " + i + "/" + courseLabs.size());
+				} else {
+					repeat = 1;
+					System.out.println("Fake Test: " + constraints.constr(factTest, slotList, courseLabs, 
+						noncompatibleArray, unwantedArray, partialAssign, numIterations));
+					System.out.println("Reached: " + i + "/" + courseLabs.size());
+					factTest.add(possibleTimes.get(randSlot));
+				}
+			} else {
+				factTest.add(fact.get(i));
 			}
 		}
-		
 
+		// for (int i = 0; i < factTest.size(); i ++){
+		// 	fact.set(i, factTest.get(i));
+		// 	System.out.println("Fake Test: " + constraints.constr(factTest, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations));
+		// 	System.out.println("Real Test: " + constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations));
+
+		// }
+		
+		// Testing
+		/*for (Slot s : fact) {
+			System.out.println(s.getSlotType());
+			System.out.println(s.getDayAndTime());
+		}*/
 		// if(constraints.constr(fact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations) == false) {
 		// 	numIterations++;
 		// 	fact = new ArrayList<Slot>(populate(courseLabs, slotList, noncompatibleArray, unwantedArray, partialAssign, numIterations));
@@ -146,6 +165,6 @@ public class Populate {
 			}
 		}*/
 		
-		return fact;
+		return factTest;
 	}
 }
