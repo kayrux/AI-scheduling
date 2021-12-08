@@ -35,6 +35,9 @@ public class Constr {
 			ArrayList<Pair<CourseLab, CourseLab>> noncompatible, int iterations){
 
 		for (Slot s : factsArray){
+			if (s.getSlotType() == SlotType.EMPTY) {
+				continue;
+			}
 			if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC313")){
 
 				//if (s.getDayAndTime() == "TU 18:00"  || s.getDayAndTime() == "TU 17:00" || s.getDayAndTime() == "TU 18:30"){
@@ -83,6 +86,10 @@ public class Constr {
 			ArrayList<Pair<CourseLab, CourseLab>> noncompatible, int iterations){
 
 		for (Slot s : factsArray){
+			if (s.getSlotType() == SlotType.EMPTY)
+			{
+				continue;
+			}
 			if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC413")){
 
 				//if (s.getDayAndTime() == "TU 18:00"  || s.getDayAndTime() == "TU 17:00" || s.getDayAndTime() == "TU 18:30"){
@@ -205,6 +212,10 @@ public class Constr {
 	private static boolean differentTimes(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs, int iterations){
 
 		for (Slot s : factsArray){
+			if (s.getSlotType() == SlotType.EMPTY)
+			{
+				continue;
+			}
 
 			// Checks if the current s is a course
 			if (s.getSlotType() == SlotType.COURSE){
@@ -212,7 +223,15 @@ public class Constr {
 				for (Slot c : factsArray) {
 					//Testing
 					//System.out.println(c.getDayAndTime());
+					if (c.getSlotType() == SlotType.EMPTY) 
+					{
+						continue;
+						
+					}
 
+					//System.out.println(factsArray.indexOf(c));
+					//System.out.println(factsArray.size());
+					//System.out.println(courseLabs.size());
 					CourseLab cl = courseLabs.get(factsArray.indexOf(c));
 
 					//System.out.println(s.getDayAndTime());
@@ -263,6 +282,10 @@ public class Constr {
 
 		// s is the fact to check
 		for (Slot s : factsArray){
+			if (s.getSlotType() == SlotType.EMPTY)
+			{
+				continue;
+			}
 
 			for (Pair<CourseLab, CourseLab> nc: noncompatibleArray){
 
@@ -385,10 +408,11 @@ public class Constr {
 
 	// All courses that are LEC 9 or higher are in the evening
 	private static boolean eveningCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs, int iterations){
-
-
-		for (int i=0; i<factsArray.size(); i++)
-		{
+		for (Slot s : factsArray) {
+			if (s.getSlotType() == SlotType.EMPTY) {
+				continue;
+			}
+			int i = factsArray.indexOf(s);
 			if (courseLabs.get(i).getLectureNumber() >= 9)
 			{
 				if (factsArray.get(i).getTime().getHours() < 18 | factsArray.get(i).getTime().getHours() > 24)
@@ -400,10 +424,31 @@ public class Constr {
 					return false;
 				}
 			}
-
-
 		}
 		return true;
+
+
+		//for (int i=0; i<factsArray.size(); i++)
+		//{
+		//	if (factsArray.get(i).getSlotType() == SlotType.EMPTY)
+		//	{
+		//		continue;
+		//	}
+		//	if (courseLabs.get(i).getLectureNumber() >= 9)
+		//	{
+		//		if (factsArray.get(i).getTime().getHours() < 18 | factsArray.get(i).getTime().getHours() > 24)
+		//		{
+		//			if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
+		//			{
+		//				System.out.println("Impossible to populate because the course with a lecture number higher than 9 cannot be assigned to an evening time slot");
+		//			}
+		//			return false;
+		//		}
+		//	}
+
+
+		//}
+		//return true;
 	}
 
 	// All 500-level courses are in differnt time slots
@@ -413,6 +458,10 @@ public class Constr {
 		ArrayList<Time> seenTimes = new ArrayList();
 
 		for (Slot s : factsArray){
+			if (s.getSlotType() == SlotType.EMPTY)
+			{
+				continue;
+			}
 
 			// Sees if the name of the course contains CPSC 5 or SENG 5
 			if (courseLabs.get(factsArray.indexOf(s)).getName().charAt(4) == '5') {
