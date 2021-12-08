@@ -20,6 +20,18 @@ public class Constr {
 	public boolean constr(ArrayList<Slot> factsArray, ArrayList<Slot> slotsArray, ArrayList<CourseLab> courseLabs,
 			ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, ArrayList<Pair<CourseLab, Slot>> unwantedArray, ArrayList<Pair<CourseLab, Slot>> partAssign, int iterations)
 	{
+		//System.out.println("maxTimes: " + maxTimes(factsArray, slotsArray, courseLabs, iterations));
+		//System.out.println("diffTimes: " + differentTimes(factsArray,courseLabs, iterations));
+		//System.out.println("noncompat: " + noncompatibleClasses(factsArray, courseLabs, noncompatibleArray, iterations));
+		//System.out.println("unwanted: " + unwantedTimes(factsArray, courseLabs, unwantedArray, iterations));
+		//System.out.println("eveningCourses: " + eveningCourses(factsArray, courseLabs, iterations));
+		//System.out.println("Five hundred: " + fiveHunderedLevelCourses(factsArray, courseLabs, iterations));
+		//System.out.println(noCourseScheduled(factsArray, iterations));
+		//System.out.println(partAssign(factsArray, courseLabs, partAssign, iterations));
+		
+		
+
+
 
 
 		return maxTimes(factsArray, slotsArray, courseLabs, iterations) && differentTimes(factsArray, courseLabs, iterations)
@@ -30,15 +42,16 @@ public class Constr {
 				&& check913And413DifferentTimes(factsArray,courseLabs, noncompatibleArray, iterations);
 
 	}
+	
 
 	private static boolean check813And313DifferentTimes(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs,
 			ArrayList<Pair<CourseLab, CourseLab>> noncompatible, int iterations){
 
-		for (Slot s : factsArray){
+		for (Slot s : factsArray) {
 			if (s.getSlotType() == SlotType.EMPTY) {
 				continue;
 			}
-			if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC313")){
+			if (courseLabs.get(factsArray.indexOf(s)).getName().equals("CPSC313")) {
 
 				//if (s.getDayAndTime() == "TU 18:00"  || s.getDayAndTime() == "TU 17:00" || s.getDayAndTime() == "TU 18:30"){
 				if (s.getDaySeries().equals(DaySeries.TU) && ((s.getTime().getHours() == 18) || (s.getTime().getHours() == 17 && s.getSlotType() == SlotType.COURSE))) {
@@ -51,7 +64,7 @@ public class Constr {
 				}
 
 
-				for (Pair<CourseLab, CourseLab> nc : noncompatible){
+				for (Pair<CourseLab, CourseLab> nc : noncompatible) {
 
 					if (nc.getKey().getName().equals("CPSC313")  || nc.getValue().getName().equals("CPSC313")){
 						Slot temp = factsArray.get(courseLabs.indexOf(nc.getKey()));
@@ -139,6 +152,9 @@ public class Constr {
 			ArrayList<Pair<CourseLab, Slot>> partAssigned, int iterations){
 
 		for(Slot s : factsArray){
+			if (s.getSlotType() == SlotType.EMPTY) {
+				continue;
+			}
 
 			for (Pair<CourseLab, Slot> p : partAssigned){
 
@@ -276,19 +292,18 @@ public class Constr {
 
 		return true;
 	}
-
+	
 	private static boolean noncompatibleClasses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabsArray,
 			ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, int iterations){
 
 		// s is the fact to check
 		for (Slot s : factsArray){
-			if (s.getSlotType() == SlotType.EMPTY)
-			{
+			if (s.getSlotType() == SlotType.EMPTY) {
 				continue;
 			}
 
 			for (Pair<CourseLab, CourseLab> nc: noncompatibleArray){
-
+				
 				// Checks to see if both Key and Value are in the course list
 				if (courseLabsArray.contains(nc.getKey()) 
 						&& courseLabsArray.contains(nc.getValue())){
@@ -309,6 +324,7 @@ public class Constr {
 								// Checks if the times are the same
 								if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == 
 										factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime()){
+									//System.out.println("reached here");
 									if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
 									{
 										System.out.println("Impossible to populate because one of the non compatible pairs must be assigned to the same time slot.");
@@ -338,6 +354,74 @@ public class Constr {
 		}
 		return true;
 	} 
+
+
+
+	//private static boolean noncompatibleClasses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabsArray,
+	//		ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, int iterations){
+
+	//	// s is the fact to check
+	//	for (Slot s : factsArray){
+	//		if (s.getSlotType() == SlotType.EMPTY)
+	//		{
+	//			continue;
+	//		}
+
+	//		for (Pair<CourseLab, CourseLab> nc: noncompatibleArray){
+
+	//			// Checks to see if both Key and Value are in the course list
+	//			if (courseLabsArray.contains(nc.getKey()) 
+	//					&& courseLabsArray.contains(nc.getValue())){
+
+	//				// Checks to seeif both Key and Value are in the facts list
+	//				if (courseLabsArray.indexOf(nc.getKey()) < factsArray.size() 
+	//						&& courseLabsArray.indexOf(nc.getValue()) < factsArray.size()){
+
+
+	//					// Checks to see if s is equal to either key or value
+	//					if (courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())
+	//							|| courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+
+
+	//						// If the course is a key, checks to see the value is in the facts array,
+	//						// Then ensures their times are different
+	//						if (courseLabsArray.indexOf(nc.getValue()) <= factsArray.size() 
+	//								&& courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getKey())){
+
+
+	//							// Checks if the times are the same
+	//							if (factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime() == 
+	//									factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime()){
+	//								if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
+	//								{
+	//									System.out.println("Impossible to populate because one of the non compatible pairs must be assigned to the same time slot.");
+	//								}
+
+	//								return false;
+	//							}
+	//						}
+	//						// If the course is a value, checks to see the key is in the facts array,
+	//						// Then ensures their times are different
+	//						if (courseLabsArray.indexOf(nc.getKey()) <= factsArray.size()
+	//								&& courseLabsArray.get(factsArray.indexOf(s)).equals(nc.getValue())){
+
+	//							// Checks if the times are the same
+	//							if (factsArray.get(courseLabsArray.indexOf(nc.getValue())).getTime() == 
+	//									factsArray.get(courseLabsArray.indexOf(nc.getKey())).getTime()){
+	//								if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
+	//								{
+	//									System.out.println("Impossible to populate because one of the non compatible pairs must be assigned to the same time slot.");
+	//								}
+	//								return false;
+	//							}
+	//						}
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//	return true;
+	//} 
 
 	// Checks to ensure that no Course/Lab/Tutorial is in an unwanted time slow
 	private static boolean unwantedTimes(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabsArray,
@@ -408,11 +492,13 @@ public class Constr {
 
 	// All courses that are LEC 9 or higher are in the evening
 	private static boolean eveningCourses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabs, int iterations){
-		for (Slot s : factsArray) {
-			if (s.getSlotType() == SlotType.EMPTY) {
+		
+		for (int i=0; i<factsArray.size(); i++)
+		{
+			if (factsArray.get(i).getSlotType() == SlotType.EMPTY)
+			{
 				continue;
 			}
-			int i = factsArray.indexOf(s);
 			if (courseLabs.get(i).getLectureNumber() >= 9)
 			{
 				if (factsArray.get(i).getTime().getHours() < 18 | factsArray.get(i).getTime().getHours() > 24)
@@ -424,8 +510,32 @@ public class Constr {
 					return false;
 				}
 			}
+
+
 		}
 		return true;
+
+		
+		
+		
+		//for (Slot s : factsArray) {
+		//	if (s.getSlotType() == SlotType.EMPTY) {
+		//		continue;
+		//	}
+		//	int i = factsArray.indexOf(s);
+		//	if (courseLabs.get(i).getLectureNumber() >= 9)
+		//	{
+		//		if (factsArray.get(i).getTime().getHours() < 18 || factsArray.get(i).getTime().getHours() > 24)
+		//		{
+		//			if (iterations == SetbasedSearch.MAX_ITERATIONS_NO_IMPROVEMENT)
+		//			{
+		//				System.out.println("Impossible to populate because the course with a lecture number higher than 9 cannot be assigned to an evening time slot");
+		//			}
+		//			return false;
+		//		}
+		//	}
+		//}
+		//return true;
 
 
 		//for (int i=0; i<factsArray.size(); i++)

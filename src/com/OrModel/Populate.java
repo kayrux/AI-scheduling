@@ -99,6 +99,7 @@ public class Populate {
 
 		//A mirror of fact used to test slots.
 		ArrayList<Slot> constrFact = new ArrayList<>(fact);
+		int counter= 0;
 
 		//Works on each courselab in order.
 		for(int i = 0; i < fact.size(); i++)
@@ -130,7 +131,9 @@ public class Populate {
 							fact.set(i, previous);
 							constrFact.set(i, previous);
 							i--;
+							System.out.println(i);
 						} while (previous.getSlotType() != SlotType.EMPTY);
+						//} while (i != 0);
 
 						//Used for tracking populate progress.
 						//backtracks++;
@@ -142,6 +145,7 @@ public class Populate {
 						//Reshuffles and resets to start slots being tried for randomness.
 						Collections.shuffle(slotsToTry);
 						randIndex = 0;
+						counter++;
 						break;
 					}
 
@@ -155,14 +159,25 @@ public class Populate {
 					if(constraints.constr(constrFact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations))
 					{
 						//If it works, then fact is updated and fact once again matches constrFact.
+						if (Slot.compareType(i, randSlot, courseLabs, slotList))
+						{
 						fact.set(i, constrFact.get(i));
 						break;
+						}
 					}
 					else
 					{
 						//If constraints are broken, then constrFact is rolled back and once again matches fact.
 						constrFact.set(i, fact.get(i));
 					}
+					counter++;
+					//System.out.println(counter);
+					//if (counter == slotList.size()) {
+					if (counter == 500) {
+						System.out.println("Constr false");
+						System.exit(0);
+					}
+						
 				}
 
 			}
