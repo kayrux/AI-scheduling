@@ -1,6 +1,7 @@
 package com.Main;
 
 import com.DataStructures.CourseLab;
+import com.DataStructures.DaySeries;
 import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
@@ -8,10 +9,8 @@ import com.DataStructures.Triplet;
 //Used for debugging/testing.
 //import com.Main.Parser;
 
-import com.Model.*;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * Soft constraint evaluator.
@@ -25,6 +24,10 @@ public class Eval {
     private final int weightPref;
     private final int weightPair;
     private final int weightSecDiff;
+    private static final int pen_coursemin = 100;
+    private static final int pen_labmin = 100;
+    private static final int pen_section = 100;
+    private static final int pen_pairs = 0;
 
     public Eval(int weightMinFilled, int weightPref, int weightPair, int weightSecDiff)
     {
@@ -47,10 +50,12 @@ public class Eval {
                     ArrayList<Triplet<Slot, CourseLab, Integer>> prefArray,
                     ArrayList<Pair<CourseLab, CourseLab>> pairArray)
     {
+    	//System.out.println("---------------Eval---------------");
         return evalMinFilled(fact, slotsArray) * this.weightMinFilled +
                 evalPref(fact, courseLabArray, prefArray) * this.weightPref +
                 evalPair(fact, courseLabArray, pairArray) * this.weightPair +
                 evalSecDiff(fact, courseLabArray) * this.weightSecDiff;
+        
     }
 
     /**
@@ -62,6 +67,7 @@ public class Eval {
     private static int evalMinFilled(ArrayList<Slot> fact, ArrayList<Slot> slotsArray)
     {
         int value = 0;
+        boolean course = true;
         for(Slot s : slotsArray)
         {
             //One of these should be 0 since slots only contain either labs or courses.
@@ -69,15 +75,24 @@ public class Eval {
             if(min == 0)
             {
                 min = s.getLabmin();
+                course = false;
             }
 
             //Checks if slot appears more than the minimum.
-            if(Collections.frequency(fact, s) > min)
+            if(Collections.frequency(fact, s) < min)
             {
-                value++;
+            	if(course)
+            	{
+            		value += pen_coursemin * (min - Collections.frequency(fact, s));
+            	}
+            	else
+            	{
+            		value += pen_labmin * (min - Collections.frequency(fact, s));
+            	}
+            	
             }
         }
-
+        //System.out.println("evalMinFilled: " + value);
         return value;
     }
 
@@ -95,7 +110,14 @@ public class Eval {
 
         for(Triplet<Slot, CourseLab, Integer> pref : prefArray)
         {
-            if(!fact.get(courseLabsArray.indexOf(pref.getCourseLab())).equals(pref.getSlot()))
+        	if (pref.getCourseLab().getName().equals("CPSC813") || pref.getCourseLab().getName().equals("CPSC913"))
+        	{
+        		if (!(pref.getSlot().getTime().getHours() == 18 && pref.getSlot().getDaySeries().equals(DaySeries.TU)))
+        		{
+        			value += pref.getRanking();
+        		}
+        	
+        	} else if(!fact.get(courseLabsArray.indexOf(pref.getCourseLab())).equals(pref.getSlot()))
             {
                 value += pref.getRanking();
             }
@@ -125,6 +147,7 @@ public class Eval {
         //        }
         //    }   
         //}
+        //System.out.println("evalPref: " + value);
         return value;
     }
 
@@ -148,11 +171,13 @@ public class Eval {
                     fact.get(courseLabsArray.indexOf(pair.getKey())).getDayAndTime(),
                     fact.get(courseLabsArray.indexOf(pair.getValue())).getDayAndTime()))
                 {
-                    value++;
+                	//System.out.println(pair.getKey().getStringFormatted() + " " + pair.getValue().getStringFormatted());
+                    value += pen_pairs;
                 }
             }
                 
         }
+        //System.out.println("evalPair: " + value);
         return value;
     }
 
@@ -184,7 +209,7 @@ public class Eval {
                     //and records the time.
                     if(!seenSlots.add(fact.get(i).getDayAndTime()))
                     {
-                        value++;
+                        value += pen_section;
                     }
                 }
                 else
@@ -197,6 +222,7 @@ public class Eval {
             //Resets slots for next course.
             seenSlots.clear();
         }
+        //System.out.println("evalSecDiff: " + value);
         return value;
     }
 

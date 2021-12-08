@@ -7,15 +7,21 @@ import com.DataStructures.Pair;
 import com.DataStructures.Slot;
 import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
-import com.OrModel.Populate;
 
 public class Main {
 	public static void main(String[] args) {
 		Parser parser = new Parser();
 		SetbasedSearch setBasedSearch;
 
-		
-		String txtfile = "res/test2.txt"; // Example file
+		String txtfile = "res/ShortExample.txt"; // Example file
+
+		//Remember to change error messages to "Therefore no Solution possible!"
+		//Set 8 values as command line arguments!
+		//Change variable names (Specifically for 8 values) into his names
+		//Readme file with descriptions on the naming of his description and a general explanation of the system.
+
+
+
 
         ArrayList<Slot> slotArray = parser.parseCourseLabSlots(txtfile);
         ArrayList<CourseLab> courseLabArray = parser.parseCourseLab(txtfile);
@@ -25,16 +31,28 @@ public class Main {
         ArrayList<Pair<CourseLab, CourseLab>> pairArray = parser.parsePair(txtfile);
         ArrayList<Pair<CourseLab, Slot>> partialAssignArray = parser.parsePartialAssignments(txtfile);
         
+        //(int weightMinFilled, int weightPref, int weightPair, int weightSecDiff)
+        Eval eval = new Eval(1,1,1,1);
+        
         setBasedSearch = new SetbasedSearch(slotArray, courseLabArray, notCompatibleArray, unwantedArray, preferencesArray, pairArray,
-        		partialAssignArray);
+        		partialAssignArray, eval);
         
 
         ArrayList<Slot> sol = setBasedSearch.search();
 
-		//sol = Populate.populate(courseLabArray, slotArray, notCompatibleArray, unwantedArray, partialAssignArray);
+        int i = 0;
+		String format = "%-25s%s%n";
 		
+		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
+		System.out.println("----------");
+		for (Slot s : sol) {
+			System.out.printf(format, courseLabArray.get(i).getStringFormatted(), s.getStringFormatted());
+			i++;
+		}
+        
+		/*
 		int i = 0;
-		Eval eval = new Eval(1,1,1,1);
+		
 		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
 		System.out.println("----------");
 		for (Slot s : sol) {
@@ -42,6 +60,7 @@ public class Main {
 			s.printSlot();
 			i++;
 		}
+		*/
 	}
 	
 

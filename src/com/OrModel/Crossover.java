@@ -15,6 +15,31 @@ import java.util.Random;
  * @author Jhy-An Chen (30071972)
  */
 public class Crossover {
+	
+	// There are two issues:
+	// First and most importantly the crossover is not checking for the best Eval of the possible time slots
+	// It is instead just randomly picking a time slot from the possible options
+	// To fix this replace line C.add(slots.get(possibleSlots.get(rand.nextInt(possibleSlots.size())))); with :
+	//		The instantiation of two cariables Int minimumEval and ArrayList<Integer> indexOfMinimumEval
+	//		A for loop that goes while i < possibleTimeSlots.size()
+	//			C.add(slots.get(possibleTimeSlots.get(i))
+	//			int currentEval = Eval of C
+	//			if currentEval < minimumEval
+	//				indexOfMinimumEval.clear()
+	//				indexOfMinimumEval.add(i)
+	//			else if currentEval = minimumEval
+	//				indexOfMinimumEval.add(i)
+	//			C.remove(C.size()-1)
+	//		C.add(slots.get(indexOfMinimumEval.get(rand.nextInt(indexOfMinimumEval.size()))));
+	//		This should in theory check all possible Evals of the possible timeslots then random pick of out of the time slots that give the lowest Eval
+	// Secondly the ordering is that it picks the first time slot first then the second time slot second
+	// This is a realtively easy fix:
+	//		Create an new courseLab ArrayList randomCourseList
+	//		While loop it until randomCourseList.size() == courseLab.size()
+	//		Generate a random number with randomIndex = rand.nextInt(courseLab.size())
+	//		If randomCourseList.contains(courseLab.get(randomIndex)) do nothing
+	//		Else randomCourseList.add(courseLabs.get(randomIndex))
+	//		In theory, this should generate a random list of course labs
 
 	/**
 	 * Creates a new fact from a crossover of two facts.
@@ -29,7 +54,7 @@ public class Crossover {
 	public static ArrayList<Slot> crossover(ArrayList<CourseLab> courseLabs, ArrayList<Slot> slots,
 											ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray,
 											ArrayList<Pair<CourseLab, Slot>> unwantedArray,
-											ArrayList<Slot> A, ArrayList<Slot> B) {
+											ArrayList<Slot> A, ArrayList<Slot> B, ArrayList<Pair<CourseLab, Slot>> partAssign) {
 		Constr constraints = new Constr();
 		Random rand = new Random();
 		ArrayList<Slot> C = new ArrayList<>();
@@ -44,10 +69,14 @@ public class Crossover {
 			{
 				ArrayList<Slot> constrC = new ArrayList<>(C);
 				
-				if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
-					if (slots.get(i).getSlotType() == SlotType.LAB) System.out.println("---------LAB---------");
+				// Fails test15.txt (courseLabs.size() > slots.size(), so index out of bound error)
+				if (Slot.compareType(C.size(), i, courseLabs, slots)) {
+					
+				//if (slots.get(C.size()).getSlotType() == slots.get(i).getSlotType()) {
+					//if (slots.get(i).getSlotType() == SlotType.LAB);; //System.out.println("---------LAB---------");
 					constrC.add(slots.get(i));
-					if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray))
+
+					if(constraints.constr(constrC, slots, courseLabs, noncompatibleArray, unwantedArray, partAssign, 0))
 					{
 						 
 						possibleSlots.add(i);
@@ -97,8 +126,8 @@ public class Crossover {
 				C.clear();
 			}
 		}
-
 		return C;
 	}
+	
 	
 }
