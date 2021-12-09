@@ -18,12 +18,12 @@ public class SetbasedSearch {
 
 	// PREDIFINED VARIABLES
 	private final int MAX_EVAL = Integer.MAX_VALUE;
-	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = 500;
-	private final long TIME_LIMIT_SECONDS = 10;
+	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = 1000;
+	private final long TIME_LIMIT_SECONDS = (long) (3600 * 1.5);
 	private final boolean USE_TIME_LIMIT = true;
 	
 	private final int MAX_POP_SIZE = 30;
-	private final int INITIAL_POP_SIZE = 20;
+	private final int INITIAL_POP_SIZE = 2;
 	
 	private static boolean add813 = false;
 	private static boolean add913 = false;
@@ -76,6 +76,8 @@ public class SetbasedSearch {
 		
 		// Populate
 		for (int i = 0; i < INITIAL_POP_SIZE; i ++) {
+
+                        //System.out.println("Current i: " + i);
 			ArrayList<Slot> f = Populate.populate(courseLabArray, slotsArray, notCompatibleArray, unwantedArray, partialAssignList, 0);
 			if (this.evalFact(f) == 0) {
 				solutionFound(f);
@@ -83,8 +85,9 @@ public class SetbasedSearch {
 			}
 			facts.add(f);
 		}
+
 		System.out.println("Finished populating");
-		//System.out.println("POP");
+
 		if (facts.isEmpty()) {
 			System.out.println("Error! Empty list of facts");
 			return null;

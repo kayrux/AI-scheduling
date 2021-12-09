@@ -61,7 +61,8 @@ public class Main {
 	        eval = new Eval(minfilled, pref, pair, secdiff, pen_coursemin, pen_labsmin, pen_notpaired, pen_section);
 		} else {
 			// Set text file to read 
-			txtfile = "res/gehtnicht1.txt";
+			txtfile = "res/deptinst1.txt";
+
 			// Set weights and penalties
 			eval = new Eval(1, 1, 1, 1, 1, 1, 1, 1);
 		}
@@ -87,7 +88,6 @@ public class Main {
 		System.out.println("Eval: " + eval.eval(sol, slotArray, courseLabArray, preferencesArray, pairArray));
 		System.out.println("----------");
 		for (Slot s : sol) {
-			System.out.println(s.getCoursemax());
 			System.out.printf(format, courseLabArray.get(i).getStringFormatted(), s.getStringFormatted());
 			i++;
 		}
