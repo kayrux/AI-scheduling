@@ -208,13 +208,14 @@ public class Populate {
 					//Tests the slot randomly chosen.
 					constrFact.set(i, allTimes.get(randIndex));
 					//System.out.println(allTimes.get(randIndex).getDayAndTime());
-					
+					if (Slot.compareType(i, randIndex, courseLabs, allTimes))
+						{
+
 					//System.out.println(constraints.constr(constrFact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations));
 					if(constraints.constr(constrFact, slotList, courseLabs, noncompatibleArray, unwantedArray, partialAssign, numIterations))
 					{
 						//If it works, then fact is updated and fact once again matches constrFact.
-						if (Slot.compareType(i, randIndex, courseLabs, allTimes))
-						{
+						
 						
 						fact.set(i, constrFact.get(i));
 						allTimes.remove(randIndex);
@@ -223,10 +224,7 @@ public class Populate {
 						//System.out.println("fact size: " + fact.size());
 				
 						break;
-						} else 
-						{
-							backtrack++;
-						}
+						
 					}
 					else
 					{
@@ -234,6 +232,10 @@ public class Populate {
 						constrFact.set(i, fact.get(i));
 						backtrack ++;
 					}
+						}else 
+						{
+							backtrack++;
+						}
 					counter++;
 					//System.out.println(counter);
 					//if (counter == slotList.size()) {

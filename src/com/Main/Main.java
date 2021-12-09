@@ -61,7 +61,7 @@ public class Main {
 	        eval = new Eval(minfilled, pref, pair, secdiff, pen_coursemin, pen_labsmin, pen_notpaired, pen_section);
 		} else {
 			// Set text file to read 
-			txtfile = "res/deptinst2.txt";
+			txtfile = "res/deptTest.txt";
 			// Set weights and penalties
 			eval = new Eval(1, 1, 1, 1, 1, 1, 1, 1);
 		}
