@@ -18,7 +18,7 @@ public class SetbasedSearch {
 
 	// PREDIFINED VARIABLES
 	private final int MAX_EVAL = Integer.MAX_VALUE;
-	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = 500;
+	public static final int MAX_ITERATIONS_NO_IMPROVEMENT = 1000;
 	private final long TIME_LIMIT_SECONDS = 20;
 	private final boolean USE_TIME_LIMIT = true;
 	
@@ -86,7 +86,7 @@ public class SetbasedSearch {
 			facts.add(f);
 		}
                 System.out.println("Done populating");
-                //System.exit(0);
+                
 		
 		if (facts.isEmpty()) {
 			System.out.println("Error! Empty list of facts");

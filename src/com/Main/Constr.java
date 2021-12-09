@@ -20,14 +20,14 @@ public class Constr {
 	public boolean constr(ArrayList<Slot> factsArray, ArrayList<Slot> slotsArray, ArrayList<CourseLab> courseLabs,
 			ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, ArrayList<Pair<CourseLab, Slot>> unwantedArray, ArrayList<Pair<CourseLab, Slot>> partAssign, int iterations)
 	{
-		//System.out.println("maxTimes: " + maxTimes(factsArray, slotsArray, courseLabs, iterations));
-		//System.out.println("diffTimes: " + differentTimes(factsArray,courseLabs, iterations));
-		//System.out.println("noncompat: " + noncompatibleClasses(factsArray, courseLabs, noncompatibleArray, iterations));
-		//System.out.println("unwanted: " + unwantedTimes(factsArray, courseLabs, unwantedArray, iterations));
-		//System.out.println("eveningCourses: " + eveningCourses(factsArray, courseLabs, iterations));
-		//System.out.println("Five hundred: " + fiveHunderedLevelCourses(factsArray, courseLabs, iterations));
-		//System.out.println(noCourseScheduled(factsArray, iterations));
-		//System.out.println(partAssign(factsArray, courseLabs, partAssign, iterations));
+//		System.out.println("maxTimes: " + maxTimes(factsArray, slotsArray, courseLabs, iterations));
+//		System.out.println("diffTimes: " + differentTimes(factsArray,courseLabs, iterations));
+//		System.out.println("noncompat: " + noncompatibleClasses(factsArray, courseLabs, noncompatibleArray, iterations));
+//		System.out.println("unwanted: " + unwantedTimes(factsArray, courseLabs, unwantedArray, iterations));
+//		System.out.println("eveningCourses: " + eveningCourses(factsArray, courseLabs, iterations));
+//		System.out.println("Five hundred: " + fiveHunderedLevelCourses(factsArray, courseLabs, iterations));
+//		System.out.println(noCourseScheduled(factsArray, iterations));
+//		System.out.println(partAssign(factsArray, courseLabs, partAssign, iterations));
 		
 		
 
@@ -293,7 +293,7 @@ public class Constr {
 		return true;
 	}
 	
-	private static boolean noncompatibleClasses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabsArray,
+	public static boolean noncompatibleClasses(ArrayList<Slot> factsArray, ArrayList<CourseLab> courseLabsArray,
 			ArrayList<Pair<CourseLab, CourseLab>> noncompatibleArray, int iterations){
 
 		// s is the fact to check
