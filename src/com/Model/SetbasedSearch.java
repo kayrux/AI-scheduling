@@ -23,7 +23,7 @@ public class SetbasedSearch {
 	private final boolean USE_TIME_LIMIT = true;
 	
 	private final int MAX_POP_SIZE = 30;
-	private final int INITIAL_POP_SIZE = 2;
+	private final int INITIAL_POP_SIZE = 20;
 	
 	private static boolean add813 = false;
 	private static boolean add913 = false;

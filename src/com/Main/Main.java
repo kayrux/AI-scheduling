@@ -10,7 +10,7 @@ import com.DataStructures.Triplet;
 import com.Model.SetbasedSearch;
 
 public class Main {
-	private static boolean USE_COMMAND_LINE_ARGS = false;
+	private static boolean USE_COMMAND_LINE_ARGS = true;
 	
 	/*
 	 * Command line input: filename minfilled pref pair secdiff pen_coursemin pen_labsmin pen_notpaired pen_section 
